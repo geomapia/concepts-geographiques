@@ -1,9 +1,4 @@
 const PAGE_SIZE = 18;
-const editionSeries = [
-  [2015, 3741], [2016, 4315], [2017, 4862], [2018, 5308],
-  [2019, 5343], [2020, 5534], [2021, 5726], [2022, 5730],
-  [2023, 5804], [2024, 5878], [2025, 5999], [2026, 6116],
-];
 const colors = [
   "#8b2e3f", "#2f6f6d", "#496a8a", "#a6672b", "#52623b",
   "#5d4b76", "#8b6f47", "#3d7187", "#75685b", "#9a4d45",
@@ -97,42 +92,6 @@ function renderOverview() {
     )
     .join("");
 
-  renderTrend();
-}
-
-function renderTrend() {
-  const min = 3500;
-  const max = 6300;
-  const points = editionSeries.map(([year, value], index) => ({
-    year,
-    value,
-    x: 42 + (index / (editionSeries.length - 1)) * 676,
-    y: 188 - ((value - min) / (max - min)) * 142,
-  }));
-  const grid = [4000, 5000, 6000]
-    .map((value) => {
-      const y = 188 - ((value - min) / (max - min)) * 142;
-      return `
-        <line x1="42" x2="718" y1="${y}" y2="${y}" class="trend-gridline"></line>
-        <text x="34" y="${y + 4}" text-anchor="end" class="trend-y-label">${value.toLocaleString("fr-FR")}</text>`;
-    })
-    .join("");
-  const dots = points
-    .map(
-      (item) => `
-        <circle cx="${item.x}" cy="${item.y}" r="${item.year === 2026 ? 6 : 3.5}"
-          class="trend-point${item.year === 2026 ? " latest" : ""}"></circle>
-        <text x="${item.x}" y="216" text-anchor="middle" class="trend-year">${String(item.year).slice(2)}</text>`,
-    )
-    .join("");
-  const first = points[0];
-  const latest = points[points.length - 1];
-  document.querySelector("#trendChart").innerHTML = `
-    ${grid}
-    <polyline points="${points.map((item) => `${item.x},${item.y}`).join(" ")}" class="trend-line"></polyline>
-    ${dots}
-    <text x="${first.x + 8}" y="${first.y - 12}" class="trend-value">3 741</text>
-    <text x="${latest.x - 8}" y="${latest.y - 14}" text-anchor="end" class="trend-value latest">6 116</text>`;
 }
 
 function applyFilters() {
@@ -172,11 +131,12 @@ function renderDirectory() {
     .map((item, index) => {
       const number = String((currentPage - 1) * PAGE_SIZE + index + 1).padStart(3, "0");
       const central = item.pertinence === "Central";
+      const fundamental = item.niveau_conceptuel === "Fondamental";
       return `
         <article class="concept-card" tabindex="0" data-index="${concepts.indexOf(item)}">
           <div class="concept-meta">
             <span>${escapeHtml(item.domaine_principal)}</span>
-            <em class="${central ? "central" : ""}">${central ? "Concepts centraux" : "Interdisciplinaires"}</em>
+            <em class="${central ? "central" : ""}">${fundamental ? "Fondamental" : (central ? "Concept central" : "Interdisciplinaire")}</em>
           </div>
           <h3>${escapeHtml(item.concept)}</h3>
           <p>${escapeHtml(item.definition)}</p>
@@ -197,7 +157,11 @@ function openModal(item) {
     item.pertinence === "Central" ? "Concepts centraux" : "Interdisciplinaires";
   document.querySelector("#modalPage").textContent = `Page du PDF ${item.page_pdf}`;
   document.querySelector("#modalDefinition").textContent = item.definition;
-  document.querySelector("#modalRelated").textContent = item.domaines_associes.split("; ").join(" · ");
+  const relatedDomains = item.domaines_associes.split("; ").join(" · ");
+  const relatedConcepts = item.concepts_associes?.length
+    ? ` — Concepts associés : ${item.concepts_associes.join(" · ")}`
+    : "";
+  document.querySelector("#modalRelated").textContent = `${relatedDomains}${relatedConcepts}`;
   document.querySelector("#modalSource").textContent = item.source;
   elements.modal.hidden = false;
   document.body.style.overflow = "hidden";

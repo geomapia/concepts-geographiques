@@ -13,6 +13,7 @@ const elements = {
   theme: $("#themeFilter"),
   scale: $("#scaleFilter"),
   milieu: $("#milieuFilter"),
+  level: $("#levelFilter"),
   relevance: $("#relevanceFilter"),
   sort: $("#sortFilter"),
   grid: $("#noticeGrid"),
@@ -67,6 +68,7 @@ function initializeFilters() {
   fillSelect(elements.theme, unique(concepts.flatMap((item) => item.domaines_thematiques || [])));
   fillSelect(elements.scale, unique(concepts.flatMap((item) => item.echelles_explicites || [])));
   fillSelect(elements.milieu, unique(concepts.flatMap((item) => item.milieux_explicites || [])));
+  fillSelect(elements.level, unique(concepts.map((item) => item.niveau_conceptuel)));
 }
 
 function applyFilters() {
@@ -80,6 +82,7 @@ function applyFilters() {
       (!elements.theme?.value || item.domaines_thematiques?.includes(elements.theme.value)) &&
       (!elements.scale?.value || item.echelles_explicites?.includes(elements.scale.value)) &&
       (!elements.milieu?.value || item.milieux_explicites?.includes(elements.milieu.value)) &&
+      (!elements.level?.value || item.niveau_conceptuel === elements.level.value) &&
       (!elements.relevance?.value || item.pertinence === elements.relevance.value)
     );
   });
@@ -125,6 +128,7 @@ function metadata(item) {
     ].filter(Boolean);
   }
   return [
+    item.niveau_conceptuel === "Fondamental" ? "Concept fondamental" : "",
     item.domaines_thematiques?.[0] || item.domaine_principal,
     item.echelles_explicites?.[0] || "",
     item.milieux_explicites?.[0] || "",
@@ -148,7 +152,7 @@ function render() {
         .map((value) => `<span>${escapeHtml(value)}</span>`)
         .join("");
       return `
-        <article class="special-notice" id="${slug(item.concept)}">
+        <article class="special-notice${item.niveau_conceptuel === "Fondamental" ? " fundamental-notice" : ""}" id="${slug(item.concept)}">
           <div class="notice-topline">
             <span>${escapeHtml(item.type_notice)}</span>
             <em>PDF p. ${item.page_pdf}</em>
@@ -172,6 +176,8 @@ function detailRows(item) {
     ["Échelles explicitement mentionnées", item.echelles_explicites?.join(" · ")],
     ["Milieux explicitement mentionnés", item.milieux_explicites?.join(" · ")],
     ["Pertinence géographique", item.pertinence],
+    ["Niveau conceptuel", item.niveau_conceptuel || "Non précisé"],
+    ["Concepts associés", item.concepts_associes?.join(" · ") || "Non renseignés"],
   ];
 
   if (item.type_notice === "Indice ou indicateur") {
@@ -280,7 +286,7 @@ elements.grid.addEventListener("click", async (event) => {
   if (button.dataset.action === "open") openModal(item);
 });
 
-[elements.search, elements.theme, elements.scale, elements.milieu, elements.relevance, elements.sort]
+[elements.search, elements.theme, elements.scale, elements.milieu, elements.level, elements.relevance, elements.sort]
   .filter(Boolean)
   .forEach((element) => element.addEventListener(element.tagName === "INPUT" ? "input" : "change", applyFilters));
 
@@ -295,7 +301,7 @@ elements.next.addEventListener("click", () => {
   scrollTo({ top: 0, behavior: "smooth" });
 });
 elements.reset.addEventListener("click", () => {
-  [elements.search, elements.theme, elements.scale, elements.milieu, elements.relevance]
+  [elements.search, elements.theme, elements.scale, elements.milieu, elements.level, elements.relevance]
     .filter(Boolean)
     .forEach((element) => {
       element.value = "";

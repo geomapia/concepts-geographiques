@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Répertoire académique de 1 063 concepts géographiques sélectionnés dans le dictionnaire de Patrick Triplet, édition 2026." />
+    <meta name="description" content="Répertoire académique de 1 075 concepts géographiques sélectionnés dans le dictionnaire de Patrick Triplet, édition 2026." />
     <title>Concepts géographiques | Atlas 2026</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./catalogue.js" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20260729-5" />
+    <script src="./catalogue.js?v=20260729-5" defer></script>
   </head>
   <body data-notice-type="Concept géographique" data-export-name="atlas-concepts-geographiques">
     <header class="masthead">
@@ -33,12 +33,25 @@
       </section>
 
       <section class="catalogue-tools shell">
+        <div class="fundamental-shortcuts" aria-label="Concepts fondamentaux mis en avant">
+          <span>Concepts fondamentaux</span>
+          <a href="./concepts.html?notice=Climax">Climax</a>
+          <a href="./concepts.html?notice=Biotope">Biotope</a>
+          <a href="./concepts.html?notice=Biocénose">Biocénose</a>
+          <a href="./concepts.html?notice=Écosystème">Écosystème</a>
+          <a href="./concepts.html?notice=Succession écologique">Succession écologique</a>
+          <a href="./concepts.html?notice=Perturbation">Perturbation</a>
+          <a href="./concepts.html?notice=Dispersion">Dispersion</a>
+          <a href="./concepts.html?notice=Résilience">Résilience</a>
+          <a href="./concepts.html?notice=Niche écologique">Niche écologique</a>
+        </div>
         <div class="classification-note"><strong>Principe de classement</strong><p>Les domaines, milieux et échelles sont indexés uniquement lorsqu’ils sont explicitement présents dans la notice. Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div>
         <div class="advanced-filters">
           <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Rechercher un concept ou une définition…" /></label>
           <select id="themeFilter"><option value="">Tous les domaines thématiques</option></select>
           <select id="scaleFilter"><option value="">Toutes les échelles</option></select>
           <select id="milieuFilter"><option value="">Tous les milieux</option></select>
+          <select id="levelFilter"><option value="">Tous les niveaux conceptuels</option></select>
           <select id="relevanceFilter"><option value="">Toute pertinence</option><option value="Central">Central</option><option value="Interdisciplinaire">Interdisciplinaire</option></select>
           <select id="sortFilter"><option value="alpha">Ordre alphabétique</option><option value="theme">Par domaine</option><option value="page">Par page du PDF</option></select>
         </div>

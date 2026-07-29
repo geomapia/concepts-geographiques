@@ -1,7 +1,18 @@
-# Mise à jour de l’Atlas 2026.2
+# Mise à jour de l’Atlas 2026.3
 
 Cette version ajoute :
 
+- une nouvelle conception visuelle de la section d’accès aux répertoires ;
+- le titre complet « Concepts géographiques issus du Dictionnaire
+  encyclopédique de la diversité biologique et de la conservation de la
+  nature » ;
+- 1 075 concepts géographiques, dont 34 concepts fondamentaux clairement
+  identifiés ;
+- des accès directs au climax, au biotope, à la biocénose, aux successions,
+  à la dispersion et à la résilience ;
+- cinq notices structurantes réintégrées : connectivité écologique,
+  dispersion, migrations animale et humaine, résilience ;
+- la suppression du bloc « Évolution du dictionnaire » ;
 - trois pages spécialisées : concepts, indices et conventions ;
 - une page « À propos » ;
 - des fiches documentaires enrichies ;
@@ -18,6 +29,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Enrichir les répertoires et les outils académiques`
+`Améliorer la présentation et enrichir les concepts fondamentaux`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

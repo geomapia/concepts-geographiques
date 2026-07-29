@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Dictionnaire académique dynamique de 1 123 concepts géographiques, actualisé d’après l’édition 2026 du dictionnaire de Patrick Triplet. Conçu par Brahim Jaziri."
+      content="Atlas académique de 1 135 notices géographiques issues de l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet. Sélection et classification par Brahim Jaziri."
     />
     <title>Atlas des concepts géographiques</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20260729-5" />
+    <script src="./app.js?v=20260729-5" defer></script>
   </head>
   <body>
     <main>
@@ -58,7 +58,7 @@
             <p class="eyebrow">Ressource scientifique</p>
             <h1>Atlas des concepts géographiques</h1>
             <p class="hero-subtitle">
-              Un dictionnaire dynamique de 1 123 notions issues des sciences
+              Un dictionnaire dynamique de 1 135 notions issues des sciences
               géographiques, environnementales et territoriales, actualisé à
               partir de l’édition 2026.
             </p>
@@ -68,7 +68,7 @@
           </div>
           <div class="hero-register" aria-label="Périmètre scientifique">
             <p>Périmètre scientifique</p>
-            <div id="heroTotal" class="register-number">1 123</div>
+            <div id="heroTotal" class="register-number">1 135</div>
             <div class="register-rule"></div>
             <span>notions documentées, sourcées et classées</span>
             <div class="coordinates">ÉDITION 2026 · MISE À JOUR SCIENTIFIQUE</div>
@@ -77,22 +77,24 @@
       </section>
 
       <section class="portal-section shell" aria-labelledby="portalTitle">
-        <div class="section-heading">
-          <div>
-            <span class="section-index">00</span>
-            <h2 id="portalTitle">Explorer par type de ressource</h2>
-          </div>
+        <div class="portal-heading">
+          <span class="section-index">00 · CORPUS SCIENTIFIQUE</span>
+          <h2 id="portalTitle">
+            Concepts géographiques issus du
+            <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>
+          </h2>
           <p>
-            Trois répertoires spécialisés proposent des fiches, des filtres et
-            des outils académiques adaptés à la nature de chaque notice.
+            Un corpus structuré en trois répertoires complémentaires, avec des
+            outils de recherche, de citation et d’export adaptés à chaque type
+            de notice.
           </p>
         </div>
         <div class="portal-grid">
           <a href="./concepts.html">
             <span>01</span>
             <strong>Concepts géographiques</strong>
-            <em>1 063 notices</em>
-            <p>Domaines, milieux, échelles, pertinence et citations.</p>
+            <em>1 075 notices · 34 fondamentales</em>
+            <p>Concepts majeurs, domaines, milieux, échelles, relations et citations.</p>
           </a>
           <a href="./indices.html">
             <span>02</span>
@@ -121,15 +123,16 @@
           </div>
           <p>
             Les 6 116 entrées de l’édition 2026 ont été examinées. La mise à
-            jour révise les notices existantes, intègre 126 concepts
-            supplémentaires et écarte les anciens éléments de tableaux
-            détectés à tort comme des concepts.
+            jour révise les notices existantes, distingue 34 concepts
+            fondamentaux et réintègre plusieurs notions structurantes de la
+            biogéographie, notamment le climax, le biotope et les successions
+            écologiques.
           </p>
         </div>
 
         <div class="metric-grid">
-          <article class="metric"><strong id="totalConcepts">1 123</strong><span>Concepts indexés</span></article>
-          <article class="metric"><strong>126</strong><span>Nouveaux concepts 2026</span></article>
+          <article class="metric"><strong id="totalConcepts">1 135</strong><span>Notices indexées</span></article>
+          <article class="metric"><strong>34</strong><span>Concepts fondamentaux</span></article>
           <article class="metric"><strong id="totalDomains">12</strong><span>Domaines</span></article>
           <article class="metric"><strong>1 506</strong><span>Pages analysées</span></article>
         </div>
@@ -138,7 +141,7 @@
           <article class="chart-card">
             <div class="card-title-row">
               <h3>Répartition par domaine</h3>
-              <span id="chartTotal">n = 1 123</span>
+              <span id="chartTotal">n = 1 135</span>
             </div>
             <div id="bars" class="bars" aria-label="Graphique de répartition par domaine"></div>
           </article>
@@ -160,18 +163,6 @@
             </div>
             <small>Sélection et classification géographiques réalisées par Brahim Jaziri.</small>
           </aside>
-
-          <article class="trend-card">
-            <div class="card-title-row">
-              <div>
-                <h3>Évolution du dictionnaire</h3>
-                <p>Nombre total de définitions publiées, 2015-2026</p>
-              </div>
-              <span>+63,5 % depuis 2015</span>
-            </div>
-            <svg id="trendChart" viewBox="0 0 760 230" role="img" aria-label="Évolution de 3 741 définitions en 2015 à 6 116 en 2026"></svg>
-            <p class="chart-source">Source : préambule de l’édition 2026 du dictionnaire de Patrick Triplet.</p>
-          </article>
         </div>
       </section>
 
