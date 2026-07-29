@@ -17,6 +17,7 @@ let currentPage = 1;
 const elements = {
   search: document.querySelector("#search"),
   domain: document.querySelector("#domain"),
+  type: document.querySelector("#noticeType"),
   relevance: document.querySelector("#relevance"),
   grid: document.querySelector("#conceptGrid"),
   count: document.querySelector("#resultCount"),
@@ -68,6 +69,13 @@ function renderOverview() {
     option.textContent = name;
     elements.domain.append(option);
   });
+  [...new Set(concepts.map((item) => item.type_notice))].sort((a, b) => a.localeCompare(b, "fr"))
+    .forEach((name) => {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      elements.type.append(option);
+    });
 
   const counts = domains
     .map((name, index) => ({
@@ -131,11 +139,12 @@ function applyFilters() {
   const needle = normalize(elements.search.value.trim());
   filtered = concepts.filter((item) => {
     const haystack = normalize(
-      `${item.concept} ${item.entree_complete} ${item.definition} ${item.domaine_principal} ${item.domaines_associes}`,
+      `${item.concept} ${item.entree_complete} ${item.definition} ${item.domaine_principal} ${item.domaines_associes} ${item.type_notice} ${item.echelles_explicites?.join(" ")} ${item.milieux_explicites?.join(" ")}`,
     );
     return (
       (!needle || haystack.includes(needle)) &&
       (!elements.domain.value || item.domaine_principal === elements.domain.value) &&
+      (!elements.type.value || item.type_notice === elements.type.value) &&
       (!elements.relevance.value || item.pertinence === elements.relevance.value)
     );
   });
@@ -150,7 +159,7 @@ function renderDirectory() {
 
   elements.count.textContent = filtered.length.toLocaleString("fr-FR");
   elements.reset.hidden = !(
-    elements.search.value || elements.domain.value || elements.relevance.value
+    elements.search.value || elements.domain.value || elements.type.value || elements.relevance.value
   );
   elements.grid.hidden = visible.length === 0;
   elements.empty.hidden = visible.length !== 0;
@@ -203,12 +212,14 @@ function closeModal() {
 function resetFilters() {
   elements.search.value = "";
   elements.domain.value = "";
+  elements.type.value = "";
   elements.relevance.value = "";
   applyFilters();
 }
 
 elements.search.addEventListener("input", applyFilters);
 elements.domain.addEventListener("change", applyFilters);
+elements.type.addEventListener("change", applyFilters);
 elements.relevance.addEventListener("change", applyFilters);
 elements.reset.addEventListener("click", resetFilters);
 elements.emptyReset.addEventListener("click", resetFilters);
