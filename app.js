@@ -7,6 +7,7 @@ const editionSeries = [
 const colors = [
   "#8b2e3f", "#2f6f6d", "#496a8a", "#a6672b", "#52623b",
   "#5d4b76", "#8b6f47", "#3d7187", "#75685b", "#9a4d45",
+  "#4f7656", "#76506f",
 ];
 
 let concepts = [];
