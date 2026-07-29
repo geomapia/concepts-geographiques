@@ -212,7 +212,8 @@ function openModal(item, updateUrl = true) {
     )
     .join("");
   $("#modalCitation").textContent = item.citation;
-  $("#modalPdf").href = item.lien_source_pdf || `${sourcePdf}#page=${item.page_pdf}`;
+  const sourcePage = Math.max(1, Number(item.page_pdf) - 1);
+  $("#modalPdf").href = item.lien_source_pdf || `${sourcePdf}#page=${sourcePage}`;
   const correctionSubject = `Correction du Répertoire — ${item.concept}`;
   const correctionBody = [
     `Concept : ${item.concept}`,

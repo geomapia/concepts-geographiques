@@ -9,6 +9,9 @@ Cette version ajoute :
   17 instruments et 1 560 notices au total ;
 - la vérification du bouton « Signaler une correction », adressé à
   `jaziribrahim@gmail.com` ;
+- la correction de tous les renvois au PDF : le bouton ouvre la page
+  technique correspondant à la page citée moins une, sans modifier la
+  pagination affichée dans les fiches et les citations ;
 - le nouveau titre « Répertoire géographique de la biodiversité et de la
   conservation » dans toutes les pages et références ;
 - huit concepts fondamentaux supplémentaires issus du dictionnaire 2026 ;
@@ -27,6 +30,7 @@ Cette version ajoute :
 - la suppression du bloc « Évolution du dictionnaire » ;
 - trois pages spécialisées : concepts, indices et conventions ;
 - une page « À propos » ;
+- la simplification du bloc « Droits, corrections et version » ;
 - des fiches documentaires enrichies ;
 - des filtres par domaine, pertinence, échelle et milieu ;
 - la copie des citations et des liens permanents ;
@@ -41,6 +45,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Porter le Répertoire à 1500 concepts`
+`Finaliser le Répertoire 2026.5`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.
