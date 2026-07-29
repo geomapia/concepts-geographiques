@@ -8,8 +8,8 @@
       content="Contacter le Répertoire géographique de la biodiversité et de la conservation ou signaler une correction."
     />
     <title>Nous contacter | Répertoire géographique</title>
-    <link rel="stylesheet" href="./styles.css?v=20260729-9" />
-    <script src="./contact.js?v=20260729-9" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20260729-10" />
+    <script src="./contact.js?v=20260729-10" defer></script>
   </head>
   <body>
     <header class="masthead">
@@ -44,31 +44,31 @@
           <h2>Brahim Jaziri</h2>
           <a class="contact-email" href="mailto:jaziribrahim@gmail.com">jaziribrahim@gmail.com</a>
           <p>
-            Le formulaire ci-contre prépare votre message dans Gmail. Vous pourrez le vérifier,
-            le compléter et l’envoyer depuis votre propre compte.
+            Le formulaire ci-contre transmet directement votre message par l’intermédiaire
+            sécurisé de Formspree.
           </p>
           <div class="contact-actions">
-            <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=jaziribrahim%40gmail.com"
-              target="_blank"
-              rel="noreferrer"
-            >Écrire directement dans Gmail ↗</a>
             <button id="copyEmail" type="button">Copier l’adresse</button>
           </div>
         </article>
 
-        <form id="contactForm" class="contact-form">
+        <form
+          id="contactForm"
+          class="contact-form"
+          action="https://formspree.io/f/mlgqvlpw"
+          method="POST"
+        >
           <div class="contact-form-heading">
             <span>Message</span>
             <h2 id="formTitle">Contacter le Répertoire</h2>
           </div>
           <label>
             Votre nom
-            <input id="senderName" name="name" type="text" autocomplete="name" />
+            <input id="senderName" name="name" type="text" autocomplete="name" required />
           </label>
           <label>
             Votre adresse électronique
-            <input id="senderEmail" name="email" type="email" autocomplete="email" />
+            <input id="senderEmail" name="email" type="email" autocomplete="email" required />
           </label>
           <label>
             Objet
@@ -78,8 +78,18 @@
             Message
             <textarea id="message" name="message" rows="8" required></textarea>
           </label>
-          <button class="primary-button contact-submit" type="submit">Préparer le message dans Gmail ↗</button>
-          <p class="form-note">Aucune donnée n’est enregistrée par le site.</p>
+          <input id="noticeField" name="notice" type="hidden" />
+          <input id="citedPageField" name="page_citee" type="hidden" />
+          <input id="pdfPageField" name="page_pdf_ouverte" type="hidden" />
+          <label class="form-honeypot" aria-hidden="true">
+            Ne pas remplir ce champ
+            <input name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+          </label>
+          <button id="submitContact" class="primary-button contact-submit" type="submit">
+            Envoyer le message
+          </button>
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-note">Le message est traité par Formspree et transmis à l’adresse du Répertoire.</p>
         </form>
       </section>
     </main>

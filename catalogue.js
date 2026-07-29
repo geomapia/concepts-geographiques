@@ -353,7 +353,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modal.hidden) closeModal();
 });
 
-fetch("./data/concepts.json?v=20260729-9", { cache: "no-store" })
+fetch("./data/concepts.json?v=20260729-10", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();

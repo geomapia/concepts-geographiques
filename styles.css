@@ -590,6 +590,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   border-color: var(--burgundy);
 }
 .contact-submit { border: 0; cursor: pointer; justify-self: start; }
+.contact-submit:disabled { cursor: wait; opacity: .65; }
+.form-honeypot { position: absolute !important; left: -10000px !important; }
+.form-status { min-height: 20px; margin: -2px 0 0; font-size: 13px; line-height: 1.5; }
+.form-status.success { color: #35613f; }
+.form-status.error { color: var(--burgundy); }
 .form-note { margin: -6px 0 0; color: var(--muted); font-size: 11px; }
 
 @media print {

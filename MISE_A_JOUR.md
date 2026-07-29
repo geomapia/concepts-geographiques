@@ -15,11 +15,13 @@ Cette version ajoute :
 - l’affichage de la page technique corrigée directement dans le libellé du
   bouton PDF ;
 - une page « Nous contacter » avec l’adresse `jaziribrahim@gmail.com`, un
-  formulaire préparant le message dans Gmail et la reprise automatique de la
-  notice concernée ;
+  formulaire envoyé par Formspree à l’endpoint `mlgqvlpw` et la reprise
+  automatique de la notice concernée ;
 - le remplacement du lien `mailto:` du bouton « Signaler une correction » par
   cette page de contact, afin d’éviter la dépendance à un logiciel de
   messagerie installé sur l’ordinateur ;
+- une confirmation d’envoi affichée directement sur la page, avec un message
+  d’erreur et l’adresse de contact en solution de repli ;
 - un chargement sans cache du fichier de données afin que GitHub Pages affiche
   immédiatement la version mise à jour ;
 - le nouveau titre « Répertoire géographique de la biodiversité et de la
