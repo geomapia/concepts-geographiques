@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dictionnaire académique dynamique de 1 123 concepts géographiques, actualisé d’après l’édition 2026 du dictionnaire de Patrick Triplet. Conçu par Brahim Jaziri."
+    />
+    <title>Atlas des concepts géographiques</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header class="masthead">
+        <div class="masthead-line"></div>
+        <div class="shell nav">
+          <a class="brand" href="#top" aria-label="Atlas des concepts géographiques">
+            <span class="brand-mark">AG</span>
+            <span>
+              <strong>Atlas géographique</strong>
+              <small>Concepts • définitions • domaines</small>
+            </span>
+          </a>
+          <nav aria-label="Navigation principale">
+            <a href="#overview">Vue d’ensemble</a>
+            <a href="#directory">Répertoire des concepts</a>
+          </nav>
+          <span class="author-credit">Conçu par <strong>Brahim Jaziri</strong></span>
+        </div>
+      </header>
+
+      <aside class="source-banner" aria-label="Source principale">
+        <div class="shell source-banner-inner">
+          <div>
+            <strong>Source principale · édition 2026</strong>
+            <span>
+              Patrick Triplet,
+              <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>,
+              6 116 définitions, 1 506 pages.
+            </span>
+          </div>
+          <div class="source-links">
+            <a href="https://laccreteil.fr/spip.php?article551" target="_blank" rel="noreferrer">Page du dictionnaire ↗</a>
+            <a href="https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf" target="_blank" rel="noreferrer">Télécharger l’édition 2026 ↓</a>
+          </div>
+        </div>
+      </aside>
+
+      <section id="top" class="hero">
+        <div class="hero-grid shell">
+          <div class="hero-copy">
+            <p class="eyebrow">Ressource scientifique</p>
+            <h1>Atlas des concepts géographiques</h1>
+            <p class="hero-subtitle">
+              Un dictionnaire dynamique de 1 123 notions issues des sciences
+              géographiques, environnementales et territoriales, actualisé à
+              partir de l’édition 2026.
+            </p>
+            <a class="primary-button" href="#directory">
+              Explorer le répertoire <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+          <div class="hero-register" aria-label="Périmètre scientifique">
+            <p>Périmètre scientifique</p>
+            <div id="heroTotal" class="register-number">1 123</div>
+            <div class="register-rule"></div>
+            <span>notions documentées, sourcées et classées</span>
+            <div class="coordinates">ÉDITION 2026 · MISE À JOUR SCIENTIFIQUE</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="overview-section shell">
+        <div class="section-heading">
+          <div>
+            <span class="section-index">01</span>
+            <h2>Vue d’ensemble</h2>
+          </div>
+          <p>
+            Les 6 116 entrées de l’édition 2026 ont été examinées. La mise à
+            jour révise les notices existantes, intègre 126 concepts
+            supplémentaires et écarte les anciens éléments de tableaux
+            détectés à tort comme des concepts.
+          </p>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric"><strong id="totalConcepts">1 123</strong><span>Concepts indexés</span></article>
+          <article class="metric"><strong>126</strong><span>Nouveaux concepts 2026</span></article>
+          <article class="metric"><strong id="totalDomains">10</strong><span>Domaines</span></article>
+          <article class="metric"><strong>1 506</strong><span>Pages analysées</span></article>
+        </div>
+
+        <div class="analysis-grid">
+          <article class="chart-card">
+            <div class="card-title-row">
+              <h3>Répartition par domaine</h3>
+              <span id="chartTotal">n = 1 123</span>
+            </div>
+            <div id="bars" class="bars" aria-label="Graphique de répartition par domaine"></div>
+          </article>
+
+          <aside class="method-card">
+            <span class="method-label">Note méthodologique</span>
+            <h3>Une sélection géographique contrôlée</h3>
+            <p>
+              Les 6 116 entrées de l’édition 2026 ont été examinées. Les
+              concepts retenus sont classés par domaine, pertinence scientifique
+              et page d’origine.
+            </p>
+            <div class="relevance-figure">
+              <div id="relevanceDonut" class="donut" aria-label="Répartition par pertinence"></div>
+              <div>
+                <p><i class="dot core"></i><span id="centralLegend">…</span> · Concepts centraux</p>
+                <p><i class="dot inter"></i><span id="interLegend">…</span> · Interdisciplinaires</p>
+              </div>
+            </div>
+            <small>Travail conçu et réalisé par Brahim Jaziri.</small>
+          </aside>
+
+          <article class="trend-card">
+            <div class="card-title-row">
+              <div>
+                <h3>Évolution du dictionnaire</h3>
+                <p>Nombre total de définitions publiées, 2015-2026</p>
+              </div>
+              <span>+63,5 % depuis 2015</span>
+            </div>
+            <svg id="trendChart" viewBox="0 0 760 230" role="img" aria-label="Évolution de 3 741 définitions en 2015 à 6 116 en 2026"></svg>
+            <p class="chart-source">Source : préambule de l’édition 2026 du dictionnaire de Patrick Triplet.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="directory" class="directory-section">
+        <div class="shell">
+          <div class="section-heading light-heading">
+            <div>
+              <span class="section-index">02</span>
+              <h2>Répertoire des concepts</h2>
+            </div>
+            <p>Recherchez dans les concepts, les définitions et les champs scientifiques.</p>
+          </div>
+
+          <div class="filters">
+            <label class="search-box">
+              <span aria-hidden="true">⌕</span>
+              <input
+                id="search"
+                type="search"
+                placeholder="Rechercher un concept, une définition ou un domaine…"
+                aria-label="Rechercher un concept, une définition ou un domaine"
+              />
+            </label>
+            <select id="domain" aria-label="Tous les domaines">
+              <option value="">Tous les domaines</option>
+            </select>
+            <select id="relevance" aria-label="Toute pertinence">
+              <option value="">Toute pertinence</option>
+              <option value="Central">Concepts centraux</option>
+              <option value="Interdisciplinaire">Interdisciplinaires</option>
+            </select>
+          </div>
+
+          <div class="results-line">
+            <strong id="resultCount">…</strong>
+            <span>concepts trouvés</span>
+            <button id="resetFilters" type="button" hidden>Réinitialiser les filtres</button>
+          </div>
+
+          <div id="conceptGrid" class="concept-grid" aria-live="polite"></div>
+          <div id="emptyState" class="empty-state" hidden>
+            <h3>Aucun concept ne correspond à ces critères.</h3>
+            <button id="emptyReset" type="button">Réinitialiser les filtres</button>
+          </div>
+
+          <div id="pagination" class="pagination">
+            <button id="previousPage" type="button">← Précédent</button>
+            <span id="pageIndicator">Page 1 / 1</span>
+            <button id="nextPage" type="button">Suivant →</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div class="shell">
+          <div>
+            <strong>Atlas des concepts géographiques</strong>
+            <p>Un outil académique d’exploration terminologique.</p>
+          </div>
+          <div>
+            <p>
+              Source principale · Patrick Triplet,
+              <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>,
+              édition 2026.
+            </p>
+            <p><a href="https://laccreteil.fr/spip.php?article551" target="_blank" rel="noreferrer">Accéder à la page du dictionnaire ↗</a></p>
+            <p class="footer-credit">Conçu par <strong>Brahim Jaziri</strong></p>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <div id="modalBackdrop" class="modal-backdrop" role="presentation" hidden>
+      <article class="concept-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button id="modalClose" class="modal-close" type="button" aria-label="Fermer">×</button>
+        <div class="modal-rule"></div>
+        <p id="modalDomain" class="modal-domain"></p>
+        <h2 id="modalTitle"></h2>
+        <div class="modal-badges">
+          <span id="modalRelevance"></span>
+          <span id="modalPage"></span>
+        </div>
+        <h3>Définition</h3>
+        <p id="modalDefinition" class="modal-definition"></p>
+        <div class="modal-reference">
+          <h3>Domaines associés</h3>
+          <p id="modalRelated"></p>
+          <h3>Référence</h3>
+          <p id="modalSource"></p>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>
