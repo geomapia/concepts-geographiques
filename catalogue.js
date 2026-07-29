@@ -162,7 +162,7 @@ function render() {
           <p>${escapeHtml(item.definition)}</p>
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
-            <button type="button" data-action="cite" data-concept="${escapeHtml(item.concept)}">Copier la citation</button>
+            <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
           </div>
         </article>`;
     })
@@ -214,7 +214,7 @@ function openModal(item, updateUrl = true) {
   $("#modalCitation").textContent = item.citation;
   $("#modalPdf").href = item.lien_source_pdf || `${sourcePdf}#page=${item.page_pdf}`;
   $("#modalReport").href =
-    `mailto:jaziribrahim@gmail.com?subject=${encodeURIComponent(`Correction Atlas — ${item.concept}`)}`;
+    `mailto:jaziribrahim@gmail.com?subject=${encodeURIComponent(`Correction du Répertoire — ${item.concept}`)}`;
   $("#modalCopyCitation").dataset.concept = item.concept;
   $("#modalCopyLink").dataset.concept = item.concept;
   elements.modal.hidden = false;
@@ -235,12 +235,32 @@ function closeModal() {
 }
 
 async function copyText(value, button) {
-  await navigator.clipboard.writeText(value);
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+  } else {
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.append(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  }
   const previous = button.textContent;
   button.textContent = "Copié ✓";
   setTimeout(() => {
     button.textContent = previous;
   }, 1400);
+}
+
+function noticeText(item) {
+  return [
+    item.concept,
+    item.definition,
+    `Source : ${item.source}`,
+    `Page du PDF : ${item.page_pdf}`,
+  ].join("\n\n");
 }
 
 function permalink(item) {
@@ -272,7 +292,7 @@ function exportCsv() {
   const csv = `\uFEFF${[header, ...rows].map((row) => row.map(csvCell).join(";")).join("\n")}`;
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-  link.download = `${document.body.dataset.exportName || "atlas-concepts"}.csv`;
+  link.download = `${document.body.dataset.exportName || "repertoire-geographique"}.csv`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
@@ -282,7 +302,7 @@ elements.grid.addEventListener("click", async (event) => {
   if (!button) return;
   const item = concepts.find((candidate) => candidate.concept === button.dataset.concept);
   if (!item) return;
-  if (button.dataset.action === "cite") await copyText(item.citation, button);
+  if (button.dataset.action === "copy") await copyText(noticeText(item), button);
   if (button.dataset.action === "open") openModal(item);
 });
 

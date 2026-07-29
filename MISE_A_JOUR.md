@@ -1,12 +1,17 @@
-# Mise à jour de l’Atlas 2026.3
+# Mise à jour du Répertoire 2026.4
 
 Cette version ajoute :
 
+- le nouveau titre « Répertoire géographique de la biodiversité et de la
+  conservation » dans toutes les pages et références ;
+- huit concepts fondamentaux supplémentaires issus du dictionnaire 2026 ;
+- un bouton « Copier » sur chaque fiche, avec le concept, sa définition, sa
+  source et la page correspondante ;
 - une nouvelle conception visuelle de la section d’accès aux répertoires ;
 - le titre complet « Concepts géographiques issus du Dictionnaire
   encyclopédique de la diversité biologique et de la conservation de la
   nature » ;
-- 1 075 concepts géographiques, dont 34 concepts fondamentaux clairement
+- 1 083 concepts géographiques, dont 42 concepts fondamentaux clairement
   identifiés ;
 - des accès directs au climax, au biotope, à la biocénose, aux successions,
   à la dispersion et à la résilience ;
@@ -29,6 +34,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Améliorer la présentation et enrichir les concepts fondamentaux`
+`Renommer et enrichir le Répertoire géographique`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

@@ -40,6 +40,35 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function noticeText(item) {
+  return [
+    item.concept,
+    item.definition,
+    `Source : ${item.source}`,
+    `Page du PDF : ${item.page_pdf}`,
+  ].join("\n\n");
+}
+
+async function copyText(value, button) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(value);
+  } else {
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.style.position = "fixed";
+    field.style.opacity = "0";
+    document.body.append(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  }
+  const previous = button.textContent;
+  button.textContent = "Copié ✓";
+  setTimeout(() => {
+    button.textContent = previous;
+  }, 1400);
+}
+
 function renderOverview() {
   const domains = [...new Set(concepts.map((item) => item.domaine_principal))].sort((a, b) =>
     a.localeCompare(b, "fr"),
@@ -142,7 +171,10 @@ function renderDirectory() {
           <p>${escapeHtml(item.definition)}</p>
           <footer>
             <span>Page du PDF ${item.page_pdf}</span>
-            <button type="button" aria-label="Lire la notice : ${escapeHtml(item.concept)}">Lire la notice ↗</button>
+            <div class="card-actions">
+              <button type="button" data-action="copy" aria-label="Copier la notice : ${escapeHtml(item.concept)}">Copier</button>
+              <button type="button" data-action="open" aria-label="Lire la notice : ${escapeHtml(item.concept)}">Lire la notice ↗</button>
+            </div>
           </footer>
           <div class="card-number">${number}</div>
         </article>`;
@@ -199,7 +231,15 @@ elements.next.addEventListener("click", () => {
 });
 elements.grid.addEventListener("click", (event) => {
   const card = event.target.closest(".concept-card");
-  if (card) openModal(concepts[Number(card.dataset.index)]);
+  if (!card) return;
+  const item = concepts[Number(card.dataset.index)];
+  const button = event.target.closest("button[data-action]");
+  if (button?.dataset.action === "copy") {
+    event.stopPropagation();
+    copyText(noticeText(item), button);
+    return;
+  }
+  openModal(item);
 });
 elements.grid.addEventListener("keydown", (event) => {
   if ((event.key === "Enter" || event.key === " ") && event.target.matches(".concept-card")) {
