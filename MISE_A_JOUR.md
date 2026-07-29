@@ -12,6 +12,16 @@ Cette version ajoute :
 - la correction de tous les renvois au PDF : le bouton ouvre la page
   technique correspondant à la page citée moins une, sans modifier la
   pagination affichée dans les fiches et les citations ;
+- l’affichage de la page technique corrigée directement dans le libellé du
+  bouton PDF ;
+- une page « Nous contacter » avec l’adresse `jaziribrahim@gmail.com`, un
+  formulaire préparant le message dans Gmail et la reprise automatique de la
+  notice concernée ;
+- le remplacement du lien `mailto:` du bouton « Signaler une correction » par
+  cette page de contact, afin d’éviter la dépendance à un logiciel de
+  messagerie installé sur l’ordinateur ;
+- un chargement sans cache du fichier de données afin que GitHub Pages affiche
+  immédiatement la version mise à jour ;
 - le nouveau titre « Répertoire géographique de la biodiversité et de la
   conservation » dans toutes les pages et références ;
 - huit concepts fondamentaux supplémentaires issus du dictionnaire 2026 ;

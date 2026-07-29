@@ -213,17 +213,14 @@ function openModal(item, updateUrl = true) {
     .join("");
   $("#modalCitation").textContent = item.citation;
   const sourcePage = Math.max(1, Number(item.page_pdf) - 1);
-  $("#modalPdf").href = item.lien_source_pdf || `${sourcePdf}#page=${sourcePage}`;
-  const correctionSubject = `Correction du Répertoire — ${item.concept}`;
-  const correctionBody = [
-    `Concept : ${item.concept}`,
-    `Page du dictionnaire : ${item.page_pdf}`,
-    "",
-    "Correction proposée :",
-    "",
-  ].join("\n");
-  $("#modalReport").href =
-    `mailto:jaziribrahim@gmail.com?subject=${encodeURIComponent(correctionSubject)}&body=${encodeURIComponent(correctionBody)}`;
+  // La couverture constitue la première page technique du fichier : le
+  // renvoi PDF est donc toujours égal à la page citée moins une.
+  $("#modalPdf").href = `${sourcePdf}#page=${sourcePage}`;
+  $("#modalPdf").textContent = `Voir le PDF (p. ${sourcePage}) ↗`;
+  const correctionUrl = new URL("./contact.html", window.location.href);
+  correctionUrl.searchParams.set("notice", item.concept);
+  correctionUrl.searchParams.set("page", item.page_pdf);
+  $("#modalReport").href = correctionUrl.toString();
   $("#modalCopyCitation").dataset.concept = item.concept;
   $("#modalCopyLink").dataset.concept = item.concept;
   elements.modal.hidden = false;
@@ -356,7 +353,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modal.hidden) closeModal();
 });
 
-fetch("./data/concepts.json")
+fetch("./data/concepts.json?v=20260729-9", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();

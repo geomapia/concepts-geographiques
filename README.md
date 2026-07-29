@@ -32,6 +32,7 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - `indices.html` : indices et indicateurs ;
 - `conventions.html` : conventions, traités et accords ;
 - `apropos.html` : objectifs, auteurs, méthode, citation et droits.
+- `contact.html` : contact direct et signalement des corrections via Gmail.
 
 Source principale : Patrick Triplet, *Dictionnaire encyclopédique de la
 diversité biologique et de la conservation de la nature*, édition 2026

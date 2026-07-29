@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contacter le Répertoire géographique de la biodiversité et de la conservation ou signaler une correction."
+    />
+    <title>Nous contacter | Répertoire géographique</title>
+    <link rel="stylesheet" href="./styles.css?v=20260729-9" />
+    <script src="./contact.js?v=20260729-9" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-line"></div>
+      <div class="shell nav">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">RG</span>
+          <span><strong>Répertoire géographique</strong><small>Biodiversité • conservation</small></span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <a href="./concepts.html">Concepts</a>
+          <a href="./indices.html">Indices</a>
+          <a href="./conventions.html">Conventions</a>
+          <a href="./apropos.html">À propos</a>
+          <a class="active" href="./contact.html">Nous contacter</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="about-hero contact-hero">
+        <div class="shell">
+          <p class="eyebrow">Échanges et corrections</p>
+          <h1>Nous contacter</h1>
+          <p>Une question, une remarque scientifique ou une correction à proposer au Répertoire&nbsp;?</p>
+        </div>
+      </section>
+
+      <section class="contact-content shell">
+        <article class="contact-card">
+          <span class="profile-role">Adresse électronique du Répertoire</span>
+          <h2>Brahim Jaziri</h2>
+          <a class="contact-email" href="mailto:jaziribrahim@gmail.com">jaziribrahim@gmail.com</a>
+          <p>
+            Le formulaire ci-contre prépare votre message dans Gmail. Vous pourrez le vérifier,
+            le compléter et l’envoyer depuis votre propre compte.
+          </p>
+          <div class="contact-actions">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=jaziribrahim%40gmail.com"
+              target="_blank"
+              rel="noreferrer"
+            >Écrire directement dans Gmail ↗</a>
+            <button id="copyEmail" type="button">Copier l’adresse</button>
+          </div>
+        </article>
+
+        <form id="contactForm" class="contact-form">
+          <div class="contact-form-heading">
+            <span>Message</span>
+            <h2 id="formTitle">Contacter le Répertoire</h2>
+          </div>
+          <label>
+            Votre nom
+            <input id="senderName" name="name" type="text" autocomplete="name" />
+          </label>
+          <label>
+            Votre adresse électronique
+            <input id="senderEmail" name="email" type="email" autocomplete="email" />
+          </label>
+          <label>
+            Objet
+            <input id="subject" name="subject" type="text" required />
+          </label>
+          <label>
+            Message
+            <textarea id="message" name="message" rows="8" required></textarea>
+          </label>
+          <button class="primary-button contact-submit" type="submit">Préparer le message dans Gmail ↗</button>
+          <p class="form-note">Aucune donnée n’est enregistrée par le site.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div>
+          <strong>Répertoire géographique de la biodiversité et de la conservation</strong>
+          <p>Sélection et classification géographiques réalisées par Brahim Jaziri.</p>
+        </div>
+        <div><p>Source principale : Patrick Triplet, édition 2026.</p></div>
+      </div>
+    </footer>
+  </body>
+</html>
