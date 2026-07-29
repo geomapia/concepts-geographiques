@@ -1,7 +1,14 @@
-# Mise à jour du Répertoire 2026.4
+# Mise à jour du Répertoire 2026.5
 
 Cette version ajoute :
 
+- un corpus porté à exactement 1 500 concepts géographiques ;
+- la suppression du répertoire détaillé de la page d’accueil, désormais
+  accessible uniquement depuis la page « Concepts » ;
+- la mise à jour de tous les compteurs : 1 500 concepts, 43 indices,
+  17 instruments et 1 560 notices au total ;
+- la vérification du bouton « Signaler une correction », adressé à
+  `jaziribrahim@gmail.com` ;
 - le nouveau titre « Répertoire géographique de la biodiversité et de la
   conservation » dans toutes les pages et références ;
 - huit concepts fondamentaux supplémentaires issus du dictionnaire 2026 ;
@@ -11,7 +18,7 @@ Cette version ajoute :
 - le titre complet « Concepts géographiques issus du Dictionnaire
   encyclopédique de la diversité biologique et de la conservation de la
   nature » ;
-- 1 083 concepts géographiques, dont 42 concepts fondamentaux clairement
+- 1 500 concepts géographiques, dont 42 concepts fondamentaux clairement
   identifiés ;
 - des accès directs au climax, au biotope, à la biocénose, aux successions,
   à la dispersion et à la résilience ;
@@ -34,6 +41,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Renommer et enrichir le Répertoire géographique`
+`Porter le Répertoire à 1500 concepts`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Répertoire géographique de 1 143 notices sur la biodiversité et la conservation, issues de l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet. Sélection et classification par Brahim Jaziri."
+      content="Répertoire géographique de 1 500 concepts sur la biodiversité et la conservation, complétés par 43 indices et 17 instruments internationaux, issus de l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet."
     />
     <title>Répertoire géographique de la biodiversité et de la conservation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260729-6" />
-    <script src="./app.js?v=20260729-6" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20260729-7" />
+    <script src="./app.js?v=20260729-7" defer></script>
   </head>
   <body>
     <main>
@@ -58,19 +58,19 @@
             <p class="eyebrow">Ressource scientifique</p>
             <h1>Répertoire géographique de la biodiversité et de la conservation</h1>
             <p class="hero-subtitle">
-              Un répertoire dynamique de 1 143 notions issues des sciences
-              géographiques, environnementales et territoriales, actualisé à
-              partir de l’édition 2026.
+              Un répertoire dynamique de 1 500 concepts géographiques,
+              complétés par 43 indices et 17 instruments internationaux,
+              actualisé à partir de l’édition 2026.
             </p>
-            <a class="primary-button" href="#directory">
-              Explorer le répertoire <span aria-hidden="true">↓</span>
+            <a class="primary-button" href="./concepts.html">
+              Explorer les concepts <span aria-hidden="true">↗</span>
             </a>
           </div>
           <div class="hero-register" aria-label="Périmètre scientifique">
             <p>Périmètre scientifique</p>
-            <div id="heroTotal" class="register-number">1 143</div>
+            <div id="heroTotal" class="register-number">1 560</div>
             <div class="register-rule"></div>
-            <span>notions documentées, sourcées et classées</span>
+            <span>notices documentées, sourcées et classées</span>
             <div class="coordinates">ÉDITION 2026 · MISE À JOUR SCIENTIFIQUE</div>
           </div>
         </div>
@@ -93,7 +93,7 @@
           <a href="./concepts.html">
             <span>01</span>
             <strong>Concepts géographiques</strong>
-            <em>1 083 notices · 42 fondamentales</em>
+            <em>1 500 concepts · 42 fondamentaux</em>
             <p>Concepts majeurs, domaines, milieux, échelles, relations et citations.</p>
           </a>
           <a href="./indices.html">
@@ -122,16 +122,15 @@
             <h2>Vue d’ensemble</h2>
           </div>
           <p>
-            Les 6 116 entrées de l’édition 2026 ont été examinées. La mise à
-            jour révise les notices existantes, distingue 42 concepts
-            fondamentaux et réintègre plusieurs notions structurantes de la
-            biogéographie, notamment le climax, le biotope et les successions
-            écologiques.
+            Les 6 116 entrées de l’édition 2026 ont été examinées. Le
+            Répertoire rassemble désormais 1 500 concepts géographiques,
+            dont 42 concepts fondamentaux, ainsi que 43 indices et
+            17 conventions, traités ou accords internationaux.
           </p>
         </div>
 
         <div class="metric-grid">
-          <article class="metric"><strong id="totalConcepts">1 143</strong><span>Notices indexées</span></article>
+          <article class="metric"><strong id="totalConcepts">1 560</strong><span>Notices indexées</span></article>
           <article class="metric"><strong>42</strong><span>Concepts fondamentaux</span></article>
           <article class="metric"><strong id="totalDomains">12</strong><span>Domaines</span></article>
           <article class="metric"><strong>1 506</strong><span>Pages analysées</span></article>
@@ -141,7 +140,7 @@
           <article class="chart-card">
             <div class="card-title-row">
               <h3>Répartition par domaine</h3>
-              <span id="chartTotal">n = 1 143</span>
+              <span id="chartTotal">n = 1 560</span>
             </div>
             <div id="bars" class="bars" aria-label="Graphique de répartition par domaine"></div>
           </article>
@@ -166,64 +165,11 @@
         </div>
       </section>
 
-      <section id="directory" class="directory-section">
-        <div class="shell">
-          <div class="section-heading light-heading">
-            <div>
-              <span class="section-index">02</span>
-              <h2>Répertoire des concepts</h2>
-            </div>
-            <p>Recherchez dans les concepts, les définitions et les champs scientifiques.</p>
-          </div>
-
-          <div class="filters">
-            <label class="search-box">
-              <span aria-hidden="true">⌕</span>
-              <input
-                id="search"
-                type="search"
-                placeholder="Rechercher un concept, une définition ou un domaine…"
-                aria-label="Rechercher un concept, une définition ou un domaine"
-              />
-            </label>
-            <select id="domain" aria-label="Tous les domaines">
-              <option value="">Tous les domaines</option>
-            </select>
-            <select id="noticeType" aria-label="Tous les types de notices">
-              <option value="">Tous les types de notices</option>
-            </select>
-            <select id="relevance" aria-label="Toute pertinence">
-              <option value="">Toute pertinence</option>
-              <option value="Central">Concepts centraux</option>
-              <option value="Interdisciplinaire">Interdisciplinaires</option>
-            </select>
-          </div>
-
-          <div class="results-line">
-            <strong id="resultCount">…</strong>
-            <span>concepts trouvés</span>
-            <button id="resetFilters" type="button" hidden>Réinitialiser les filtres</button>
-          </div>
-
-          <div id="conceptGrid" class="concept-grid" aria-live="polite"></div>
-          <div id="emptyState" class="empty-state" hidden>
-            <h3>Aucun concept ne correspond à ces critères.</h3>
-            <button id="emptyReset" type="button">Réinitialiser les filtres</button>
-          </div>
-
-          <div id="pagination" class="pagination">
-            <button id="previousPage" type="button">← Précédent</button>
-            <span id="pageIndicator">Page 1 / 1</span>
-            <button id="nextPage" type="button">Suivant →</button>
-          </div>
-        </div>
-      </section>
-
       <section id="authors" class="authors-section">
         <div class="shell">
           <div class="section-heading">
             <div>
-              <span class="section-index">03</span>
+              <span class="section-index">02</span>
               <h2>Auteur et conception scientifique</h2>
             </div>
             <p>
@@ -303,25 +249,5 @@
       </footer>
     </main>
 
-    <div id="modalBackdrop" class="modal-backdrop" role="presentation" hidden>
-      <article class="concept-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button id="modalClose" class="modal-close" type="button" aria-label="Fermer">×</button>
-        <div class="modal-rule"></div>
-        <p id="modalDomain" class="modal-domain"></p>
-        <h2 id="modalTitle"></h2>
-        <div class="modal-badges">
-          <span id="modalRelevance"></span>
-          <span id="modalPage"></span>
-        </div>
-        <h3>Définition</h3>
-        <p id="modalDefinition" class="modal-definition"></p>
-        <div class="modal-reference">
-          <h3>Domaines associés</h3>
-          <p id="modalRelated"></p>
-          <h3>Référence</h3>
-          <p id="modalSource"></p>
-        </div>
-      </article>
-    </div>
   </body>
 </html>

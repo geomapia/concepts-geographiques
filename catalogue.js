@@ -213,8 +213,16 @@ function openModal(item, updateUrl = true) {
     .join("");
   $("#modalCitation").textContent = item.citation;
   $("#modalPdf").href = item.lien_source_pdf || `${sourcePdf}#page=${item.page_pdf}`;
+  const correctionSubject = `Correction du Répertoire — ${item.concept}`;
+  const correctionBody = [
+    `Concept : ${item.concept}`,
+    `Page du dictionnaire : ${item.page_pdf}`,
+    "",
+    "Correction proposée :",
+    "",
+  ].join("\n");
   $("#modalReport").href =
-    `mailto:jaziribrahim@gmail.com?subject=${encodeURIComponent(`Correction du Répertoire — ${item.concept}`)}`;
+    `mailto:jaziribrahim@gmail.com?subject=${encodeURIComponent(correctionSubject)}&body=${encodeURIComponent(correctionBody)}`;
   $("#modalCopyCitation").dataset.concept = item.concept;
   $("#modalCopyLink").dataset.concept = item.concept;
   elements.modal.hidden = false;

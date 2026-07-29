@@ -2,10 +2,11 @@
 
 Site académique interactif conçu par **Brahim Jaziri**.
 
-Le site présente 1 143 notices géographiques actualisées à partir de
+Le site présente 1 560 notices géographiques actualisées à partir de
 l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 
 - trois répertoires dédiés : concepts, indices et conventions ;
+- 1 500 concepts géographiques, 43 indices et 17 instruments internationaux ;
 - définitions et synthèses fidèlement rattachées aux pages du dictionnaire ;
 - recherche plein texte ;
 - filtres par domaine, type, pertinence, échelle et milieu ;
