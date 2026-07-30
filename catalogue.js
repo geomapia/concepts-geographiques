@@ -163,7 +163,7 @@ function render() {
         <article class="special-notice${item.niveau_conceptuel === "Fondamental" ? " fundamental-notice" : ""}" id="${slug(item.concept)}">
           <div class="notice-topline">
             <span>${escapeHtml(item.type_notice)}</span>
-            <em>PDF p. ${item.page_pdf}</em>
+            <em>Dictionnaire p. ${item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1)}</em>
           </div>
           <h2>${escapeHtml(item.concept)}</h2>
           <div class="notice-tags">${tags}</div>
@@ -181,6 +181,7 @@ function render() {
 function detailRows(item) {
   const base = [
     ["Type de notice", item.type_notice],
+    ["Page du dictionnaire", item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1)],
     ["Domaines thématiques", item.domaines_thematiques?.join(" · ") || "Non précisé"],
     ["Échelles explicitement mentionnées", item.echelles_explicites?.join(" · ")],
     ["Milieux explicitement mentionnés", item.milieux_explicites?.join(" · ")],
@@ -221,9 +222,9 @@ function openModal(item, updateUrl = true) {
     )
     .join("");
   $("#modalCitation").textContent = item.citation;
-  const sourcePage = Math.max(1, Number(item.page_pdf) - 1);
-  // La couverture constitue la première page technique du fichier : le
-  // renvoi PDF est donc toujours égal à la page citée moins une.
+  const sourcePage = Math.max(1, Number(item.page_pdf));
+  // Le numéro technique du PDF est supérieur d’une unité au numéro imprimé.
+  // page_pdf désigne déjà cette page technique et ouvre donc directement la notice.
   $("#modalPdf").href = `${sourcePdf}#page=${sourcePage}`;
   $("#modalPdf").textContent = `Voir le PDF (p. ${sourcePage}) ↗`;
   const official = officialLink(item);
@@ -371,7 +372,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modal.hidden) closeModal();
 });
 
-fetch("./data/concepts.json?v=20260730-2", { cache: "no-store" })
+fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();

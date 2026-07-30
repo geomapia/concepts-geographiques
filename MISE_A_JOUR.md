@@ -1,7 +1,13 @@
-# Mise à jour du Répertoire 2026.6
+# Mise à jour du Répertoire 2026.7
 
 Cette version ajoute :
 
+- l’ouverture directe de la page PDF qui contient réellement le terme :
+  page technique du fichier = page imprimée du dictionnaire + 1 ;
+- dans l’index intégral, un lien automatique vers la fiche correspondante
+  lorsqu’un terme appartient déjà aux concepts, indices ou conventions ;
+- pour les termes absents des répertoires spécialisés, un bouton « Suggérer
+  l’ajout au Répertoire » relié au formulaire Formspree et prérempli ;
 - l’index intégral des 6 122 intitulés verts du dictionnaire 2026, avec
   recherche alphabétique, export CSV et lien direct vers chaque page du PDF ;
 - la Convention de Ramsar comme dix-huitième instrument ;
@@ -15,8 +21,8 @@ Cette version ajoute :
 - la vérification du bouton « Signaler une correction », adressé à
   `jaziribrahim@gmail.com` ;
 - la correction de tous les renvois au PDF : le bouton ouvre la page
-  technique correspondant à la page citée moins une, sans modifier la
-  pagination affichée dans les fiches et les citations ;
+  technique correspondant à la page imprimée citée plus une, afin de tenir
+  compte de la couverture du fichier PDF ;
 - l’affichage de la page technique corrigée directement dans le libellé du
   bouton PDF ;
 - une page « Nous contacter » avec l’adresse `jaziribrahim@gmail.com`, un
@@ -63,6 +69,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Publier le Répertoire 2026.6`
+`Publier le Répertoire 2026.7`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

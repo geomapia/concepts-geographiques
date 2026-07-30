@@ -56,7 +56,7 @@ function renderOverview() {
 
 }
 
-fetch("./data/concepts.json?v=20260730-2", { cache: "no-store" })
+fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Impossible de charger les concepts.");
     return response.json();

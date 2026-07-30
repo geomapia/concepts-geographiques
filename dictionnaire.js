@@ -2,6 +2,9 @@ const PAGE_SIZE = 60;
 
 let entries = [];
 let filteredEntries = [];
+let repertoireEntries = [];
+let repertoireByKey = new Map();
+let repertoireByHeading = new Map();
 let currentPage = 1;
 let currentLetter = "";
 
@@ -29,6 +32,53 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function repertoireTarget(item) {
+  if (item.type_notice === "Indice ou indicateur") return "./indices.html";
+  if (item.type_notice === "Convention, traité ou accord") return "./conventions.html";
+  return "./concepts.html";
+}
+
+function repertoireLabel(item) {
+  if (item.type_notice === "Indice ou indicateur") return "Voir dans les indices";
+  if (item.type_notice === "Convention, traité ou accord") return "Voir dans les conventions";
+  return "Voir dans les concepts";
+}
+
+function indexRepertoire() {
+  repertoireByKey = new Map();
+  repertoireByHeading = new Map();
+  repertoireEntries.forEach((item) => {
+    const key = normalize(item.concept);
+    if (!repertoireByKey.has(key)) repertoireByKey.set(key, []);
+    repertoireByKey.get(key).push(item);
+    const heading = normalize(item.entree_complete);
+    if (!repertoireByHeading.has(heading)) repertoireByHeading.set(heading, []);
+    repertoireByHeading.get(heading).push(item);
+  });
+}
+
+function relatedNotices(entry) {
+  const exact = repertoireByKey.get(normalize(entry.concept)) || [];
+  const sameHeading = repertoireByHeading.get(normalize(entry.entree_complete)) || [];
+  return [...new Map([...exact, ...sameHeading].map((item) => [
+    `${item.type_notice}|${item.concept}`,
+    item,
+  ])).values()];
+}
+
+function repertoireUrl(item) {
+  const url = new URL(repertoireTarget(item), window.location.href);
+  url.searchParams.set("notice", item.concept);
+  return url.toString();
+}
+
+function suggestionUrl(entry) {
+  const url = new URL("./contact.html", window.location.href);
+  url.searchParams.set("suggestion", entry.concept);
+  url.searchParams.set("page", entry.page_pdf);
+  return url.toString();
 }
 
 function renderAlphabet() {
@@ -89,8 +139,19 @@ function render() {
   }
 
   list.innerHTML = visible
-    .map(
-      (entry) => `
+    .map((entry) => {
+      const related = relatedNotices(entry);
+      const repertoireActions = related.length
+        ? `<div class="dictionary-related">
+            ${related.map((item) => `
+              <a href="${escapeHtml(repertoireUrl(item))}">
+                ${escapeHtml(repertoireLabel(item))} ↗
+              </a>`).join("")}
+           </div>`
+        : `<a class="dictionary-suggest" href="${escapeHtml(suggestionUrl(entry))}">
+             Suggérer l’ajout au Répertoire ↗
+           </a>`;
+      return `
         <article class="dictionary-entry">
           <div class="dictionary-entry-number">${escapeHtml(entry.id.replace("notice-", ""))}</div>
           <div>
@@ -98,14 +159,15 @@ function render() {
             <p>${escapeHtml(entry.entree_complete)}</p>
           </div>
           <div class="dictionary-entry-page">
-            <span>Page citée ${entry.page_pdf}</span>
+            <span>Page du dictionnaire ${entry.page_dictionnaire}</span>
             <a href="${escapeHtml(entry.lien_source_pdf)}" target="_blank" rel="noreferrer">
-              Voir le PDF · p. ${entry.page_ouverte} ↗
+              Ouvrir la page contenant le terme · PDF p. ${entry.page_ouverte} ↗
             </a>
             <button type="button" data-copy="${escapeHtml(entry.lien_source_pdf)}">Copier le lien</button>
+            ${repertoireActions}
           </div>
-        </article>`,
-    )
+        </article>`;
+    })
     .join("");
 }
 
@@ -133,13 +195,14 @@ function csvCell(value) {
 
 function exportCsv() {
   const rows = [
-    ["Concept", "Entrée complète", "Page citée", "Page PDF ouverte", "Lien PDF"],
+    ["Concept", "Entrée complète", "Page du dictionnaire", "Page PDF ouverte", "Lien PDF", "Présent dans le Répertoire"],
     ...filteredEntries.map((entry) => [
       entry.concept,
       entry.entree_complete,
-      entry.page_pdf,
+      entry.page_dictionnaire,
       entry.page_ouverte,
       entry.lien_source_pdf,
+      relatedNotices(entry).length ? "Oui" : "Non",
     ]),
   ];
   const csv = `\uFEFF${rows.map((row) => row.map(csvCell).join(";")).join("\n")}`;
@@ -186,13 +249,25 @@ document.querySelector("#dictionaryReset").addEventListener("click", () => {
 });
 document.querySelector("#dictionaryExport").addEventListener("click", exportCsv);
 
-fetch("./data/dictionnaire.json?v=20260730-2", { cache: "no-store" })
-  .then((response) => {
-    if (!response.ok) throw new Error("Index indisponible.");
-    return response.json();
-  })
-  .then((data) => {
-    entries = data;
+async function fetchJson(paths) {
+  for (const path of paths) {
+    const response = await fetch(path, { cache: "no-store" });
+    if (response.ok) return response.json();
+  }
+  throw new Error("Index indisponible.");
+}
+
+Promise.all([
+  fetchJson([
+    "./data/dictionnaire.json?v=20260730-3",
+    "./dictionnaire.json?v=20260730-3",
+  ]),
+  fetchJson(["./data/concepts.json?v=20260730-3"]),
+])
+  .then(([dictionaryData, repertoireData]) => {
+    entries = dictionaryData;
+    repertoireEntries = repertoireData;
+    indexRepertoire();
     filteredEntries = [...entries];
     document.querySelector("#dictionaryTotal").textContent =
       entries.length.toLocaleString("fr-FR");

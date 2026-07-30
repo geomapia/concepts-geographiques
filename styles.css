@@ -552,7 +552,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 .dictionary-entry {
   display: grid;
-  grid-template-columns: 58px minmax(0, 1fr) 205px;
+  grid-template-columns: 58px minmax(0, 1fr) 280px;
   gap: 22px;
   align-items: center;
   min-height: 116px;
@@ -602,6 +602,39 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .dictionary-entry-page a { color: var(--burgundy); }
 .dictionary-entry-page a:hover,
 .dictionary-entry-page button:hover { text-decoration: underline; }
+.dictionary-related {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+  margin-top: 7px;
+  padding-top: 11px;
+  border-top: 1px solid var(--line);
+}
+.dictionary-entry-page .dictionary-related a {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid #b7c6ae;
+  background: #edf3e9;
+  color: #315a34;
+  text-decoration: none;
+}
+.dictionary-entry-page .dictionary-related a:hover {
+  border-color: var(--green);
+  text-decoration: none;
+}
+.dictionary-entry-page .dictionary-suggest {
+  width: 100%;
+  margin-top: 7px;
+  padding: 9px 10px;
+  border: 1px solid #c9aab0;
+  color: var(--burgundy);
+  text-decoration: none;
+}
+.dictionary-entry-page .dictionary-suggest:hover {
+  border-color: var(--burgundy);
+  background: #f8eff1;
+  text-decoration: none;
+}
 .dictionary-pagination button {
   border-color: #b9ad99;
   color: var(--navy);

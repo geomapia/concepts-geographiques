@@ -7,6 +7,9 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 
 - quatre espaces documentaires : concepts, index intégral, indices et conventions ;
 - un index intégral de 6 122 intitulés verts extraits du PDF 2026 ;
+- des liens croisés entre cet index et les fiches déjà présentes dans les
+  concepts, indices et conventions ;
+- un formulaire permettant de suggérer l’ajout d’un terme absent ;
 - 1 500 concepts géographiques, 43 indices et 18 instruments internationaux ;
 - la Convention de Ramsar et des liens institutionnels vérifiés pour les
   conventions, traités, chartes et déclarations ;
@@ -17,7 +20,7 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
   « Conventions, traités et accords internationaux » ;
 - graphique de répartition par domaine ;
 - notices et citations copiables, liens permanents, impression et export CSV ;
-- référence et page du document source.
+- référence et ouverture directe de la page PDF contenant le terme.
 
 ## Auteurs
 
