@@ -11,8 +11,8 @@
       const newsLink = document.createElement("a");
       newsLink.href = "./nouveautes.html";
       newsLink.textContent = "Nouveautés";
-      const dictionaryLink = navigation.querySelector('a[href="./dictionnaire.html"]');
-      dictionaryLink?.insertAdjacentElement("afterend", newsLink);
+      const conventionsLink = navigation.querySelector('a[href="./conventions.html"]');
+      conventionsLink?.insertAdjacentElement("afterend", newsLink);
     }
 
     const currentPage =

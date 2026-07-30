@@ -5,6 +5,7 @@ const colors = [
 ];
 
 let concepts = [];
+let allNotices = [];
 let totalNotices = 0;
 
 function escapeHtml(value) {
@@ -29,6 +30,26 @@ function renderOverview() {
   document.querySelector("#totalDomains").textContent = domains.length.toLocaleString("fr-FR");
   document.querySelector("#centralLegend").textContent = central.toLocaleString("fr-FR");
   document.querySelector("#interLegend").textContent = interdisciplinary.toLocaleString("fr-FR");
+  const indicators = allNotices.filter(
+    (item) => item.type_notice === "Indice ou indicateur",
+  ).length;
+  const conventions = allNotices.filter(
+    (item) => item.type_notice === "Convention, traité ou accord",
+  ).length;
+  [
+    ["#heroConceptCountText", concepts.length],
+    ["#portalConceptCount", concepts.length],
+    ["#overviewConceptCount", concepts.length],
+    ["#portalIndicatorCount", indicators],
+    ["#overviewIndicatorCount", indicators],
+    ["#overviewIndicatorCountText", indicators],
+    ["#portalConventionCount", conventions],
+    ["#overviewConventionCount", conventions],
+    ["#overviewConventionCountText", conventions],
+  ].forEach(([selector, value]) => {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = Number(value).toLocaleString("fr-FR");
+  });
   const donut = document.querySelector("#relevanceDonut");
   donut.style.background =
     `conic-gradient(#dbc6a5 0 ${centralShare}%, var(--burgundy) ${centralShare}% 100%)`;
@@ -62,6 +83,7 @@ fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
     return response.json();
   })
   .then((data) => {
+    allNotices = data;
     totalNotices = data.length;
     concepts = data.filter((item) => item.type_notice === "Concept géographique");
     renderOverview();

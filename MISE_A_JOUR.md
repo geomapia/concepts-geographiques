@@ -1,7 +1,19 @@
-# Mise à jour du Répertoire 2026.11
+# Mise à jour du Répertoire 2026.13
 
 Cette version ajoute :
 
+- le positionnement de « Nouveautés » entre « Conventions » et « À propos »
+  dans la barre de navigation ;
+- une section « Ressources géographiques complémentaires » dans la page
+  « À propos », sans créer de rubrique supplémentaire dans le menu ;
+- cinq dictionnaires de référence et quatre ressources gratuites en ligne,
+  avec des liens vers leurs pages de présentation ou leurs sites respectifs ;
+- l’ajout d’AGROVOC (FAO), vocabulaire multilingue de référence pour les
+  notions rurales, environnementales, d’aménagement et de ressources
+  naturelles ;
+- une clarification : ces ressources complètent les lectures, tandis que le
+  dictionnaire de Patrick Triplet reste l’unique source des définitions du
+  Répertoire ;
 - un menu mobile complet donnant accès à toutes les rubriques ;
 - une page « Nouveautés » mise à jour automatiquement à partir de la date de
   validation des notices ;
@@ -112,11 +124,12 @@ Cette version ajoute :
 
 ## Publication sur GitHub
 
-Décompresser l’archive, puis téléverser tous les fichiers et le dossier `data`
-à la racine du nouveau dépôt GitHub du Répertoire.
+Décompresser l’archive, puis téléverser tous les fichiers à la racine du dépôt
+GitHub du Répertoire. Cette archive ne contient pas le dossier `data` : ne pas
+remplacer les données déjà publiées.
 
 Valider avec le message de commit :
 
-`Navigation, nouveautés, recherche et sauvegardes — version 2026.11`
+`Ressources géographiques complémentaires — version 2026.13`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.
