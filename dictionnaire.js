@@ -1,0 +1,204 @@
+const PAGE_SIZE = 60;
+
+let entries = [];
+let filteredEntries = [];
+let currentPage = 1;
+let currentLetter = "";
+
+const search = document.querySelector("#dictionarySearch");
+const sort = document.querySelector("#dictionarySort");
+const list = document.querySelector("#dictionaryList");
+const count = document.querySelector("#dictionaryCount");
+const pagination = document.querySelector("#dictionaryPagination");
+const previous = document.querySelector("#dictionaryPrevious");
+const next = document.querySelector("#dictionaryNext");
+const pageIndicator = document.querySelector("#dictionaryPage");
+const alphabet = document.querySelector("#alphabetFilter");
+
+function normalize(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderAlphabet() {
+  const letters = [...new Set(entries.map((entry) => entry.initiale))].sort((a, b) =>
+    a.localeCompare(b, "fr"),
+  );
+  alphabet.innerHTML = [
+    '<button type="button" data-letter="" class="active">Tous</button>',
+    ...letters.map(
+      (letter) =>
+        `<button type="button" data-letter="${escapeHtml(letter)}">${escapeHtml(letter)}</button>`,
+    ),
+  ].join("");
+}
+
+function applyFilters() {
+  const needle = normalize(search.value.trim());
+  filteredEntries = entries.filter(
+    (entry) =>
+      (!currentLetter || entry.initiale === currentLetter) &&
+      (!needle ||
+        normalize(`${entry.concept} ${entry.entree_complete}`).includes(needle)),
+  );
+
+  if (sort.value === "page") {
+    filteredEntries.sort(
+      (a, b) => a.page_pdf - b.page_pdf || a.id.localeCompare(b.id),
+    );
+  } else {
+    filteredEntries.sort(
+      (a, b) =>
+        a.concept.localeCompare(b.concept, "fr") ||
+        a.page_pdf - b.page_pdf,
+    );
+  }
+  currentPage = 1;
+  render();
+}
+
+function render() {
+  const pageCount = Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE));
+  currentPage = Math.min(currentPage, pageCount);
+  const visible = filteredEntries.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  count.textContent = filteredEntries.length.toLocaleString("fr-FR");
+  pagination.hidden = filteredEntries.length <= PAGE_SIZE;
+  previous.disabled = currentPage === 1;
+  next.disabled = currentPage === pageCount;
+  pageIndicator.textContent = `Page ${currentPage} / ${pageCount}`;
+
+  if (!visible.length) {
+    list.innerHTML =
+      '<div class="dictionary-empty"><strong>Aucun intitulé trouvé</strong><span>Modifiez la recherche ou choisissez une autre lettre.</span></div>';
+    return;
+  }
+
+  list.innerHTML = visible
+    .map(
+      (entry) => `
+        <article class="dictionary-entry">
+          <div class="dictionary-entry-number">${escapeHtml(entry.id.replace("notice-", ""))}</div>
+          <div>
+            <h2>${escapeHtml(entry.concept)}</h2>
+            <p>${escapeHtml(entry.entree_complete)}</p>
+          </div>
+          <div class="dictionary-entry-page">
+            <span>Page citée ${entry.page_pdf}</span>
+            <a href="${escapeHtml(entry.lien_source_pdf)}" target="_blank" rel="noreferrer">
+              Voir le PDF · p. ${entry.page_ouverte} ↗
+            </a>
+            <button type="button" data-copy="${escapeHtml(entry.lien_source_pdf)}">Copier le lien</button>
+          </div>
+        </article>`,
+    )
+    .join("");
+}
+
+async function copyLink(value, button) {
+  try {
+    await navigator.clipboard.writeText(value);
+  } catch {
+    const field = document.createElement("textarea");
+    field.value = value;
+    document.body.append(field);
+    field.select();
+    document.execCommand("copy");
+    field.remove();
+  }
+  const label = button.textContent;
+  button.textContent = "Lien copié ✓";
+  setTimeout(() => {
+    button.textContent = label;
+  }, 1400);
+}
+
+function csvCell(value) {
+  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+}
+
+function exportCsv() {
+  const rows = [
+    ["Concept", "Entrée complète", "Page citée", "Page PDF ouverte", "Lien PDF"],
+    ...filteredEntries.map((entry) => [
+      entry.concept,
+      entry.entree_complete,
+      entry.page_pdf,
+      entry.page_ouverte,
+      entry.lien_source_pdf,
+    ]),
+  ];
+  const csv = `\uFEFF${rows.map((row) => row.map(csvCell).join(";")).join("\n")}`;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(
+    new Blob([csv], { type: "text/csv;charset=utf-8" }),
+  );
+  link.download = "index-integral-dictionnaire-triplet-2026.csv";
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+search.addEventListener("input", applyFilters);
+sort.addEventListener("change", applyFilters);
+alphabet.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-letter]");
+  if (!button) return;
+  currentLetter = button.dataset.letter;
+  alphabet.querySelectorAll("button").forEach((candidate) => {
+    candidate.classList.toggle("active", candidate === button);
+  });
+  applyFilters();
+});
+list.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-copy]");
+  if (button) copyLink(button.dataset.copy, button);
+});
+previous.addEventListener("click", () => {
+  currentPage -= 1;
+  render();
+  scrollTo({ top: 0, behavior: "smooth" });
+});
+next.addEventListener("click", () => {
+  currentPage += 1;
+  render();
+  scrollTo({ top: 0, behavior: "smooth" });
+});
+document.querySelector("#dictionaryReset").addEventListener("click", () => {
+  search.value = "";
+  sort.value = "alpha";
+  currentLetter = "";
+  renderAlphabet();
+  applyFilters();
+});
+document.querySelector("#dictionaryExport").addEventListener("click", exportCsv);
+
+fetch("./data/dictionnaire.json?v=20260730-2", { cache: "no-store" })
+  .then((response) => {
+    if (!response.ok) throw new Error("Index indisponible.");
+    return response.json();
+  })
+  .then((data) => {
+    entries = data;
+    filteredEntries = [...entries];
+    document.querySelector("#dictionaryTotal").textContent =
+      entries.length.toLocaleString("fr-FR");
+    renderAlphabet();
+    applyFilters();
+  })
+  .catch((error) => {
+    list.innerHTML = `<p class="load-error">${escapeHtml(error.message)}</p>`;
+  });

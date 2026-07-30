@@ -135,6 +135,13 @@ function metadata(item) {
   ].filter(Boolean);
 }
 
+function officialLink(item) {
+  const link = item.fiche_specialisee?.liens_officiels_mentions?.[0];
+  if (!link) return null;
+  if (typeof link === "string") return { label: "Site officiel", url: link };
+  return link.url ? link : null;
+}
+
 function render() {
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   currentPage = Math.min(currentPage, pageCount);
@@ -151,6 +158,7 @@ function render() {
       const tags = metadata(item)
         .map((value) => `<span>${escapeHtml(value)}</span>`)
         .join("");
+      const official = officialLink(item);
       return `
         <article class="special-notice${item.niveau_conceptuel === "Fondamental" ? " fundamental-notice" : ""}" id="${slug(item.concept)}">
           <div class="notice-topline">
@@ -163,6 +171,7 @@ function render() {
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
+            ${official ? `<a class="official-source-link" href="${escapeHtml(official.url)}" target="_blank" rel="noreferrer">${escapeHtml(official.label || "Site officiel")} ↗</a>` : ""}
           </div>
         </article>`;
     })
@@ -217,6 +226,15 @@ function openModal(item, updateUrl = true) {
   // renvoi PDF est donc toujours égal à la page citée moins une.
   $("#modalPdf").href = `${sourcePdf}#page=${sourcePage}`;
   $("#modalPdf").textContent = `Voir le PDF (p. ${sourcePage}) ↗`;
+  const official = officialLink(item);
+  const modalOfficial = $("#modalOfficial");
+  if (modalOfficial) {
+    modalOfficial.hidden = !official;
+    if (official) {
+      modalOfficial.href = official.url;
+      modalOfficial.textContent = `${official.label || "Site officiel"} ↗`;
+    }
+  }
   const correctionUrl = new URL("./contact.html", window.location.href);
   correctionUrl.searchParams.set("notice", item.concept);
   correctionUrl.searchParams.set("page", item.page_pdf);
@@ -353,7 +371,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modal.hidden) closeModal();
 });
 
-fetch("./data/concepts.json?v=20260730-1", { cache: "no-store" })
+fetch("./data/concepts.json?v=20260730-2", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();

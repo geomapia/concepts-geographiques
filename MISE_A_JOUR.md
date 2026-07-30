@@ -1,12 +1,17 @@
-# Mise à jour du Répertoire 2026.5
+# Mise à jour du Répertoire 2026.6
 
 Cette version ajoute :
 
+- l’index intégral des 6 122 intitulés verts du dictionnaire 2026, avec
+  recherche alphabétique, export CSV et lien direct vers chaque page du PDF ;
+- la Convention de Ramsar comme dix-huitième instrument ;
+- un lien institutionnel vérifié pour chacune des 18 conventions, chartes,
+  déclarations, directives et cadres présentés ;
 - un corpus porté à exactement 1 500 concepts géographiques ;
 - la suppression du répertoire détaillé de la page d’accueil, désormais
   accessible uniquement depuis la page « Concepts » ;
 - la mise à jour de tous les compteurs : 1 500 concepts, 43 indices,
-  17 instruments et 1 560 notices au total ;
+  18 instruments et 1 561 notices spécialisées au total ;
 - la vérification du bouton « Signaler une correction », adressé à
   `jaziribrahim@gmail.com` ;
 - la correction de tous les renvois au PDF : le bouton ouvre la page
@@ -54,10 +59,10 @@ Cette version ajoute :
 ## Publication sur GitHub
 
 Décompresser l’archive, puis téléverser tous les fichiers et le dossier `data`
-à la racine du dépôt `geomapia/concepts-geographiques`.
+à la racine du nouveau dépôt GitHub du Répertoire.
 
 Valider avec le message de commit :
 
-`Finaliser le Répertoire 2026.5`
+`Publier le Répertoire 2026.6`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

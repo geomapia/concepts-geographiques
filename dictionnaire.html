@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Index intégral des 6 122 intitulés verts du Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, édition 2026."
+    />
+    <title>Index intégral du dictionnaire | Répertoire 2026</title>
+    <link rel="stylesheet" href="./styles.css?v=20260730-2" />
+    <script src="./dictionnaire.js?v=20260730-2" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-line"></div>
+      <div class="shell nav">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">RG</span>
+          <span><strong>Répertoire géographique</strong><small>Diversité biologique • conservation</small></span>
+        </a>
+        <nav>
+          <a href="./concepts.html">Concepts</a>
+          <a class="active" href="./dictionnaire.html">Dictionnaire</a>
+          <a href="./indices.html">Indices</a>
+          <a href="./conventions.html">Conventions</a>
+          <a href="./apropos.html">À propos</a>
+          <a href="./contact.html">Nous contacter</a>
+        </nav>
+      </div>
+    </header>
+
+    <aside class="source-banner">
+      <div class="shell source-banner-inner">
+        <div>
+          <strong>Source intégrale · édition 2026</strong>
+          <span>
+            Patrick Triplet, <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>.
+            Les intitulés reproduits ci-dessous correspondent aux entrées imprimées en vert.
+          </span>
+        </div>
+        <div class="source-links">
+          <a href="https://laccreteil.fr/spip.php?article551" target="_blank" rel="noreferrer">Présentation ↗</a>
+          <a href="https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf" target="_blank" rel="noreferrer">PDF 2026 ↓</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="dictionary-page">
+      <section class="catalogue-hero dictionary-hero">
+        <div class="shell catalogue-hero-grid">
+          <div>
+            <p class="eyebrow">Index terminologique intégral</p>
+            <h1>Toutes les entrées du dictionnaire</h1>
+            <p>
+              Consultation alphabétique des intitulés imprimés en vert, avec renvoi direct vers leur page dans le PDF officiel.
+              Cette page complète la sélection scientifique des concepts géographiques.
+            </p>
+          </div>
+          <div class="catalogue-number">
+            <strong id="dictionaryTotal">6 122</strong>
+            <span>intitulés uniques</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="dictionary-tools shell">
+        <div class="classification-note">
+          <strong>Méthode d’indexation</strong>
+          <p>
+            L’extraction repose sur la couleur verte des intitulés dans le PDF 2026. Les deux répétitions strictement identiques
+            présentes sur une même page (« Alliance » et « Fragilité ») sont affichées une seule fois. Le lien technique ouvre la
+            page PDF correspondant à la page citée moins une, conformément au décalage de pagination du document.
+          </p>
+        </div>
+
+        <div class="dictionary-search-panel">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="dictionarySearch" type="search" placeholder="Rechercher un concept ou sa traduction…" />
+          </label>
+          <select id="dictionarySort" aria-label="Ordre d’affichage">
+            <option value="alpha">Ordre alphabétique</option>
+            <option value="page">Ordre du dictionnaire</option>
+          </select>
+        </div>
+
+        <div id="alphabetFilter" class="alphabet-filter" aria-label="Filtrer par lettre"></div>
+
+        <div class="tool-row dictionary-tool-row">
+          <p><strong id="dictionaryCount">…</strong> intitulés trouvés</p>
+          <button id="dictionaryReset" type="button">Réinitialiser</button>
+          <button id="dictionaryExport" type="button">Exporter en CSV</button>
+        </div>
+
+        <div id="dictionaryList" class="dictionary-list" aria-live="polite"></div>
+        <div id="dictionaryPagination" class="pagination dictionary-pagination">
+          <button id="dictionaryPrevious" type="button">← Précédent</button>
+          <span id="dictionaryPage">Page 1 / 1</span>
+          <button id="dictionaryNext" type="button">Suivant →</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div>
+          <strong>Répertoire géographique de la diversité biologique et de la conservation</strong>
+          <p>Sélection et classification géographiques réalisées par Brahim Jaziri.</p>
+        </div>
+        <div>
+          <p>Source : Patrick Triplet, édition 2026.</p>
+          <p><a href="./apropos.html">Méthode et droits d’utilisation ↗</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

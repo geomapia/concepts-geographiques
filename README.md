@@ -2,11 +2,14 @@
 
 Site académique interactif conçu par **Brahim Jaziri**.
 
-Le site présente 1 560 notices géographiques actualisées à partir de
+Le site présente 1 561 notices spécialisées actualisées à partir de
 l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 
-- trois répertoires dédiés : concepts, indices et conventions ;
-- 1 500 concepts géographiques, 43 indices et 17 instruments internationaux ;
+- quatre espaces documentaires : concepts, index intégral, indices et conventions ;
+- un index intégral de 6 122 intitulés verts extraits du PDF 2026 ;
+- 1 500 concepts géographiques, 43 indices et 18 instruments internationaux ;
+- la Convention de Ramsar et des liens institutionnels vérifiés pour les
+  conventions, traités, chartes et déclarations ;
 - définitions et synthèses fidèlement rattachées aux pages du dictionnaire ;
 - recherche plein texte ;
 - filtres par domaine, type, pertinence, échelle et milieu ;
@@ -29,6 +32,7 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 
 - `index.html` : accueil et vue d’ensemble ;
 - `concepts.html` : concepts géographiques ;
+- `dictionnaire.html` : index intégral des intitulés verts du dictionnaire ;
 - `indices.html` : indices et indicateurs ;
 - `conventions.html` : conventions, traités et accords ;
 - `apropos.html` : objectifs, auteurs, méthode, citation et droits.
@@ -36,7 +40,7 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 
 Source principale : Patrick Triplet, *Dictionnaire encyclopédique de la
 diversité biologique et de la conservation de la nature*, édition 2026
-(6 116 définitions, 1 506 pages).
+(6 122 intitulés verts uniques indexés, 1 506 pages).
 
 Page du dictionnaire : https://laccreteil.fr/spip.php?article551
 
