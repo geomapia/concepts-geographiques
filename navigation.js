@@ -7,14 +7,6 @@
     const navigation = navShell?.querySelector("nav");
     if (!header || !navShell || !navigation) return;
 
-    if (!navigation.querySelector('a[href="./nouveautes.html"]')) {
-      const newsLink = document.createElement("a");
-      newsLink.href = "./nouveautes.html";
-      newsLink.textContent = "Nouveautés";
-      const conventionsLink = navigation.querySelector('a[href="./conventions.html"]');
-      conventionsLink?.insertAdjacentElement("afterend", newsLink);
-    }
-
     const currentPage =
       (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
     navigation.querySelectorAll("a").forEach((link) => {

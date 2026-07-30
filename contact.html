@@ -8,12 +8,12 @@
       content="Contacter le Répertoire géographique de la diversité biologique et de la conservation ou signaler une correction."
     />
     <title>Nous contacter | Répertoire géographique</title>
-    <link rel="stylesheet" href="./styles.css?v=20260730-8" />
+    <link rel="stylesheet" href="./styles.css?v=20260730-10" />
     <script src="./suggestions-config.js?v=20260730-4"></script>
-    <script src="./navigation.js?v=20260730-2" defer></script>
-    <script src="./contact.js?v=20260730-4" defer></script>
+    <script src="./navigation.js?v=20260730-3" defer></script>
+    <script src="./contact.js?v=20260730-6" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
-    <script src="./tour.js?v=20260730-2" defer></script>
+    <script src="./tour.js?v=20260730-3" defer></script>
   </head>
   <body>
     <header class="masthead">
@@ -55,6 +55,23 @@
           <div class="contact-actions">
             <button id="copyEmail" type="button">Copier l’adresse</button>
           </div>
+          <section class="newsletter-panel" aria-labelledby="newsletterTitle">
+            <span class="profile-role">Information éditoriale</span>
+            <h3 id="newsletterTitle">Recevoir les nouveautés</h3>
+            <p>Inscrivez-vous pour recevoir un courriel lorsqu’une nouvelle notice ou une traduction arabe validée est publiée.</p>
+            <form id="newsletterForm" class="newsletter-form">
+              <label>
+                Votre nom <span class="optional-label">(facultatif)</span>
+                <input id="newsletterName" name="name" type="text" autocomplete="name" />
+              </label>
+              <label>
+                Votre adresse électronique
+                <input id="newsletterEmail" name="email" type="email" autocomplete="email" required />
+              </label>
+              <button id="newsletterSubmit" type="submit">S’inscrire aux nouveautés</button>
+              <p id="newsletterStatus" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </section>
         </article>
 
         <form
@@ -133,11 +150,30 @@
               ></textarea>
             </label>
           </div>
+          <div id="translationFields" class="suggestion-form-fields" hidden>
+            <div class="suggestion-form-intro">
+              <strong>Proposition de traduction arabe</strong>
+              <p>La traduction sera examinée scientifiquement avant toute publication dans la fiche.</p>
+            </div>
+            <label>
+              Terme arabe proposé
+              <input id="arabicTerm" name="terme_traduit" type="text" lang="ar" dir="rtl" placeholder="اكتب المصطلح العربي" />
+            </label>
+            <label>
+              Définition arabe proposée <span class="optional-label">(facultatif)</span>
+              <textarea id="arabicDefinition" name="definition_traduite" lang="ar" dir="rtl" rows="5" placeholder="يمكنك اقتراح تعريف عربي للمفهوم"></textarea>
+            </label>
+            <label>
+              Justification ou source <span class="optional-label">(facultatif)</span>
+              <textarea id="translationJustification" name="justification" rows="3" placeholder="Précisez une source, un usage scientifique ou une remarque terminologique."></textarea>
+            </label>
+          </div>
           <label>
             <span id="messageLabel">Message</span>
             <textarea id="message" name="message" rows="8" required></textarea>
           </label>
           <input id="requestTypeField" name="action" type="hidden" />
+          <input id="translationLanguageField" name="langue_traduction" type="hidden" />
           <input id="noticeField" name="notice" type="hidden" />
           <input id="citedPageField" name="page_citee" type="hidden" />
           <input id="pdfPageField" name="page_pdf_ouverte" type="hidden" />

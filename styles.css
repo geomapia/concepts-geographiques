@@ -721,6 +721,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 .contact-actions a { background: var(--navy); border-color: var(--navy); color: white; }
+.newsletter-panel { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--line); }
+.newsletter-panel h3 { margin: 10px 0; color: var(--navy); font: 500 27px/1.15 Georgia, serif; }
+.newsletter-panel p { margin: 0 0 16px; }
+.newsletter-form { display: grid; gap: 13px; }
+.newsletter-form label { display: grid; gap: 7px; color: var(--navy); font-size: 11px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; }
+.newsletter-form input { width: 100%; border: 1px solid var(--line); background: var(--cream); color: var(--ink); padding: 11px 12px; font-size: 14px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.newsletter-form button { justify-self: start; border: 1px solid var(--burgundy); background: var(--burgundy); color: white; padding: 11px 13px; font-size: 11px; font-weight: 750; cursor: pointer; }
+.newsletter-form button:disabled { cursor: wait; opacity: .65; }
 .contact-form { display: grid; gap: 19px; }
 .contact-form-heading { margin-bottom: 5px; }
 .contact-form-heading > span {
@@ -820,6 +828,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .modal-badges span { border: 1px solid var(--line); padding: 6px 9px; color: var(--muted); font-size: 10px; }
 .concept-modal h3 { margin: 28px 0 9px; color: var(--navy); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
 .modal-definition { margin: 0; font: 17px/1.85 Georgia, serif; color: #36434e; }
+.notice-translation { margin: 8px 0 0; color: #5d6870; font: 13px/1.5 Georgia, serif; }
+.notice-translation-ar { color: #21455d; font-size: 15px; text-align: right; }
+.notice-actions a { border: 1px solid #c7b797; background: transparent; color: var(--navy); padding: 11px 13px; font-size: 11px; font-weight: 750; text-decoration: none; }
+.notice-actions a:hover { border-color: var(--burgundy); color: var(--burgundy); }
+.modal-translations { margin-top: 28px; padding: 19px 20px; border-left: 4px solid var(--moss); background: #f1f4ed; }
+.modal-translations h3 { margin-top: 0; }
+.modal-translations dl { display: grid; gap: 12px; margin: 0; }
+.modal-translations dl > div { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 14px; }
+.modal-translations dt { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.modal-translations dd { margin: 0; color: var(--navy); font: 16px/1.6 Georgia, serif; }
 .modal-reference { border-top: 1px solid var(--line); margin-top: 34px; padding-top: 3px; }
 .modal-reference p { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
 @media (max-width: 920px) {

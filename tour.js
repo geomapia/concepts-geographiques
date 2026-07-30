@@ -114,28 +114,6 @@
         text: "Les termes déjà documentés renvoient vers leur fiche. Les autres ouvrent leur page dans le PDF et peuvent être suggérés pour intégration.",
       },
     ],
-    "nouveautes.html": [
-      {
-        selector: ".brand",
-        title: "Dernières nouveautés",
-        text: "Cette page permet de suivre les notices ajoutées récemment au Répertoire après validation scientifique.",
-      },
-      {
-        selector: ".source-banner",
-        title: "Un suivi éditorial transparent",
-        text: "Chaque ajout affiché ici a franchi les étapes d’examen, de validation et de publication.",
-      },
-      {
-        selector: ".news-toolbar",
-        title: "Filtrer les publications",
-        text: "Affichez toutes les nouveautés ou limitez la liste aux concepts, aux indicateurs ou aux conventions.",
-      },
-      {
-        selector: "#newsList",
-        title: "Consulter les nouvelles fiches",
-        text: "Chaque nouveauté indique sa date, sa rubrique et son domaine, avec un lien permanent vers la fiche complète.",
-      },
-    ],
     "indices.html": [
       ...commonIntro,
       {
@@ -205,6 +183,11 @@
         selector: ".contact-card",
         title: "Responsable du Répertoire",
         text: "Vous pouvez copier l’adresse électronique de Brahim Jaziri ou utiliser directement le formulaire sécurisé.",
+      },
+      {
+        selector: "#newsletterForm",
+        title: "Recevoir les nouveautés",
+        text: "Inscrivez volontairement votre adresse électronique pour être informé lors de la publication d’une nouvelle notice ou d’une traduction arabe validée.",
       },
       {
         selector: "#contactForm",

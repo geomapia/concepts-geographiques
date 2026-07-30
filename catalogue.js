@@ -7,6 +7,7 @@ let concepts = [];
 let allNotices = [];
 let filtered = [];
 let currentPage = 1;
+let englishTranslations = {};
 
 const $ = (selector) => document.querySelector(selector);
 const elements = {
@@ -135,7 +136,7 @@ function applyFilters() {
     const corpus =
       `${item.concept} ${item.entree_complete || ""} ${item.definition} ` +
       `${item.domaines_thematiques?.join(" ")} ${item.concepts_associes?.join(" ")} ` +
-      `${item.fiche_specialisee?.sigles?.join(" ")}`;
+      `${item.fiche_specialisee?.sigles?.join(" ")} ${translationsFor(item).english} ${translationsFor(item).arabic}`;
     return (
       (!needle || matchesSearch(corpus, needle)) &&
       (!elements.theme?.value || item.domaines_thematiques?.includes(elements.theme.value)) &&
@@ -208,6 +209,23 @@ function officialLink(item) {
   return link.url ? link : null;
 }
 
+function translationsFor(item) {
+  const stored = item.traductions || {};
+  return {
+    english: String(stored.en?.terme || englishTranslations[normalize(item.concept)] || "").trim(),
+    arabic: String(stored.ar?.terme || "").trim(),
+    arabicDefinition: String(stored.ar?.definition || "").trim(),
+  };
+}
+
+function arabicSuggestionUrl(item) {
+  const url = new URL("./contact.html", window.location.href);
+  url.searchParams.set("translation", "ar");
+  url.searchParams.set("notice", item.concept);
+  url.searchParams.set("page", item.page_pdf || "");
+  return url.toString();
+}
+
 function render() {
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   currentPage = Math.min(currentPage, pageCount);
@@ -225,6 +243,7 @@ function render() {
         .map((value) => `<span>${escapeHtml(value)}</span>`)
         .join("");
       const official = officialLink(item);
+      const translations = translationsFor(item);
       return `
         <article class="special-notice${item.niveau_conceptuel === "Fondamental" ? " fundamental-notice" : ""}" id="${slug(item.concept)}">
           <div class="notice-topline">
@@ -232,11 +251,14 @@ function render() {
             <em>Dictionnaire p. ${item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1)}</em>
           </div>
           <h2>${escapeHtml(item.concept)}</h2>
+          ${translations.english ? `<p class="notice-translation"><strong>English:</strong> ${escapeHtml(translations.english)}</p>` : ""}
+          ${translations.arabic ? `<p class="notice-translation notice-translation-ar" lang="ar" dir="rtl"><strong>العربية:</strong> ${escapeHtml(translations.arabic)}</p>` : ""}
           <div class="notice-tags">${tags}</div>
           <p>${escapeHtml(item.definition)}</p>
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
+            <a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>
             ${official ? `<a class="official-source-link" href="${escapeHtml(official.url)}" target="_blank" rel="noreferrer">${escapeHtml(official.label || "Site officiel")} ↗</a>` : ""}
           </div>
         </article>`;
@@ -276,10 +298,32 @@ function detailRows(item) {
   return base;
 }
 
+function renderTranslations(item) {
+  let panel = $("#modalTranslations");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "modalTranslations";
+    panel.className = "modal-translations";
+    $("#modalDefinition")?.insertAdjacentElement("afterend", panel);
+  }
+  const translations = translationsFor(item);
+  const rows = [];
+  if (translations.english) rows.push(["English term", translations.english, ""]);
+  if (translations.arabic) rows.push(["المصطلح العربي", translations.arabic, 'lang="ar" dir="rtl"']);
+  if (translations.arabicDefinition) rows.push(["تعريف عربي", translations.arabicDefinition, 'lang="ar" dir="rtl"']);
+  panel.hidden = rows.length === 0;
+  panel.innerHTML = rows.length
+    ? `<h3>Traductions validées</h3><dl>${rows
+        .map(([label, value, attributes]) => `<div><dt>${escapeHtml(label)}</dt><dd ${attributes}>${escapeHtml(value)}</dd></div>`)
+        .join("")}</dl>`
+    : "";
+}
+
 function openModal(item, updateUrl = true) {
   $("#modalType").textContent = item.type_notice;
   $("#modalTitle").textContent = item.concept;
   $("#modalDefinition").textContent = item.definition;
+  renderTranslations(item);
   $("#modalDetails").innerHTML = detailRows(item)
     .map(
       ([label, value]) => `
@@ -306,6 +350,14 @@ function openModal(item, updateUrl = true) {
   correctionUrl.searchParams.set("notice", item.concept);
   correctionUrl.searchParams.set("page", item.page_pdf);
   $("#modalReport").href = correctionUrl.toString();
+  let translationLink = $("#modalArabicSuggestion");
+  if (!translationLink) {
+    translationLink = document.createElement("a");
+    translationLink.id = "modalArabicSuggestion";
+    translationLink.textContent = "Proposer une traduction arabe";
+    $("#modalReport")?.insertAdjacentElement("afterend", translationLink);
+  }
+  translationLink.href = arabicSuggestionUrl(item);
   $("#modalCopyCitation").dataset.concept = item.concept;
   $("#modalCopyLink").dataset.concept = item.concept;
   elements.modal.hidden = false;
@@ -407,8 +459,11 @@ async function copyText(value, button) {
 }
 
 function noticeText(item) {
+  const translations = translationsFor(item);
   return [
     item.concept,
+    translations.english ? `English: ${translations.english}` : "",
+    translations.arabic ? `العربية: ${translations.arabic}` : "",
     item.definition,
     `Source : ${item.source}`,
     `Page du PDF : ${item.page_pdf}`,
@@ -499,12 +554,17 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modal.hidden) closeModal();
 });
 
-fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
-  .then((response) => {
+Promise.all([
+  fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();
-  })
-  .then((data) => {
+  }),
+  fetch("./data/traductions-en.json?v=20260730-1", { cache: "no-store" })
+    .then((response) => (response.ok ? response.json() : {}))
+    .catch(() => ({})),
+])
+  .then(([data, translations]) => {
+    englishTranslations = translations.english || {};
     allNotices = data;
     concepts = data.filter((item) => !pageType || item.type_notice === pageType);
     filtered = [...concepts];

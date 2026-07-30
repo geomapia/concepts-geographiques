@@ -2,6 +2,7 @@ const recipient = "jaziribrahim@gmail.com";
 const params = new URLSearchParams(window.location.search);
 const notice = params.get("notice")?.trim() || "";
 const suggestion = params.get("suggestion")?.trim() || "";
+const translationLanguage = params.get("translation")?.trim().toLowerCase() || "";
 const page = params.get("page")?.trim() || "";
 const registryEndpoint =
   String(window.REPERTOIRE_CONFIG?.suggestionsEndpoint || "").trim();
@@ -13,9 +14,12 @@ const messageLabel = document.querySelector("#messageLabel");
 const formTitle = document.querySelector("#formTitle");
 const copyEmail = document.querySelector("#copyEmail");
 const suggestionFields = document.querySelector("#suggestionFields");
+const translationFields = document.querySelector("#translationFields");
+const arabicTerm = document.querySelector("#arabicTerm");
 const suggestionCategory = document.querySelector("#suggestionCategory");
 const suggestionJustification = document.querySelector("#suggestionJustification");
 const requestTypeField = document.querySelector("#requestTypeField");
+const translationLanguageField = document.querySelector("#translationLanguageField");
 const noticeField = document.querySelector("#noticeField");
 const citedPageField = document.querySelector("#citedPageField");
 const pdfPageField = document.querySelector("#pdfPageField");
@@ -23,8 +27,32 @@ const sourceUrlField = document.querySelector("#sourceUrlField");
 const submitContact = document.querySelector("#submitContact");
 const formStatus = document.querySelector("#formStatus");
 const formServiceNote = document.querySelector("#formServiceNote");
+const newsletterForm = document.querySelector("#newsletterForm");
+const newsletterSubmit = document.querySelector("#newsletterSubmit");
+const newsletterStatus = document.querySelector("#newsletterStatus");
 
-if (suggestion) {
+if (translationLanguage === "ar" && notice) {
+  const pdfPage = page ? Math.max(1, Number(page)) : "";
+  formTitle.textContent = "Proposer une traduction arabe";
+  subject.value = `Proposition de traduction arabe — ${notice}`;
+  requestTypeField.value = "traduction";
+  translationLanguageField.value = "ar";
+  noticeField.value = notice;
+  citedPageField.value = page ? Math.max(1, Number(page) - 1) : "";
+  pdfPageField.value = pdfPage;
+  sourceUrlField.value = page
+    ? `https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=${pdfPage}`
+    : window.location.href;
+  translationFields.hidden = false;
+  arabicTerm.required = true;
+  messageLabel.textContent = "Remarque complémentaire (facultatif)";
+  message.required = false;
+  message.rows = 4;
+  message.value = "";
+  formServiceNote.textContent = registryEndpoint
+    ? "La proposition sera enregistrée dans le registre scientifique des traductions."
+    : "La proposition sera transmise par Formspree jusqu’à l’activation du registre automatique.";
+} else if (suggestion) {
   const pdfPage = page ? Math.max(1, Number(page)) : "";
   formTitle.textContent = "Suggérer l’ajout d’un terme";
   subject.value = `Suggestion d’ajout au Répertoire — ${suggestion}`;
@@ -79,8 +107,9 @@ form.addEventListener("submit", async (event) => {
   try {
     const formData = new FormData(form);
     if (suggestion) formData.set("terme", suggestion);
+    if (translationLanguage === "ar" && notice) formData.set("terme", notice);
 
-    if (suggestion && registryEndpoint) {
+    if ((suggestion || translationLanguage === "ar") && registryEndpoint) {
       await fetch(registryEndpoint, {
         method: "POST",
         body: formData,
@@ -102,16 +131,21 @@ form.addEventListener("submit", async (event) => {
     }
 
     formStatus.classList.add("success");
-    formStatus.textContent = suggestion
+    formStatus.textContent = translationLanguage === "ar"
+      ? "Votre proposition de traduction arabe a bien été enregistrée. Elle sera examinée avant publication."
+      : suggestion
       ? "Votre suggestion a bien été enregistrée. Elle sera examinée avant toute publication."
       : "Votre message a bien été envoyé. Merci pour votre contribution.";
     form.reset();
-    subject.value = suggestion
+    subject.value = translationLanguage === "ar"
+      ? `Proposition de traduction arabe — ${notice}`
+      : suggestion
       ? `Suggestion d’ajout au Répertoire — ${suggestion}`
       : notice
         ? `Correction du Répertoire — ${notice}`
         : "Contact — Répertoire géographique";
-    requestTypeField.value = suggestion ? "suggestion" : notice ? "correction" : "contact";
+    requestTypeField.value = translationLanguage === "ar" ? "traduction" : suggestion ? "suggestion" : notice ? "correction" : "contact";
+    translationLanguageField.value = translationLanguage === "ar" ? "ar" : "";
     noticeField.value = suggestion || notice;
     citedPageField.value = page ? Math.max(1, Number(page) - 1) : "";
     pdfPageField.value = page ? Math.max(1, Number(page)) : "";
@@ -123,6 +157,10 @@ form.addEventListener("submit", async (event) => {
       suggestionFields.hidden = false;
       suggestionCategory.required = true;
       suggestionJustification.required = true;
+    }
+    if (translationLanguage === "ar") {
+      translationFields.hidden = false;
+      arabicTerm.required = true;
     }
   } catch (error) {
     formStatus.classList.add("error");
@@ -149,4 +187,31 @@ copyEmail.addEventListener("click", async () => {
   setTimeout(() => {
     copyEmail.textContent = "Copier l’adresse";
   }, 1600);
+});
+
+newsletterForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const email = newsletterForm.querySelector("#newsletterEmail")?.value.trim();
+  if (!registryEndpoint) {
+    newsletterStatus.className = "form-status error";
+    newsletterStatus.textContent = `L’inscription est momentanément indisponible. Écrivez à ${recipient}.`;
+    return;
+  }
+  newsletterSubmit.disabled = true;
+  newsletterSubmit.textContent = "Inscription…";
+  newsletterStatus.className = "form-status";
+  try {
+    const data = new FormData(newsletterForm);
+    data.set("action", "abonnement");
+    await fetch(registryEndpoint, { method: "POST", body: data, mode: "no-cors", redirect: "follow" });
+    newsletterStatus.className = "form-status success";
+    newsletterStatus.textContent = `Votre adresse ${email} est enregistrée. Vous recevrez les prochaines nouveautés.`;
+    newsletterForm.reset();
+  } catch (error) {
+    newsletterStatus.className = "form-status error";
+    newsletterStatus.textContent = `L’inscription a échoué. Réessayez ou écrivez à ${recipient}.`;
+  } finally {
+    newsletterSubmit.disabled = false;
+    newsletterSubmit.textContent = "S’inscrire aux nouveautés";
+  }
 });

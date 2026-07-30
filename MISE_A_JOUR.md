@@ -1,9 +1,23 @@
-# Mise à jour du Répertoire 2026.13
+# Mise à jour du Répertoire 2026.15
 
 Cette version ajoute :
 
-- le positionnement de « Nouveautés » entre « Conventions » et « À propos »
-  dans la barre de navigation ;
+- la suppression de la page et du lien de menu « Nouveautés » ;
+- une rubrique « Recevoir les nouveautés » intégrée à la page « Nous
+  contacter » ;
+- une feuille Google Sheets « Abonnés », une confirmation d’inscription et un
+  envoi automatique aux abonnés actifs lorsqu’une notice ou une traduction
+  arabe est publiée ;
+- 1 452 traductions anglaises extraites des intitulés bilingues du dictionnaire
+  source ; elles apparaissent dans les cartes, les fiches et la recherche ;
+- l’affichage des traductions arabes uniquement après validation éditoriale ;
+- un bouton « Proposer une traduction arabe » sur chaque notice ;
+- un formulaire participatif acceptant un terme arabe obligatoire et une
+  définition arabe facultative, accompagnée d’une justification ou d’une
+  source facultative ;
+- une feuille Google Sheets « Traductions », des courriels de réception et de
+  décision, et la publication automatique de la traduction validée dans la
+  fiche concernée ;
 - une section « Ressources géographiques complémentaires » dans la page
   « À propos », sans créer de rubrique supplémentaire dans le menu ;
 - cinq dictionnaires de référence et quatre ressources gratuites en ligne,
@@ -15,8 +29,6 @@ Cette version ajoute :
   dictionnaire de Patrick Triplet reste l’unique source des définitions du
   Répertoire ;
 - un menu mobile complet donnant accès à toutes les rubriques ;
-- une page « Nouveautés » mise à jour automatiquement à partir de la date de
-  validation des notices ;
 - une recherche tolérante aux accents, parenthèses, pluriels et petites erreurs
   de saisie ;
 - des concepts associés cliquables et, en l’absence d’association explicite,
@@ -125,11 +137,11 @@ Cette version ajoute :
 ## Publication sur GitHub
 
 Décompresser l’archive, puis téléverser tous les fichiers à la racine du dépôt
-GitHub du Répertoire. Cette archive ne contient pas le dossier `data` : ne pas
-remplacer les données déjà publiées.
+GitHub du Répertoire. L’archive contient uniquement le nouveau fichier
+`data/traductions-en.json` : ne remplacez pas `data/concepts.json`.
 
 Valider avec le message de commit :
 
-`Ressources géographiques complémentaires — version 2026.13`
+`Abonnement aux nouveautés — version 2026.15`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

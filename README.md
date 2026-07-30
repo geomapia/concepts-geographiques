@@ -17,8 +17,8 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - une visite guidée interactive, contextuelle à chaque page, affichée lors de
   la première consultation et relançable depuis l’en-tête ;
 - un menu mobile complet ;
-- une page « Nouveautés » alimentée automatiquement par les publications
-  validées ;
+- une inscription volontaire aux nouveautés par courriel, avec diffusion
+  automatique lors d’une publication ;
 - une recherche tolérante aux accents, parenthèses, pluriels et petites fautes
   de saisie ;
 - des liens vers les concepts explicitement associés ou, à défaut, vers les
@@ -61,7 +61,8 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - `conventions.html` : conventions, traités et accords ;
 - `apropos.html` : objectifs, auteurs, méthode, citation et droits.
 - `contact.html` : contact direct et signalement des corrections via Gmail.
-- `nouveautes.html` : dernières notices validées et publiées ;
+- `data/traductions-en.json` : traductions anglaises extraites des intitulés
+  bilingues du dictionnaire source ;
 - `navigation.js` : navigation principale et menu mobile ;
 - `analytics.js` : statistiques agrégées respectueuses de la vie privée ;
 - `tour.js` : visite guidée interactive et mémorisation de la première
