@@ -8,6 +8,7 @@ let allNotices = [];
 let filtered = [];
 let currentPage = 1;
 let englishTranslations = {};
+let arabicTranslations = {};
 
 const $ = (selector) => document.querySelector(selector);
 const elements = {
@@ -211,10 +212,13 @@ function officialLink(item) {
 
 function translationsFor(item) {
   const stored = item.traductions || {};
+  const isConcept = item.type_notice === "Concept géographique";
   return {
     english: String(stored.en?.terme || englishTranslations[normalize(item.concept)] || "").trim(),
-    arabic: String(stored.ar?.terme || "").trim(),
-    arabicDefinition: String(stored.ar?.definition || "").trim(),
+    arabic: isConcept
+      ? String(stored.ar?.terme || arabicTranslations[normalize(item.concept)] || "").trim()
+      : "",
+    arabicDefinition: isConcept ? String(stored.ar?.definition || "").trim() : "",
   };
 }
 
@@ -258,7 +262,7 @@ function render() {
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
-            <a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>
+            ${item.type_notice === "Concept géographique" ? `<a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>` : ""}
             ${official ? `<a class="official-source-link" href="${escapeHtml(official.url)}" target="_blank" rel="noreferrer">${escapeHtml(official.label || "Site officiel")} ↗</a>` : ""}
           </div>
         </article>`;
@@ -562,9 +566,13 @@ Promise.all([
   fetch("./data/traductions-en.json?v=20260730-1", { cache: "no-store" })
     .then((response) => (response.ok ? response.json() : {}))
     .catch(() => ({})),
+  fetch("./data/traductions-ar.json?v=20260730-1", { cache: "no-store" })
+    .then((response) => (response.ok ? response.json() : {}))
+    .catch(() => ({})),
 ])
-  .then(([data, translations]) => {
+  .then(([data, translations, translationsAr]) => {
     englishTranslations = translations.english || {};
+    arabicTranslations = translationsAr.arabic || {};
     allNotices = data;
     concepts = data.filter((item) => !pageType || item.type_notice === pageType);
     filtered = [...concepts];

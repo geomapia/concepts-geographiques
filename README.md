@@ -19,6 +19,8 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - un menu mobile complet ;
 - une inscription volontaire aux nouveautés par courriel, avec diffusion
   automatique lors d’une publication ;
+- des traductions arabes validées réservées aux concepts géographiques, avec
+  proposition participative et validation éditoriale ;
 - une recherche tolérante aux accents, parenthèses, pluriels et petites fautes
   de saisie ;
 - des liens vers les concepts explicitement associés ou, à défaut, vers les
@@ -63,6 +65,8 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - `contact.html` : contact direct et signalement des corrections via Gmail.
 - `data/traductions-en.json` : traductions anglaises extraites des intitulés
   bilingues du dictionnaire source ;
+- `data/traductions-ar.json` : premier corpus de traductions arabes validées
+  pour les concepts fondamentaux ;
 - `navigation.js` : navigation principale et menu mobile ;
 - `analytics.js` : statistiques agrégées respectueuses de la vie privée ;
 - `tour.js` : visite guidée interactive et mémorisation de la première

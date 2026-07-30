@@ -1,7 +1,12 @@
-# Mise à jour du Répertoire 2026.15
+# Mise à jour du Répertoire 2026.16
 
 Cette version ajoute :
 
+- un premier corpus de 42 traductions arabes validées pour les concepts
+  fondamentaux ; les indices et les conventions restent volontairement exclus ;
+- un champ facultatif « Traduction arabe suggérée » dans le formulaire de
+  proposition d’un nouveau terme ; lorsqu’il est validé avec la notice, il est
+  publié dans la fiche comme traduction arabe ;
 - la suppression de la page et du lien de menu « Nouveautés » ;
 - une rubrique « Recevoir les nouveautés » intégrée à la page « Nous
   contacter » ;
@@ -142,6 +147,6 @@ GitHub du Répertoire. L’archive contient uniquement le nouveau fichier
 
 Valider avec le message de commit :
 
-`Abonnement aux nouveautés — version 2026.15`
+`Traductions arabes des concepts — version 2026.16`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.
