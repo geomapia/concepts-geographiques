@@ -26124,6 +26124,15 @@
       "identifiant_suggestion": "SUG-20260730-181446-558",
       "date_validation": "2026-07-30",
       "responsable": "Brahim Jaziri"
+    },
+    "traductions": {
+      "ar": {
+        "terme": "النينو",
+        "definition": "",
+        "source": "Proposition validée par Brahim Jaziri.",
+        "date_validation": "2026-07-30",
+        "responsable": "Brahim Jaziri"
+      }
     }
   }
 ]
