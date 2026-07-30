@@ -8,6 +8,7 @@
   --line: #d7d0c3;
   --muted: #68727d;
   --green: #52623b;
+  --sans: "Inter", "Segoe UI", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -888,4 +889,173 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+}
+
+/* Visite guidée interactive */
+.tour-launcher {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--navy);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font: 700 11px/1 var(--sans);
+  gap: 7px;
+  letter-spacing: .02em;
+  margin-left: 14px;
+  min-height: 38px;
+  padding: 0 12px;
+}
+.tour-launcher:hover,
+.tour-launcher:focus-visible {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+  outline: none;
+}
+.tour-launcher > span:first-child {
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: inline-flex;
+  font-size: 10px;
+  height: 18px;
+  justify-content: center;
+  width: 18px;
+}
+.tour-open { overscroll-behavior: none; }
+.tour-overlay {
+  background: transparent;
+  inset: 0;
+  position: fixed;
+  z-index: 9998;
+}
+.tour-spotlight {
+  border: 2px solid #f0c96b;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 9999px rgba(8, 25, 42, .78),
+    0 0 0 5px rgba(240, 201, 107, .22);
+  pointer-events: none;
+  position: fixed;
+  transition: inset .28s ease, width .28s ease, height .28s ease;
+  z-index: 9999;
+}
+.tour-tooltip {
+  background: #fbf8f2;
+  border-left: 5px solid var(--burgundy);
+  box-shadow: 0 18px 65px rgba(3, 18, 31, .35);
+  color: var(--navy);
+  display: none;
+  max-width: min(430px, calc(100vw - 28px));
+  padding: 24px 25px 22px;
+  position: fixed;
+  width: 430px;
+  z-index: 10000;
+}
+.tour-tooltip-top {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.tour-kicker {
+  color: var(--burgundy);
+  font: 800 10px/1 var(--sans);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.tour-close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  font: 400 25px/1 var(--sans);
+  height: 30px;
+  justify-content: center;
+  padding: 0;
+  width: 30px;
+}
+.tour-progress {
+  color: var(--muted);
+  font: 700 11px/1.3 var(--sans);
+  margin: 11px 0 8px;
+}
+.tour-tooltip h2 {
+  font-size: 27px;
+  line-height: 1.12;
+  margin: 0 0 11px;
+}
+.tour-description {
+  color: #435367;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+}
+.tour-actions {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 17px;
+}
+.tour-actions > div { display: flex; gap: 8px; }
+.tour-actions button {
+  background: #fff;
+  border: 1px solid #bba98c;
+  color: var(--navy);
+  cursor: pointer;
+  font: 700 11px/1 var(--sans);
+  min-height: 38px;
+  padding: 0 13px;
+}
+.tour-actions .tour-next {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+  color: #fff;
+}
+.tour-actions .tour-skip {
+  background: transparent;
+  border-color: transparent;
+  color: var(--muted);
+  padding-inline: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tour-actions button:hover,
+.tour-actions button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(139, 46, 63, .16);
+  outline: none;
+}
+.tour-actions button:disabled {
+  cursor: not-allowed;
+  opacity: .38;
+}
+
+@media (max-width: 1120px) {
+  .tour-launcher > span:last-child { display: none; }
+  .tour-launcher { margin-left: auto; padding-inline: 9px; }
+}
+
+@media (max-width: 620px) {
+  .tour-launcher { min-height: 36px; }
+  .tour-tooltip {
+    border-left-width: 4px;
+    bottom: 10px !important;
+    left: 10px !important;
+    max-height: min(62vh, 520px);
+    overflow-y: auto;
+    padding: 20px 18px 17px;
+    top: auto !important;
+    width: calc(100vw - 20px);
+  }
+  .tour-tooltip h2 { font-size: 23px; }
+  .tour-description { font-size: 14px; line-height: 1.55; }
+  .tour-actions { align-items: stretch; flex-direction: column-reverse; }
+  .tour-actions > div { display: grid; grid-template-columns: 1fr 1fr; }
+  .tour-actions button { width: 100%; }
 }

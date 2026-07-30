@@ -1,7 +1,31 @@
-# Mise à jour du Répertoire 2026.8
+# Mise à jour du Répertoire 2026.10
 
 Cette version ajoute :
 
+- une visite guidée interactive adaptée à chaque page du Répertoire ;
+- un affichage automatique lors de la première consultation, mémorisé dans le
+  navigateur ;
+- un bouton permanent « Visite guidée » permettant de relancer librement la
+  présentation ;
+- les commandes « Précédent », « Suivant », « Passer la visite » et
+  « Terminer », ainsi que les raccourcis clavier gauche, droite et Échap ;
+- une mise en évidence progressive de la source, des rubriques, des outils de
+  recherche, des fiches, des auteurs et du formulaire de contribution ;
+- une présentation responsive adaptée aux ordinateurs et aux téléphones ;
+- un accusé de réception envoyé automatiquement au contributeur ;
+- un courriel de résultat envoyé après publication, demande de complément ou
+  rejet de la proposition ;
+- la publication automatique d’une notice complète dès que son statut devient
+  « Validé » dans Google Sheets ;
+- l’ajout de la nouvelle notice dans `data/concepts.json` par l’API GitHub ;
+- le passage automatique au statut « Publié », avec date, commentaire de
+  publication et lien vers la fiche ;
+- le retour au statut « À compléter » si la définition, le domaine, la rubrique
+  ou la pagination n’est pas renseigné ;
+- la mise à jour dynamique des compteurs de concepts, indices, conventions et
+  notices spécialisées après chaque publication ;
+- un jeton GitHub limité au dépôt, conservé dans les propriétés privées
+  d’Apps Script et jamais exposé dans le site ;
 - un registre Google Sheets structuré pour examiner les propositions
   terminologiques ;
 - une collecte automatique active des suggestions par Google Apps Script,
@@ -81,6 +105,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Préparer l’automatisation des suggestions — version 2026.8`
+`Ajouter la visite guidée interactive — version 2026.10`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

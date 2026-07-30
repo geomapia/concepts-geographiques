@@ -8,8 +8,9 @@
       content="Répertoire géographique de 1 500 concepts sur la diversité biologique et la conservation, complétés par 43 indices, 18 instruments internationaux et l’index intégral des 6 122 entrées du dictionnaire de Patrick Triplet."
     />
     <title>Répertoire géographique de la diversité biologique et de la conservation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260730-3" />
-    <script src="./app.js?v=20260730-3" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20260730-6" />
+    <script src="./app.js?v=20260730-5" defer></script>
+    <script src="./tour.js?v=20260730-1" defer></script>
   </head>
   <body>
     <main>
@@ -60,8 +61,9 @@
             <p class="eyebrow">Ressource scientifique</p>
             <h1>Répertoire géographique de la diversité biologique et de la conservation</h1>
             <p class="hero-subtitle">
-              Un répertoire dynamique de 1 500 concepts géographiques,
-              complétés par 43 indices et 18 instruments internationaux,
+              Un répertoire dynamique de <span id="heroConceptCountText">1 500</span> concepts géographiques,
+              complétés par <span id="overviewIndicatorCount">43</span> indices et
+              <span id="overviewConventionCount">18</span> instruments internationaux,
               actualisé à partir de l’édition 2026.
             </p>
             <a class="primary-button" href="./concepts.html">
@@ -95,7 +97,7 @@
           <a href="./concepts.html">
             <span>01</span>
             <strong>Concepts géographiques</strong>
-            <em>1 500 concepts · 42 fondamentaux</em>
+            <em><span id="portalConceptCount">1 500</span> concepts · 42 fondamentaux</em>
             <p>Concepts majeurs, domaines, milieux, échelles, relations et citations.</p>
           </a>
           <a href="./dictionnaire.html">
@@ -107,13 +109,13 @@
           <a href="./indices.html">
             <span>03</span>
             <strong>Indices et indicateurs</strong>
-            <em>43 notices</em>
+            <em><span id="portalIndicatorCount">43</span> notices</em>
             <p>Sigles, formules mentionnées, unités et interprétation.</p>
           </a>
           <a href="./conventions.html">
             <span>04</span>
             <strong>Conventions et traités</strong>
-            <em>18 instruments</em>
+            <em><span id="portalConventionCount">18</span> instruments</em>
             <p>Types, dates, organismes et portée géographique.</p>
           </a>
         </div>
@@ -131,9 +133,11 @@
           </div>
           <p>
             Les 6 122 intitulés verts de l’édition 2026 ont été indexés. Le
-            Répertoire rassemble désormais 1 500 concepts géographiques,
-            dont 42 concepts fondamentaux, ainsi que 43 indices et
-            18 conventions, traités ou accords internationaux.
+            Répertoire rassemble désormais <span id="overviewConceptCount">1 500</span>
+            concepts géographiques, dont 42 concepts fondamentaux, ainsi que
+            <span id="overviewIndicatorCountText">43</span> indices et
+            <span id="overviewConventionCountText">18</span> conventions,
+            traités ou accords internationaux.
           </p>
         </div>
 

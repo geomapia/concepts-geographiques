@@ -12,6 +12,14 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - un formulaire permettant de suggérer l’ajout d’un terme absent ;
 - un registre Google Sheets de validation scientifique, alimenté
   automatiquement par le formulaire grâce à l’application Web Apps Script ;
+- une publication automatique vers GitHub lorsque la notice complète reçoit
+  le statut « Validé » ;
+- une visite guidée interactive, contextuelle à chaque page, affichée lors de
+  la première consultation et relançable depuis l’en-tête ;
+- des courriels automatiques adressés au contributeur lors de la réception de
+  sa suggestion puis après la décision éditoriale ;
+- un contrôle préalable des champs obligatoires, avec retour automatique au
+  statut « À compléter » lorsqu’une information manque ;
 - 1 500 concepts géographiques, 43 indices et 18 instruments internationaux ;
 - la Convention de Ramsar et des liens institutionnels vérifiés pour les
   conventions, traités, chartes et déclarations ;
@@ -42,10 +50,12 @@ l’édition 2026 du dictionnaire encyclopédique de Patrick Triplet, avec :
 - `conventions.html` : conventions, traités et accords ;
 - `apropos.html` : objectifs, auteurs, méthode, citation et droits.
 - `contact.html` : contact direct et signalement des corrections via Gmail.
+- `tour.js` : visite guidée interactive et mémorisation de la première
+  consultation dans le navigateur ;
 - `suggestions-config.js` : URL de l’application Web Apps Script chargée
   d’enregistrer les suggestions ;
 - `automation-google-sheets/` : script de collecte, manifeste et instructions
-  d’installation du registre.
+  d’installation du registre et de la publication GitHub.
 
 Source principale : Patrick Triplet, *Dictionnaire encyclopédique de la
 diversité biologique et de la conservation de la nature*, édition 2026
