@@ -1,7 +1,19 @@
-# Mise à jour du Répertoire 2026.7
+# Mise à jour du Répertoire 2026.8
 
 Cette version ajoute :
 
+- un registre Google Sheets structuré pour examiner les propositions
+  terminologiques ;
+- une collecte automatique active des suggestions par Google Apps Script,
+  grâce à l’URL de déploiement renseignée dans `suggestions-config.js` ;
+- des champs scientifiques complémentaires dans le formulaire : rubrique,
+  domaine, justification et définition proposée ;
+- un contrôle des doublons et l’attribution automatique d’un identifiant à
+  chaque proposition ;
+- un courriel d’alerte envoyé à `jaziribrahim@gmail.com` lors de chaque nouvelle
+  suggestion ;
+- un statut initial « À examiner » garantissant qu’aucun terme n’est publié
+  sans validation scientifique ;
 - l’ouverture directe de la page PDF qui contient réellement le terme :
   page technique du fichier = page imprimée du dictionnaire + 1 ;
 - dans l’index intégral, un lien automatique vers la fiche correspondante
@@ -69,6 +81,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Publier le Répertoire 2026.7`
+`Préparer l’automatisation des suggestions — version 2026.8`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.
