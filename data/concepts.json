@@ -26098,5 +26098,32 @@
     ],
     "lien_source_pdf": "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=1479",
     "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 1479. Sélection et classification géographiques réalisées par Brahim Jaziri."
+  },
+  {
+    "concept": "(El) Niño",
+    "entree_complete": "(El) Niño",
+    "domaine_principal": "Climatologie et changements climatiques",
+    "domaines_associes": "Climatologie et changements climatiques",
+    "pertinence": "Interdisciplinaire",
+    "definition": "À l’origine, le mot désigne un courant côtier, saisonnier et chaud, circulant au large de Pérou et\r\nde l’Équateur. Par extension, il désigne les conditions anormalement chaudes de l’océan qui\r\naffectent certaines années les côtes occidentales de l’Amérique latine, généralement à la période\r\nde Noël. Cet événement est accompagné de changements profonds dans l’abondance et la\r\ndistribution des espèces, avec des pluies locales très élevées conduisant à des inondations, des\r\nmortalités massives de poissons et de leurs prédateurs, incluant les oiseaux. D’autres anomalies\r\nclimatiques autour du monde (sécheresses, inondations, feux de forêts) sont attribuées aux\r\nconséquences d’El Niño.",
+    "page_pdf": 1030,
+    "source": "Patrick Triplet, Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, édition 2026",
+    "type_notice": "Concept géographique",
+    "domaines_thematiques": [
+      "Climatologie et changements climatiques"
+    ],
+    "echelles_explicites": [],
+    "milieux_explicites": [],
+    "lien_source_pdf": "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=1030",
+    "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 1029. Sélection et classification géographiques réalisées par Brahim Jaziri.",
+    "niveau_conceptuel": "Complémentaire",
+    "concepts_associes": [],
+    "page_dictionnaire": 1029,
+    "page_ouverte": 1030,
+    "validation_editoriale": {
+      "identifiant_suggestion": "SUG-20260730-181446-558",
+      "date_validation": "2026-07-30",
+      "responsable": "Brahim Jaziri"
+    }
   }
 ]
