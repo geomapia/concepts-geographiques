@@ -1,4 +1,4 @@
-# Répertoire géographique de la biodiversité et de la conservation
+# Répertoire géographique de la diversité biologique et de la conservation
 
 Site académique interactif conçu par **Brahim Jaziri**.
 

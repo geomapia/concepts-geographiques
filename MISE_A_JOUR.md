@@ -24,8 +24,9 @@ Cette version ajoute :
   d’erreur et l’adresse de contact en solution de repli ;
 - un chargement sans cache du fichier de données afin que GitHub Pages affiche
   immédiatement la version mise à jour ;
-- le nouveau titre « Répertoire géographique de la biodiversité et de la
-  conservation » dans toutes les pages et références ;
+- le titre « Répertoire géographique de la diversité biologique et de la
+  conservation » dans toutes les pages et références, conformément au souhait
+  exprimé par Patrick Triplet ;
 - huit concepts fondamentaux supplémentaires issus du dictionnaire 2026 ;
 - un bouton « Copier » sur chaque fiche, avec le concept, sa définition, sa
   source et la page correspondante ;

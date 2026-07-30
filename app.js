@@ -5,6 +5,7 @@ const colors = [
 ];
 
 let concepts = [];
+let totalNotices = 0;
 
 function escapeHtml(value) {
   return String(value)
@@ -22,7 +23,7 @@ function renderOverview() {
   const central = concepts.filter((item) => item.pertinence === "Central").length;
   const interdisciplinary = concepts.length - central;
   const centralShare = concepts.length ? (central / concepts.length) * 100 : 0;
-  document.querySelector("#totalConcepts").textContent = concepts.length.toLocaleString("fr-FR");
+  document.querySelector("#totalConcepts").textContent = totalNotices.toLocaleString("fr-FR");
   document.querySelector("#heroTotal").textContent = concepts.length.toLocaleString("fr-FR");
   document.querySelector("#chartTotal").textContent = `n = ${concepts.length.toLocaleString("fr-FR")}`;
   document.querySelector("#totalDomains").textContent = domains.length.toLocaleString("fr-FR");
@@ -55,13 +56,14 @@ function renderOverview() {
 
 }
 
-fetch("./data/concepts.json?v=20260729-10", { cache: "no-store" })
+fetch("./data/concepts.json?v=20260730-1", { cache: "no-store" })
   .then((response) => {
     if (!response.ok) throw new Error("Impossible de charger les concepts.");
     return response.json();
   })
   .then((data) => {
-    concepts = data;
+    totalNotices = data.length;
+    concepts = data.filter((item) => item.type_notice === "Concept géographique");
     renderOverview();
   })
   .catch(() => {
