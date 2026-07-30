@@ -22,7 +22,63 @@ function normalize(value) {
   return String(value || "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’'(){}\[\],.;:!?/\\_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
     .toLowerCase();
+}
+
+function simplifiedToken(value) {
+  if (value.length <= 4) return value;
+  if (value.endsWith("aux")) return `${value.slice(0, -3)}al`;
+  if (value.endsWith("es")) return value.slice(0, -2);
+  if (value.endsWith("s") || value.endsWith("x")) return value.slice(0, -1);
+  return value;
+}
+
+function differsByAtMostOne(a, b) {
+  if (a === b) return true;
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let left = 0;
+  let right = 0;
+  let differences = 0;
+  while (left < a.length && right < b.length) {
+    if (a[left] === b[right]) {
+      left += 1;
+      right += 1;
+      continue;
+    }
+    differences += 1;
+    if (differences > 1) return false;
+    if (a.length > b.length) left += 1;
+    else if (b.length > a.length) right += 1;
+    else {
+      left += 1;
+      right += 1;
+    }
+  }
+  return true;
+}
+
+function matchesSearch(corpus, query) {
+  const normalizedCorpus = normalize(corpus);
+  const normalizedQuery = normalize(query);
+  if (!normalizedQuery || normalizedCorpus.includes(normalizedQuery)) return true;
+  const corpusTokens = normalizedCorpus.split(" ").filter(Boolean);
+  return normalizedQuery
+    .split(" ")
+    .filter(Boolean)
+    .every((queryToken) => {
+      const simpleQuery = simplifiedToken(queryToken);
+      return corpusTokens.some((corpusToken) => {
+        const simpleCorpus = simplifiedToken(corpusToken);
+        return (
+          corpusToken.startsWith(queryToken) ||
+          simpleCorpus === simpleQuery ||
+          (queryToken.length >= 5 && differsByAtMostOne(queryToken, corpusToken))
+        );
+      });
+    });
 }
 
 function escapeHtml(value) {
@@ -100,7 +156,7 @@ function applyFilters() {
     (entry) =>
       (!currentLetter || entry.initiale === currentLetter) &&
       (!needle ||
-        normalize(`${entry.concept} ${entry.entree_complete}`).includes(needle)),
+        matchesSearch(`${entry.concept} ${entry.entree_complete}`, needle)),
   );
 
   if (sort.value === "page") {
@@ -116,6 +172,13 @@ function applyFilters() {
   }
   currentPage = 1;
   render();
+  if (needle && filteredEntries.length === 0) {
+    document.dispatchEvent(
+      new CustomEvent("repertoire:search-no-result", {
+        detail: { query: search.value.trim() },
+      }),
+    );
+  }
 }
 
 function render() {
@@ -272,6 +335,8 @@ Promise.all([
     document.querySelector("#dictionaryTotal").textContent =
       entries.length.toLocaleString("fr-FR");
     renderAlphabet();
+    const requestedSearch = new URLSearchParams(window.location.search).get("recherche");
+    if (requestedSearch) search.value = requestedSearch;
     applyFilters();
   })
   .catch((error) => {

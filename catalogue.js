@@ -4,6 +4,7 @@ const sourcePdf =
 
 const pageType = document.body.dataset.noticeType || "";
 let concepts = [];
+let allNotices = [];
 let filtered = [];
 let currentPage = 1;
 
@@ -32,7 +33,64 @@ function normalize(value) {
   return String(value || "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’'(){}\[\],.;:!?/\\_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
     .toLowerCase();
+}
+
+function simplifiedToken(value) {
+  if (value.length <= 4) return value;
+  if (value.endsWith("aux")) return `${value.slice(0, -3)}al`;
+  if (value.endsWith("es")) return value.slice(0, -2);
+  if (value.endsWith("s") || value.endsWith("x")) return value.slice(0, -1);
+  return value;
+}
+
+function differsByAtMostOne(a, b) {
+  if (a === b) return true;
+  if (Math.abs(a.length - b.length) > 1) return false;
+  let left = 0;
+  let right = 0;
+  let differences = 0;
+  while (left < a.length && right < b.length) {
+    if (a[left] === b[right]) {
+      left += 1;
+      right += 1;
+      continue;
+    }
+    differences += 1;
+    if (differences > 1) return false;
+    if (a.length > b.length) left += 1;
+    else if (b.length > a.length) right += 1;
+    else {
+      left += 1;
+      right += 1;
+    }
+  }
+  return true;
+}
+
+function matchesSearch(corpus, query) {
+  const normalizedCorpus = normalize(corpus);
+  const normalizedQuery = normalize(query);
+  if (!normalizedQuery || normalizedCorpus.includes(normalizedQuery)) return true;
+
+  const corpusTokens = normalizedCorpus.split(" ").filter(Boolean);
+  return normalizedQuery
+    .split(" ")
+    .filter(Boolean)
+    .every((queryToken) => {
+      const simpleQuery = simplifiedToken(queryToken);
+      return corpusTokens.some((corpusToken) => {
+        const simpleCorpus = simplifiedToken(corpusToken);
+        return (
+          corpusToken.startsWith(queryToken) ||
+          simpleCorpus === simpleQuery ||
+          (queryToken.length >= 5 && differsByAtMostOne(queryToken, corpusToken))
+        );
+      });
+    });
 }
 
 function escapeHtml(value) {
@@ -74,11 +132,12 @@ function initializeFilters() {
 function applyFilters() {
   const needle = normalize(elements.search?.value.trim());
   filtered = concepts.filter((item) => {
-    const corpus = normalize(
-      `${item.concept} ${item.definition} ${item.domaines_thematiques?.join(" ")} ${item.fiche_specialisee?.sigles?.join(" ")}`,
-    );
+    const corpus =
+      `${item.concept} ${item.entree_complete || ""} ${item.definition} ` +
+      `${item.domaines_thematiques?.join(" ")} ${item.concepts_associes?.join(" ")} ` +
+      `${item.fiche_specialisee?.sigles?.join(" ")}`;
     return (
-      (!needle || corpus.includes(needle)) &&
+      (!needle || matchesSearch(corpus, needle)) &&
       (!elements.theme?.value || item.domaines_thematiques?.includes(elements.theme.value)) &&
       (!elements.scale?.value || item.echelles_explicites?.includes(elements.scale.value)) &&
       (!elements.milieu?.value || item.milieux_explicites?.includes(elements.milieu.value)) &&
@@ -106,6 +165,13 @@ function applyFilters() {
 
   currentPage = 1;
   render();
+  if (needle && filtered.length === 0) {
+    document.dispatchEvent(
+      new CustomEvent("repertoire:search-no-result", {
+        detail: { query: elements.search?.value.trim() || "" },
+      }),
+    );
+  }
 }
 
 function metadata(item) {
@@ -187,7 +253,6 @@ function detailRows(item) {
     ["Milieux explicitement mentionnés", item.milieux_explicites?.join(" · ")],
     ["Pertinence géographique", item.pertinence],
     ["Niveau conceptuel", item.niveau_conceptuel || "Non précisé"],
-    ["Concepts associés", item.concepts_associes?.join(" · ") || "Non renseignés"],
   ];
 
   if (item.type_notice === "Indice ou indicateur") {
@@ -221,6 +286,7 @@ function openModal(item, updateUrl = true) {
         <div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value || "Non précisé")}</dd></div>`,
     )
     .join("");
+  renderRelatedConcepts(item);
   $("#modalCitation").textContent = item.citation;
   const sourcePage = Math.max(1, Number(item.page_pdf));
   // Le numéro technique du PDF est supérieur d’une unité au numéro imprimé.
@@ -249,6 +315,67 @@ function openModal(item, updateUrl = true) {
     url.searchParams.set("notice", item.concept);
     history.replaceState({}, "", url);
   }
+}
+
+function noticeTarget(item) {
+  if (item.type_notice === "Indice ou indicateur") return "./indices.html";
+  if (item.type_notice === "Convention, traité ou accord") return "./conventions.html";
+  return "./concepts.html";
+}
+
+function renderRelatedConcepts(item) {
+  let panel = $("#modalRelatedConcepts");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "modalRelatedConcepts";
+    panel.className = "modal-related-concepts";
+    const reference = elements.modal.querySelector(".modal-reference");
+    reference?.insertAdjacentElement("beforebegin", panel);
+  }
+
+  const explicitRelated = [...new Set(item.concepts_associes || [])].filter(Boolean);
+  const sameDomain = allNotices
+    .filter(
+      (candidate) =>
+        normalize(candidate.concept) !== normalize(item.concept) &&
+        candidate.type_notice === item.type_notice &&
+        (
+          candidate.domaine_principal === item.domaine_principal ||
+          candidate.domaines_thematiques?.some((domain) =>
+            item.domaines_thematiques?.includes(domain),
+          )
+        ),
+    )
+    .sort(
+      (a, b) =>
+        Number(b.niveau_conceptuel === "Fondamental") -
+          Number(a.niveau_conceptuel === "Fondamental") ||
+        a.concept.localeCompare(b.concept, "fr"),
+    )
+    .slice(0, 6)
+    .map((candidate) => candidate.concept);
+  const related = explicitRelated.length ? explicitRelated : sameDomain;
+  panel.hidden = related.length === 0;
+  if (!related.length) {
+    panel.innerHTML = "";
+    return;
+  }
+
+  panel.innerHTML = `
+    <h3>${explicitRelated.length ? "Concepts associés" : "Notices du même domaine"}</h3>
+    <div>
+      ${related
+        .map((name) => {
+          const target = allNotices.find(
+            (candidate) => normalize(candidate.concept) === normalize(name),
+          );
+          if (!target) return `<span>${escapeHtml(name)}</span>`;
+          const url = new URL(noticeTarget(target), window.location.href);
+          url.searchParams.set("notice", target.concept);
+          return `<a href="${escapeHtml(url.toString())}">${escapeHtml(name)} ↗</a>`;
+        })
+        .join("")}
+    </div>`;
 }
 
 function closeModal() {
@@ -378,6 +505,7 @@ fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
     return response.json();
   })
   .then((data) => {
+    allNotices = data;
     concepts = data.filter((item) => !pageType || item.type_notice === pageType);
     filtered = [...concepts];
     $("#catalogueTotal").textContent = concepts.length.toLocaleString("fr-FR");

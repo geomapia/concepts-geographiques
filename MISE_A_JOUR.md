@@ -1,7 +1,19 @@
-# Mise à jour du Répertoire 2026.10
+# Mise à jour du Répertoire 2026.11
 
 Cette version ajoute :
 
+- un menu mobile complet donnant accès à toutes les rubriques ;
+- une page « Nouveautés » mise à jour automatiquement à partir de la date de
+  validation des notices ;
+- une recherche tolérante aux accents, parenthèses, pluriels et petites erreurs
+  de saisie ;
+- des concepts associés cliquables et, en l’absence d’association explicite,
+  des suggestions de notices appartenant au même domaine ;
+- une sauvegarde hebdomadaire du corpus dans Google Drive, avec conservation
+  glissante de 120 jours ;
+- une alerte avant l’expiration du jeton GitHub ;
+- une feuille de statistiques agrégées comptabilisant les pages consultées et
+  les recherches sans résultat, sans identifiant personnel ;
 - une visite guidée interactive adaptée à chaque page du Répertoire ;
 - un affichage automatique lors de la première consultation, mémorisé dans le
   navigateur ;
@@ -105,6 +117,6 @@ Décompresser l’archive, puis téléverser tous les fichiers et le dossier `da
 
 Valider avec le message de commit :
 
-`Ajouter la visite guidée interactive — version 2026.10`
+`Navigation, nouveautés, recherche et sauvegardes — version 2026.11`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dernières notices validées et publiées dans le Répertoire géographique de la diversité biologique et de la conservation."
+    />
+    <title>Nouveautés | Répertoire géographique</title>
+    <link rel="stylesheet" href="./styles.css?v=20260730-7" />
+    <script src="./suggestions-config.js?v=20260730-4"></script>
+    <script src="./navigation.js?v=20260730-1" defer></script>
+    <script src="./nouveautes.js?v=20260730-1" defer></script>
+    <script src="./analytics.js?v=20260730-1" defer></script>
+    <script src="./tour.js?v=20260730-2" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-line"></div>
+      <div class="shell nav">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">RG</span>
+          <span><strong>Répertoire géographique</strong><small>Diversité biologique • conservation</small></span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <a href="./concepts.html">Concepts</a>
+          <a href="./dictionnaire.html">Dictionnaire</a>
+          <a class="active" aria-current="page" href="./nouveautes.html">Nouveautés</a>
+          <a href="./indices.html">Indices</a>
+          <a href="./conventions.html">Conventions</a>
+          <a href="./apropos.html">À propos</a>
+          <a href="./contact.html">Nous contacter</a>
+        </nav>
+      </div>
+    </header>
+
+    <aside class="source-banner">
+      <div class="shell source-banner-inner">
+        <div>
+          <strong>Actualisation scientifique</strong>
+          <span>
+            Les notices apparaissent ici après validation scientifique et
+            publication automatique dans le Répertoire.
+          </span>
+        </div>
+        <div class="source-links">
+          <a href="./apropos.html">Méthode de sélection ↗</a>
+          <a href="./contact.html?type=suggestion">Suggérer un terme ↗</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="catalogue-hero news-hero">
+        <div class="shell catalogue-hero-grid">
+          <div>
+            <p class="eyebrow">Suivi éditorial</p>
+            <h1>Dernières nouveautés</h1>
+            <p>
+              Notices récemment ajoutées après examen et validation, avec leur
+              date de publication, leur rubrique et leur domaine principal.
+            </p>
+          </div>
+          <div class="catalogue-number">
+            <strong id="newsTotal">…</strong>
+            <span>ajouts documentés</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-content shell">
+        <div class="news-toolbar">
+          <label>
+            Afficher
+            <select id="newsType">
+              <option value="">Toutes les rubriques</option>
+              <option value="Concept géographique">Concepts géographiques</option>
+              <option value="Indice ou indicateur">Indices et indicateurs</option>
+              <option value="Convention, traité ou accord">Conventions et traités</option>
+            </select>
+          </label>
+          <p><strong id="newsCount">…</strong> publication(s) affichée(s)</p>
+        </div>
+        <div id="newsList" class="news-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div>
+          <strong>Répertoire géographique de la diversité biologique et de la conservation</strong>
+          <p>Sélection et classification géographiques réalisées par Brahim Jaziri.</p>
+        </div>
+        <div>
+          <p>Source principale : Patrick Triplet, édition 2026.</p>
+          <p><a href="./contact.html?type=suggestion">Proposer une nouvelle notice ↗</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
