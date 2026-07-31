@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Répertoire académique de 1 500 concepts géographiques sélectionnés dans le dictionnaire de Patrick Triplet, édition 2026." />
     <title>Concepts géographiques | Répertoire 2026</title>
-    <link rel="stylesheet" href="./styles.css?v=20260730-11" />
+    <link rel="stylesheet" href="./styles.css?v=20260801-1" />
     <script src="./suggestions-config.js?v=20260730-4"></script>
     <script src="./navigation.js?v=20260730-3" defer></script>
-    <script src="./catalogue.js?v=20260730-6" defer></script>
+    <script src="./catalogue.js?v=20260801-1" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
     <script src="./tour.js?v=20260730-3" defer></script>
   </head>
@@ -56,6 +56,7 @@
           <a href="./concepts.html?notice=Niche écologique">Niche écologique</a>
         </div>
         <div class="classification-note"><strong>Principe de classement</strong><p>Les domaines, milieux et échelles sont indexés uniquement lorsqu’ils sont explicitement présents dans la notice. Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div>
+        <div id="conceptAlphabet" class="alphabet-filter concept-alphabet" aria-label="Filtrer les concepts par lettre"></div>
         <div class="advanced-filters">
           <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Rechercher un concept ou une définition…" /></label>
           <select id="themeFilter"><option value="">Tous les domaines thématiques</option></select>
@@ -67,7 +68,7 @@
         </div>
         <div class="tool-row"><p><strong id="resultCount">…</strong> résultats</p><button id="resetFilters" type="button">Réinitialiser</button><button id="exportCsv" type="button">Exporter en CSV</button><button id="printPage" type="button">Imprimer / PDF</button></div>
         <div id="noticeGrid" class="special-grid"></div>
-        <div id="pagination" class="pagination"><button id="previousPage" type="button">← Précédent</button><span id="pageIndicator">Page 1 / 1</span><button id="nextPage" type="button">Suivant →</button></div>
+        <div id="pagination" class="pagination"><button id="previousPage" type="button">← Précédent</button><label class="page-jump">Page <input id="pageInput" type="number" min="1" value="1" inputmode="numeric" aria-label="Numéro de page souhaité" /> <span id="pageTotal">/ 1</span></label><button id="nextPage" type="button">Suivant →</button></div>
       </section>
     </main>
 

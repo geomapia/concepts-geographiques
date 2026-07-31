@@ -16,6 +16,8 @@ const pagination = document.querySelector("#dictionaryPagination");
 const previous = document.querySelector("#dictionaryPrevious");
 const next = document.querySelector("#dictionaryNext");
 const pageIndicator = document.querySelector("#dictionaryPage");
+const pageInput = document.querySelector("#dictionaryPageInput");
+const pageTotal = document.querySelector("#dictionaryPageTotal");
 const alphabet = document.querySelector("#alphabetFilter");
 
 function normalize(value) {
@@ -193,7 +195,12 @@ function render() {
   pagination.hidden = filteredEntries.length <= PAGE_SIZE;
   previous.disabled = currentPage === 1;
   next.disabled = currentPage === pageCount;
-  pageIndicator.textContent = `Page ${currentPage} / ${pageCount}`;
+  if (pageIndicator) pageIndicator.textContent = `Page ${currentPage} / ${pageCount}`;
+  if (pageInput) {
+    pageInput.value = currentPage;
+    pageInput.max = pageCount;
+  }
+  if (pageTotal) pageTotal.textContent = `/ ${pageCount}`;
 
   if (!visible.length) {
     list.innerHTML =
@@ -293,6 +300,21 @@ list.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-copy]");
   if (button) copyLink(button.dataset.copy, button);
 });
+function goToRequestedPage() {
+  if (!pageInput) return;
+  const pageCount = Math.max(1, Math.ceil(filteredEntries.length / PAGE_SIZE));
+  currentPage = Math.max(1, Math.min(pageCount, Number.parseInt(pageInput.value, 10) || 1));
+  render();
+  scrollTo({ top: 0, behavior: "smooth" });
+}
+
+if (pageInput) {
+  pageInput.addEventListener("change", goToRequestedPage);
+  pageInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") goToRequestedPage();
+  });
+}
+
 previous.addEventListener("click", () => {
   currentPage -= 1;
   render();

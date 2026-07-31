@@ -7,6 +7,7 @@ let concepts = [];
 let allNotices = [];
 let filtered = [];
 let currentPage = 1;
+let currentLetter = "";
 let englishTranslations = {};
 let arabicTranslations = {};
 
@@ -25,6 +26,9 @@ const elements = {
   previous: $("#previousPage"),
   next: $("#nextPage"),
   page: $("#pageIndicator"),
+  pageInput: $("#pageInput"),
+  pageTotal: $("#pageTotal"),
+  alphabet: $("#conceptAlphabet"),
   reset: $("#resetFilters"),
   export: $("#exportCsv"),
   modal: $("#modalBackdrop"),
@@ -104,6 +108,28 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function highlightSearch(value) {
+  const text = String(value ?? "");
+  const query = String(elements.search?.value || "").trim();
+  if (!query) return escapeHtml(text);
+  const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  try {
+    return escapeHtml(text).replace(new RegExp(`(${escapedQuery})`, "gi"), "<mark>$1</mark>");
+  } catch {
+    return escapeHtml(text);
+  }
+}
+
+function renderAlphabet() {
+  if (!elements.alphabet) return;
+  const letters = [...new Set(concepts.map((item) => normalize(item.concept).charAt(0).toUpperCase()).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, "fr"));
+  elements.alphabet.innerHTML = [
+    `<button type="button" data-letter="" class="${currentLetter ? "" : "active"}">Tous</button>`,
+    ...letters.map((letter) => `<button type="button" data-letter="${escapeHtml(letter)}" class="${currentLetter === letter ? "active" : ""}">${escapeHtml(letter)}</button>`),
+  ].join("");
+}
+
 function slug(value) {
   return normalize(value)
     .replace(/[^a-z0-9]+/g, "-")
@@ -138,7 +164,9 @@ function applyFilters() {
       `${item.concept} ${item.entree_complete || ""} ${item.definition} ` +
       `${item.domaines_thematiques?.join(" ")} ${item.concepts_associes?.join(" ")} ` +
       `${item.fiche_specialisee?.sigles?.join(" ")} ${translationsFor(item).english} ${translationsFor(item).arabic}`;
+    const initial = normalize(item.concept).charAt(0).toUpperCase();
     return (
+      (!currentLetter || initial === currentLetter) &&
       (!needle || matchesSearch(corpus, needle)) &&
       (!elements.theme?.value || item.domaines_thematiques?.includes(elements.theme.value)) &&
       (!elements.scale?.value || item.echelles_explicites?.includes(elements.scale.value)) &&
@@ -239,7 +267,12 @@ function render() {
   elements.pagination.hidden = filtered.length <= PAGE_SIZE;
   elements.previous.disabled = currentPage === 1;
   elements.next.disabled = currentPage === pageCount;
-  elements.page.textContent = `Page ${currentPage} / ${pageCount}`;
+  if (elements.page) elements.page.textContent = `Page ${currentPage} / ${pageCount}`;
+  if (elements.pageInput) {
+    elements.pageInput.value = currentPage;
+    elements.pageInput.max = pageCount;
+  }
+  if (elements.pageTotal) elements.pageTotal.textContent = `/ ${pageCount}`;
 
   elements.grid.innerHTML = visible
     .map((item) => {
@@ -254,11 +287,11 @@ function render() {
             <span>${escapeHtml(item.type_notice)}</span>
             <em>Dictionnaire p. ${item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1)}</em>
           </div>
-          <h2>${escapeHtml(item.concept)}</h2>
+          <h2>${highlightSearch(item.concept)}</h2>
           ${translations.english ? `<p class="notice-translation"><strong>English:</strong> ${escapeHtml(translations.english)}</p>` : ""}
           ${translations.arabic ? `<p class="notice-translation notice-translation-ar" lang="ar" dir="rtl"><strong>العربية:</strong> ${escapeHtml(translations.arabic)}</p>` : ""}
           <div class="notice-tags">${tags}</div>
-          <p>${escapeHtml(item.definition)}</p>
+          <p>${highlightSearch(item.definition)}</p>
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
@@ -521,6 +554,32 @@ elements.grid.addEventListener("click", async (event) => {
   .filter(Boolean)
   .forEach((element) => element.addEventListener(element.tagName === "INPUT" ? "input" : "change", applyFilters));
 
+function goToRequestedPage(input) {
+  if (!input) return;
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const requested = Math.max(1, Math.min(pageCount, Number.parseInt(input.value, 10) || 1));
+  currentPage = requested;
+  render();
+  scrollTo({ top: 0, behavior: "smooth" });
+}
+
+if (elements.pageInput) {
+  elements.pageInput.addEventListener("change", () => goToRequestedPage(elements.pageInput));
+  elements.pageInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") goToRequestedPage(elements.pageInput);
+  });
+}
+
+if (elements.alphabet) {
+  elements.alphabet.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-letter]");
+    if (!button) return;
+    currentLetter = button.dataset.letter || "";
+    renderAlphabet();
+    applyFilters();
+  });
+}
+
 elements.previous.addEventListener("click", () => {
   currentPage -= 1;
   render();
@@ -538,6 +597,8 @@ elements.reset.addEventListener("click", () => {
       element.value = "";
     });
   if (elements.sort) elements.sort.value = "alpha";
+  currentLetter = "";
+  renderAlphabet();
   applyFilters();
 });
 elements.export.addEventListener("click", exportCsv);
@@ -578,6 +639,7 @@ Promise.all([
     filtered = [...concepts];
     $("#catalogueTotal").textContent = concepts.length.toLocaleString("fr-FR");
     initializeFilters();
+    renderAlphabet();
     applyFilters();
 
     const requested = new URLSearchParams(location.search).get("notice");
