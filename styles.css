@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Emirates Bold";
+  src: local("Emirates Bold"), local("Emirates-Bold"), url("./assets/fonts/EMIRATES-BOLD.TTF") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --ink: #17283b;
   --navy: #19324c;
@@ -835,7 +843,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .concept-modal h3 { margin: 28px 0 9px; color: var(--navy); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
 .modal-definition { margin: 0; font: 17px/1.85 Georgia, serif; color: #36434e; }
 .notice-translation { margin: 8px 0 0; color: #5d6870; font: 13px/1.5 Georgia, serif; }
-.notice-translation-ar { color: #21455d; font-size: 15px; text-align: right; }
+.notice-translation-ar { color: #21455d; font-family: "Emirates Bold", Tahoma, Arial, sans-serif; font-size: 16px; font-weight: 700; line-height: 1.7; text-align: right; }
 .notice-actions a { border: 1px solid #c7b797; background: transparent; color: var(--navy); padding: 11px 13px; font-size: 11px; font-weight: 750; text-decoration: none; }
 .notice-actions a:hover { border-color: var(--burgundy); color: var(--burgundy); }
 .modal-translations { margin-top: 28px; padding: 19px 20px; border-left: 4px solid var(--moss); background: #f1f4ed; }
@@ -844,6 +852,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .modal-translations dl > div { display: grid; grid-template-columns: 145px minmax(0, 1fr); gap: 14px; }
 .modal-translations dt { color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
 .modal-translations dd { margin: 0; color: var(--navy); font: 16px/1.6 Georgia, serif; }
+.modal-translations dd[lang="ar"], [lang="ar"].arabic-text { font-family: "Emirates Bold", Tahoma, Arial, sans-serif; font-size: 16px; font-weight: 700; line-height: 1.8; }
+.definition-continuation { color: var(--burgundy); font-weight: 700; text-decoration: none; }
+.definition-continuation:hover { text-decoration: underline; }
 .modal-reference { border-top: 1px solid var(--line); margin-top: 34px; padding-top: 3px; }
 .modal-reference p { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
 @media (max-width: 920px) {
@@ -1283,3 +1294,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .concept-alphabet { margin: 22px 0 20px; }
+
+/* Page Concepts : recherche harmonisée avec la page Dictionnaire */
+.concepts-search-panel {
+  margin-top: 1.5rem;
+}

@@ -250,6 +250,29 @@ function translationsFor(item) {
   };
 }
 
+
+function citationFor(item) {
+  const page = item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1);
+  return String(
+    item.citation ||
+      `Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. ${page}. Sélection et classification géographiques réalisées par Brahim Jaziri.`
+  ).trim();
+}
+
+function shortenedDefinition(item, limit = 120) {
+  const text = String(item.definition || "").trim();
+  const words = text.split(/\s+/).filter(Boolean);
+  if (words.length <= limit) {
+    return { html: highlightSearch(text), truncated: false, url: "" };
+  }
+  const sourcePage = Math.max(1, Number(item.page_pdf));
+  return {
+    html: highlightSearch(words.slice(0, limit).join(" ")),
+    truncated: true,
+    url: `${sourcePdf}#page=${sourcePage}`,
+  };
+}
+
 function arabicSuggestionUrl(item) {
   const url = new URL("./contact.html", window.location.href);
   url.searchParams.set("translation", "ar");
@@ -281,6 +304,8 @@ function render() {
         .join("");
       const official = officialLink(item);
       const translations = translationsFor(item);
+      const definitionPreview = shortenedDefinition(item);
+      const hasArabicTranslation = Boolean(translations.arabic || translations.arabicDefinition);
       return `
         <article class="special-notice${item.niveau_conceptuel === "Fondamental" ? " fundamental-notice" : ""}" id="${slug(item.concept)}">
           <div class="notice-topline">
@@ -291,11 +316,11 @@ function render() {
           ${translations.english ? `<p class="notice-translation"><strong>English:</strong> ${escapeHtml(translations.english)}</p>` : ""}
           ${translations.arabic ? `<p class="notice-translation notice-translation-ar" lang="ar" dir="rtl"><strong>العربية:</strong> ${escapeHtml(translations.arabic)}</p>` : ""}
           <div class="notice-tags">${tags}</div>
-          <p>${highlightSearch(item.definition)}</p>
+          <p>${definitionPreview.html}${definitionPreview.truncated ? `… <a class="definition-continuation" href="${escapeHtml(definitionPreview.url)}" target="_blank" rel="noreferrer">(suite dans le dictionnaire) ↗</a>` : ""}</p>
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
-            ${item.type_notice === "Concept géographique" ? `<a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>` : ""}
+            ${item.type_notice === "Concept géographique" && !hasArabicTranslation ? `<a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>` : ""}
             ${official ? `<a class="official-source-link" href="${escapeHtml(official.url)}" target="_blank" rel="noreferrer">${escapeHtml(official.label || "Site officiel")} ↗</a>` : ""}
           </div>
         </article>`;
@@ -368,7 +393,7 @@ function openModal(item, updateUrl = true) {
     )
     .join("");
   renderRelatedConcepts(item);
-  $("#modalCitation").textContent = item.citation;
+  $("#modalCitation").textContent = citationFor(item);
   const sourcePage = Math.max(1, Number(item.page_pdf));
   // Le numéro technique du PDF est supérieur d’une unité au numéro imprimé.
   // page_pdf désigne déjà cette page technique et ouvre donc directement la notice.
@@ -394,6 +419,8 @@ function openModal(item, updateUrl = true) {
     translationLink.textContent = "Proposer une traduction arabe";
     $("#modalReport")?.insertAdjacentElement("afterend", translationLink);
   }
+  const translations = translationsFor(item);
+  translationLink.hidden = Boolean(translations.arabic || translations.arabicDefinition);
   translationLink.href = arabicSuggestionUrl(item);
   $("#modalCopyCitation").dataset.concept = item.concept;
   $("#modalCopyLink").dataset.concept = item.concept;
@@ -531,7 +558,7 @@ function exportCsv() {
     item.milieux_explicites?.join("; "),
     item.pertinence,
     item.page_pdf,
-    item.citation,
+    citationFor(item),
   ]);
   const csv = `\uFEFF${[header, ...rows].map((row) => row.map(csvCell).join(";")).join("\n")}`;
   const link = document.createElement("a");
@@ -608,7 +635,7 @@ elements.modal.addEventListener("mousedown", (event) => {
 });
 $("#modalCopyCitation").addEventListener("click", (event) => {
   const item = concepts.find((candidate) => candidate.concept === event.currentTarget.dataset.concept);
-  if (item) copyText(item.citation, event.currentTarget);
+  if (item) copyText(citationFor(item), event.currentTarget);
 });
 $("#modalCopyLink").addEventListener("click", (event) => {
   const item = concepts.find((candidate) => candidate.concept === event.currentTarget.dataset.concept);

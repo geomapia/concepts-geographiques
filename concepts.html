@@ -56,16 +56,18 @@
           <a href="./concepts.html?notice=Niche écologique">Niche écologique</a>
         </div>
         <div class="classification-note"><strong>Principe de classement</strong><p>Les domaines, milieux et échelles sont indexés uniquement lorsqu’ils sont explicitement présents dans la notice. Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div>
-        <div id="conceptAlphabet" class="alphabet-filter concept-alphabet" aria-label="Filtrer les concepts par lettre"></div>
-        <div class="advanced-filters">
-          <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Rechercher un concept ou une définition…" /></label>
-          <select id="themeFilter"><option value="">Tous les domaines thématiques</option></select>
-          <select id="scaleFilter"><option value="">Toutes les échelles</option></select>
-          <select id="milieuFilter"><option value="">Tous les milieux</option></select>
-          <select id="levelFilter"><option value="">Tous les niveaux conceptuels</option></select>
-          <select id="relevanceFilter"><option value="">Toute pertinence</option><option value="Central">Central</option><option value="Interdisciplinaire">Interdisciplinaire</option></select>
-          <select id="sortFilter"><option value="alpha">Ordre alphabétique</option><option value="theme">Par domaine</option><option value="page">Par page du PDF</option></select>
+        <div class="dictionary-search-panel concepts-search-panel">
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="search" type="search" placeholder="Rechercher un concept ou une définition…" />
+          </label>
+          <select id="sortFilter" aria-label="Ordre d’affichage">
+            <option value="alpha">Ordre alphabétique</option>
+            <option value="page">Ordre du dictionnaire</option>
+          </select>
         </div>
+
+        <div id="conceptAlphabet" class="alphabet-filter concept-alphabet" aria-label="Filtrer les concepts par lettre"></div>
         <div class="tool-row"><p><strong id="resultCount">…</strong> résultats</p><button id="resetFilters" type="button">Réinitialiser</button><button id="exportCsv" type="button">Exporter en CSV</button><button id="printPage" type="button">Imprimer / PDF</button></div>
         <div id="noticeGrid" class="special-grid"></div>
         <div id="pagination" class="pagination"><button id="previousPage" type="button">← Précédent</button><label class="page-jump">Page <input id="pageInput" type="number" min="1" value="1" inputmode="numeric" aria-label="Numéro de page souhaité" /> <span id="pageTotal">/ 1</span></label><button id="nextPage" type="button">Suivant →</button></div>
