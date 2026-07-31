@@ -26143,5 +26143,41 @@
         "responsable": "Brahim Jaziri"
       }
     }
+  },
+  {
+    "concept": "Urbanisation",
+    "entree_complete": "Urbanisation",
+    "domaine_principal": "Aménagement, territoires et usages du sol",
+    "domaines_associes": "Aménagement, territoires et usages du sol",
+    "pertinence": "Interdisciplinaire",
+    "definition": "Fait de vivre dans des zones urbaines. Elle décrit donc la proportion des personnes vivant dans \r\nles zones urbaines et la croissance de ces zones qui en résulte. L’urbanisation est une forme \r\nextrême d’altération environnementale causée par les êtres humains, et elle peut avoir des effets \r\npositifs et négatifs sur les organismes. Elle peut ainsi offrir des conditions de sécurité contre les \r\nprédateurs et la famine, et donc augmenter l’espérance de vie. À l’inverse, différents polluants \r\n(chimiques, lumière, bruit) peuvent avoir un impact négatif sur la santé et diminuer la survie. \r\nL’urbanisation affecte le plus fortement la circulation des eaux. Une grande partie des surfaces \r\nest en effet rendue imperméable : chaussées, trottoirs, parkings, toitures… L’eau s’écoule plus \r\nrapidement sur ces surfaces que sur les zones au sol naturel et est acheminée vers le réseau \r\nhydrographique par des canalisations sans s’infiltrer dans le sol. L’évapotranspiration est donc \r\nfortement réduite. \r\nAinsi, les aires urbaines émettent des écoulements qui accroissent les risques d’inondation en \r\naval. De plus, des polluants sont lessivés et transférés à partir des surfaces imperméabilisées, sans \r\npouvoir être filtrés par les sols : résidus d’hydrocarbures, déjections animales, particules de \r\npneumatiques ou de métaux… Ces eaux issues des surfaces de ruissellement urbain sont nommées \r\neaux pluviales et présentent donc des risques de pollution et d’inondation.",
+    "page_pdf": 1434,
+    "source": "Patrick Triplet, Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, édition 2026",
+    "type_notice": "Concept géographique",
+    "domaines_thematiques": [
+      "Aménagement, territoires et usages du sol"
+    ],
+    "echelles_explicites": [],
+    "milieux_explicites": [],
+    "lien_source_pdf": "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=1434",
+    "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 1433. Sélection et classification géographiques réalisées par Brahim Jaziri.",
+    "niveau_conceptuel": "Complémentaire",
+    "concepts_associes": [],
+    "page_dictionnaire": 1433,
+    "page_ouverte": 1434,
+    "validation_editoriale": {
+      "identifiant_suggestion": "SUG-20260801-001339-355",
+      "date_validation": "2026-08-01",
+      "responsable": "Brahim Jaziri"
+    },
+    "traductions": {
+      "ar": {
+        "terme": "التحضّر",
+        "definition": "",
+        "source": "Proposition soumise avec la notice et validée par Brahim Jaziri.",
+        "date_validation": "2026-08-01",
+        "responsable": "Brahim Jaziri"
+      }
+    }
   }
 ]
