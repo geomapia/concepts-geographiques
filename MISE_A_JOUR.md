@@ -75,7 +75,7 @@ Cette version ajoute :
   domaine, justification et définition proposée ;
 - un contrôle des doublons et l’attribution automatique d’un identifiant à
   chaque proposition ;
-- un courriel d’alerte envoyé à `jaziribrahim@gmail.com` lors de chaque nouvelle
+- un courriel d’alerte envoyé à `contact@geomapia.tn` lors de chaque nouvelle
   suggestion ;
 - un statut initial « À examiner » garantissant qu’aucun terme n’est publié
   sans validation scientifique ;
@@ -96,13 +96,13 @@ Cette version ajoute :
 - la mise à jour de tous les compteurs : 1 500 concepts, 43 indices,
   18 instruments et 1 561 notices spécialisées au total ;
 - la vérification du bouton « Signaler une correction », adressé à
-  `jaziribrahim@gmail.com` ;
+  `contact@geomapia.tn` ;
 - la correction de tous les renvois au PDF : le bouton ouvre la page
   technique correspondant à la page imprimée citée plus une, afin de tenir
   compte de la couverture du fichier PDF ;
 - l’affichage de la page technique corrigée directement dans le libellé du
   bouton PDF ;
-- une page « Nous contacter » avec l’adresse `jaziribrahim@gmail.com`, un
+- une page « Nous contacter » avec l’adresse `contact@geomapia.tn`, un
   formulaire envoyé par Formspree à l’endpoint `mlgqvlpw` et la reprise
   automatique de la notice concernée ;
 - le remplacement du lien `mailto:` du bouton « Signaler une correction » par

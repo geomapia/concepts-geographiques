@@ -1,4 +1,4 @@
-const recipient = "jaziribrahim@gmail.com";
+const recipient = "contact@geomapia.tn";
 const params = new URLSearchParams(window.location.search);
 const notice = params.get("notice")?.trim() || "";
 const suggestion = params.get("suggestion")?.trim() || "";

@@ -635,7 +635,7 @@ elements.modal.addEventListener("mousedown", (event) => {
 });
 $("#modalCopyCitation").addEventListener("click", (event) => {
   const item = concepts.find((candidate) => candidate.concept === event.currentTarget.dataset.concept);
-  if (item) copyText(citationFor(item), event.currentTarget);
+  if (item) copyText(String(item.definition || "").trim(), event.currentTarget);
 });
 $("#modalCopyLink").addEventListener("click", (event) => {
   const item = concepts.find((candidate) => candidate.concept === event.currentTarget.dataset.concept);
@@ -647,7 +647,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 Promise.all([
-  fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" }).then((response) => {
+  fetch("./data/concepts.json?v=20260801-1", { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();
   }),
