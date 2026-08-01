@@ -1322,3 +1322,6 @@ textarea[lang="ar"] {
 .relations-link { white-space: nowrap; }
 @media (max-width: 900px) { .relations-frame { min-height: 1120px; } }
 @media (max-width: 600px) { .relations-frame { min-height: 1280px; } }
+
+/* Relations v14 */
+.relations-external-action{display:flex;justify-content:flex-end;margin:0 0 .65rem}.relations-external-action .button{display:inline-flex;align-items:center;min-height:42px;padding:.65rem 1rem;background:#142b40;color:#fff;text-decoration:none;border:1px solid #142b40}.relations-external-action .button:hover{background:#8d2638;border-color:#8d2638}

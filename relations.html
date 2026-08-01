@@ -41,7 +41,8 @@
       </section>
 
       <section class="shell relations-frame-section">
-        <iframe id="relationsFrame" class="relations-frame" src="./relations-map.html" title="Carte conceptuelle interactive des 6 122 termes du dictionnaire" loading="eager"></iframe>
+        <div class="relations-external-action"><a id="openRelationsTab" class="button" href="./relations-explorer.html" target="_blank" rel="noopener">Ouvrir l’espace complet dans un nouvel onglet ↗</a></div>
+        <iframe id="relationsFrame" class="relations-frame" src="./relations-map.html?mode=compact" title="Carte conceptuelle interactive des 6 122 termes du dictionnaire" loading="eager"></iframe>
       </section>
     </main>
 
@@ -51,7 +52,11 @@
       (() => {
         const concept = new URLSearchParams(window.location.search).get('concept');
         const frame = document.getElementById('relationsFrame');
-        if (concept && frame) frame.src = './relations-map.html?concept=' + encodeURIComponent(concept);
+        const compactTarget = './relations-map.html?mode=compact' + (concept ? '&concept=' + encodeURIComponent(concept) : '');
+        const fullTarget = './relations-explorer.html' + (concept ? '?concept=' + encodeURIComponent(concept) : '');
+        if (frame) frame.src = compactTarget;
+        const openTab = document.getElementById('openRelationsTab');
+        if (openTab) openTab.href = fullTarget;
       })();
     </script>
   </body>

@@ -157,3 +157,17 @@ GitHub Pages republiera ensuite automatiquement la branche `main`.
 - Recherche sur l’ensemble des 6 122 termes de l’index intégral.
 - Liens contextuels depuis les fiches de concepts et accès depuis l’accueil.
 - Carte interactive isolée dans `relations-map.html` pour préserver la stabilité visuelle du site.
+
+
+## Version 14 — lisibilité du graphe
+- Tous les termes du graphe sont affichés, avec retour à la ligne automatique.
+- Infobulle légère au survol : terme, domaine, page et nature de la relation.
+- Légende détaillée des traits et des couleurs.
+- Ouverture de la carte dans un nouvel onglet depuis la page Relations, l’accueil et les fiches.
+
+
+## Version 15 — espace relationnel à deux niveaux
+- `relations.html` reste la page principale allégée.
+- `relations-map.html?mode=compact` limite l’interface aux fonctions essentielles.
+- `relations-explorer.html` fournit l’espace complet dans un nouvel onglet.
+- Ajout du bouton Retour au Répertoire, panneau latéral, historique, modes réseau/arbre/liste, niveaux de confiance, distinction des origines, plein écran, export PNG/CSV et impression PDF.
