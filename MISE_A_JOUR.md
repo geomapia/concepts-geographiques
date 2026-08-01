@@ -179,3 +179,9 @@ GitHub Pages republiera ensuite automatiquement la branche `main`.
 - Plein écran limité au panneau du graphe.
 - Détails accessibles par un bouton ouvrant un panneau latéral coulissant.
 - Explication temporaire et fermable des couleurs par domaine.
+
+
+## Version 17 — filtres et stabilité du graphe
+- Ajout du filtre « Domaine thématique » dans la page Concepts.
+- Ajout du bouton glissable « Figer » dans les cartes de relations.
+- Le gel arrête la simulation automatique tout en conservant zoom, panoramique et déplacement manuel des nœuds.

@@ -900,6 +900,7 @@ html, body { background:#fbf8f1 !important; }
       </label>
       <label class="form-check form-switch"><input id="rg-main-only" class="form-check-input" type="checkbox"><span class="form-check-label">Graphe principal uniquement</span></label>
       <label class="form-check form-switch"><input id="rg-color" class="form-check-input" type="checkbox"><span class="form-check-label">Mode couleur</span></label>
+      <label class="form-check form-switch"><input id="rg-freeze" class="form-check-input" type="checkbox" aria-label="Figer le graphe"><span id="rg-freeze-label" class="form-check-label">Figer</span></label>
     </div>
 
     <details class="rg-advanced">
@@ -1048,7 +1049,7 @@ html, body { background:#fbf8f1 !important; }
     align-items: end;
     display: grid;
     gap: 0.7rem 1rem;
-    grid-template-columns: minmax(105px, 0.35fr) minmax(120px, 0.4fr) minmax(200px, 1fr) minmax(135px, 0.65fr);
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
   }
   #rg-graph-demand .rg-search-field { position: relative; }
   #rg-graph-demand .rg-suggestions {
@@ -1311,6 +1312,8 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   const mapName = root.querySelector("#rg-map-name");
   const mainOnly = root.querySelector("#rg-main-only");
   const colorMode = root.querySelector("#rg-color");
+  const freezeControl = root.querySelector("#rg-freeze");
+  const freezeLabel = root.querySelector("#rg-freeze-label");
   const contributeButton = root.querySelector("#rg-contribute");
   const printButton = root.querySelector("#rg-print");
   const contributionDialog = root.querySelector("#rg-contribution-dialog");
@@ -2224,6 +2227,18 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     else if (colorExplanation) colorExplanation.hidden = true;
     draw();
   });
+  freezeControl?.addEventListener("change", () => {
+    paused = freezeControl.checked;
+    if (freezeLabel) freezeLabel.textContent = paused ? "Graphe figé" : "Figer";
+    freezeControl.setAttribute("aria-pressed", paused ? "true" : "false");
+    if (paused) {
+      nodes.forEach(node => { node.vx = 0; node.vy = 0; });
+      status.textContent = "Le graphe est figé. Le zoom, le déplacement de la vue et le déplacement manuel des nœuds restent disponibles.";
+    } else {
+      status.textContent = "Le graphe est de nouveau dynamique.";
+    }
+    draw();
+  });
   colorExplanationClose?.addEventListener("click", () => {
     window.clearTimeout(colorExplanationTimer);
     colorExplanation.hidden = true;
@@ -2284,6 +2299,9 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   printButton.addEventListener("click", () => window.print());
   resetButton.addEventListener("click", () => {
     search.value = "";
+    paused = false;
+    if (freezeControl) { freezeControl.checked = false; freezeControl.setAttribute("aria-pressed", "false"); }
+    if (freezeLabel) freezeLabel.textContent = "Figer";
     nodes = [];
     edges = [];
     selectedIndex = null;

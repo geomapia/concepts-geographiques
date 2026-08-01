@@ -1311,6 +1311,15 @@ textarea[lang="ar"] {
 /* Page Concepts : recherche harmonisée avec la page Dictionnaire */
 .concepts-search-panel {
   margin-top: 1.5rem;
+  grid-template-columns: minmax(320px, 1fr) minmax(220px, 280px) 240px;
+}
+@media (max-width: 980px) {
+  .concepts-search-panel { grid-template-columns: 1fr 1fr; }
+  .concepts-search-panel .search-box { grid-column: 1 / -1; }
+}
+@media (max-width: 620px) {
+  .concepts-search-panel { grid-template-columns: 1fr; }
+  .concepts-search-panel .search-box { grid-column: auto; }
 }
 
 
