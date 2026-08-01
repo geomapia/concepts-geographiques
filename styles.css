@@ -1312,3 +1312,13 @@ textarea[lang="ar"] {
 .concepts-search-panel {
   margin-top: 1.5rem;
 }
+
+
+/* Page Explorer les relations */
+.relations-page { background: var(--paper, #fbf8f1); }
+.relations-intro { padding-top: 1.5rem; }
+.relations-frame-section { padding-top: 1rem; padding-bottom: 3rem; }
+.relations-frame { width: 100%; min-height: 980px; border: 1px solid #d8cdbb; background: #fbf8f1; display: block; }
+.relations-link { white-space: nowrap; }
+@media (max-width: 900px) { .relations-frame { min-height: 1120px; } }
+@media (max-width: 600px) { .relations-frame { min-height: 1280px; } }

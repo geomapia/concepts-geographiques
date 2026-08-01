@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explorer les relations entre les 6 122 termes de l’index intégral du dictionnaire de Patrick Triplet, édition 2026." />
+    <title>Explorer les relations | Répertoire géographique 2026</title>
+    <link rel="stylesheet" href="./styles.css?v=20260801-2" />
+    <script src="./navigation.js?v=20260730-3" defer></script>
+    <script src="./analytics.js?v=20260730-1" defer></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead-line"></div>
+      <div class="shell nav">
+        <a class="brand" href="./index.html"><span class="brand-mark">RG</span><span><strong>Répertoire géographique</strong><small>Diversité biologique • conservation</small></span></a>
+        <nav aria-label="Navigation principale">
+          <a href="./concepts.html">Concepts</a>
+          <a href="./dictionnaire.html">Dictionnaire</a>
+          <a href="./indices.html">Indices</a>
+          <a href="./conventions.html">Conventions</a>
+          <a class="active" href="./relations.html">Explorer les relations</a>
+          <a href="./apropos.html">À propos</a>
+          <a href="./contact.html">Nous contacter</a>
+        </nav>
+      </div>
+    </header>
+
+    <aside class="source-banner"><div class="shell source-banner-inner"><div><strong>Corpus exploré · édition 2026</strong><span>L’outil interroge l’ensemble des 6 122 intitulés verts de l’index du dictionnaire, et non uniquement les concepts sélectionnés ou les termes cités dans les notices.</span></div><div class="source-links"><a href="./dictionnaire.html">Ouvrir l’index intégral ↗</a><a href="https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf" target="_blank" rel="noreferrer">PDF 2026 ↓</a></div></div></aside>
+
+    <main class="relations-page">
+      <section class="catalogue-hero relations-hero">
+        <div class="shell catalogue-hero-grid">
+          <div><p class="eyebrow">Exploration conceptuelle</p><h1>Explorer les relations</h1><p>Construisez une carte à partir de n’importe quel terme du dictionnaire. Les relations combinent les proximités terminologiques, la co-présence sur une même page, les métadonnées géographiques disponibles et les relations explicitement validées.</p></div>
+          <div class="catalogue-number"><strong>6 122</strong><span>termes explorables</span></div>
+        </div>
+      </section>
+
+      <section class="shell relations-intro" aria-label="Principe scientifique">
+        <div class="classification-note"><strong>Principe d’exploration</strong><p>La recherche porte sur l’index intégral du dictionnaire. Un terme non retenu comme « concept géographique » peut donc être recherché, devenir le centre du graphe et être relié à d’autres termes. Les relations proposées constituent des pistes d’exploration et doivent être distinguées des relations scientifiquement validées.</p></div>
+      </section>
+
+      <section class="shell relations-frame-section">
+        <iframe id="relationsFrame" class="relations-frame" src="./relations-map.html" title="Carte conceptuelle interactive des 6 122 termes du dictionnaire" loading="eager"></iframe>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="shell"><div><strong>Répertoire géographique de la diversité biologique et de la conservation</strong><p>Sélection, classification et conception réalisées par Brahim Jaziri.</p></div><div><p>Source : Patrick Triplet, édition 2026.</p><p><a href="mailto:contact@geomapia.tn">contact@geomapia.tn</a></p></div></div></footer>
+
+    <script>
+      (() => {
+        const concept = new URLSearchParams(window.location.search).get('concept');
+        const frame = document.getElementById('relationsFrame');
+        if (concept && frame) frame.src = './relations-map.html?concept=' + encodeURIComponent(concept);
+      })();
+    </script>
+  </body>
+</html>

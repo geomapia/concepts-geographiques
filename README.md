@@ -86,3 +86,10 @@ Page du dictionnaire : https://laccreteil.fr/spip.php?article551
 
 Le déploiement sur GitHub Pages est automatique à chaque modification de la
 branche `main` grâce au workflow GitHub Actions.
+
+
+## Exploration des relations (v13)
+- Nouvelle page `relations.html`, placée après « Conventions ».
+- Recherche sur l’ensemble des 6 122 termes de l’index intégral.
+- Liens contextuels depuis les fiches de concepts et accès depuis l’accueil.
+- Carte interactive isolée dans `relations-map.html` pour préserver la stabilité visuelle du site.

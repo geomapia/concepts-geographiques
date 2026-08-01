@@ -320,6 +320,7 @@ function render() {
           <div class="notice-actions">
             <button type="button" data-action="open" data-concept="${escapeHtml(item.concept)}">Consulter la fiche</button>
             <button type="button" data-action="copy" data-concept="${escapeHtml(item.concept)}" aria-label="Copier la notice ${escapeHtml(item.concept)}">Copier</button>
+            ${item.type_notice === "Concept géographique" ? `<a class="relations-link" href="./relations.html?concept=${encodeURIComponent(item.concept)}">Explorer les relations</a>` : ""}
             ${item.type_notice === "Concept géographique" && !hasArabicTranslation ? `<a href="${escapeHtml(arabicSuggestionUrl(item))}">Proposer une traduction arabe</a>` : ""}
             ${official ? `<a class="official-source-link" href="${escapeHtml(official.url)}" target="_blank" rel="noreferrer">${escapeHtml(official.label || "Site officiel")} ↗</a>` : ""}
           </div>
@@ -423,6 +424,10 @@ function openModal(item, updateUrl = true) {
   translationLink.hidden = Boolean(translations.arabic || translations.arabicDefinition);
   translationLink.href = arabicSuggestionUrl(item);
   $("#modalCopyCitation").dataset.concept = item.concept;
+  const modalRelations = $("#modalRelations");
+  if (modalRelations) {
+    modalRelations.href = `./relations.html?concept=${encodeURIComponent(item.concept)}`;
+  }
   $("#modalCopyLink").dataset.concept = item.concept;
   elements.modal.hidden = false;
   document.body.style.overflow = "hidden";

@@ -75,7 +75,7 @@ Cette version ajoute :
   domaine, justification et définition proposée ;
 - un contrôle des doublons et l’attribution automatique d’un identifiant à
   chaque proposition ;
-- un courriel d’alerte envoyé à `contact@geomapia.tn` lors de chaque nouvelle
+- un courriel d’alerte envoyé à `jaziribrahim@gmail.com` lors de chaque nouvelle
   suggestion ;
 - un statut initial « À examiner » garantissant qu’aucun terme n’est publié
   sans validation scientifique ;
@@ -96,13 +96,13 @@ Cette version ajoute :
 - la mise à jour de tous les compteurs : 1 500 concepts, 43 indices,
   18 instruments et 1 561 notices spécialisées au total ;
 - la vérification du bouton « Signaler une correction », adressé à
-  `contact@geomapia.tn` ;
+  `jaziribrahim@gmail.com` ;
 - la correction de tous les renvois au PDF : le bouton ouvre la page
   technique correspondant à la page imprimée citée plus une, afin de tenir
   compte de la couverture du fichier PDF ;
 - l’affichage de la page technique corrigée directement dans le libellé du
   bouton PDF ;
-- une page « Nous contacter » avec l’adresse `contact@geomapia.tn`, un
+- une page « Nous contacter » avec l’adresse `jaziribrahim@gmail.com`, un
   formulaire envoyé par Formspree à l’endpoint `mlgqvlpw` et la reprise
   automatique de la notice concernée ;
 - le remplacement du lien `mailto:` du bouton « Signaler une correction » par
@@ -150,3 +150,10 @@ Valider avec le message de commit :
 `Traductions arabes des concepts — version 2026.16`
 
 GitHub Pages republiera ensuite automatiquement la branche `main`.
+
+
+## Exploration des relations (v13)
+- Nouvelle page `relations.html`, placée après « Conventions ».
+- Recherche sur l’ensemble des 6 122 termes de l’index intégral.
+- Liens contextuels depuis les fiches de concepts et accès depuis l’accueil.
+- Carte interactive isolée dans `relations-map.html` pour préserver la stabilité visuelle du site.
