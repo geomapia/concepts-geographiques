@@ -171,3 +171,11 @@ GitHub Pages republiera ensuite automatiquement la branche `main`.
 - `relations-map.html?mode=compact` limite l’interface aux fonctions essentielles.
 - `relations-explorer.html` fournit l’espace complet dans un nouvel onglet.
 - Ajout du bouton Retour au Répertoire, panneau latéral, historique, modes réseau/arbre/liste, niveaux de confiance, distinction des origines, plein écran, export PNG/CSV et impression PDF.
+
+
+## Version 16 — Relations
+- Infobulles enrichies avec définition disponible et page du dictionnaire.
+- Suppression des fonctions d’export.
+- Plein écran limité au panneau du graphe.
+- Détails accessibles par un bouton ouvrant un panneau latéral coulissant.
+- Explication temporaire et fermable des couleurs par domaine.

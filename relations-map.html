@@ -852,7 +852,6 @@ html, body { background:#fbf8f1 !important; }
   <div class="rg-full-title"><strong>Explorateur de relations</strong><span>Réseau conceptuel des 6 122 termes</span></div>
   <div class="rg-full-actions">
     <button id="rg-history-back" class="btn" type="button" disabled>← Précédent</button>
-    <button id="rg-fullscreen" class="btn" type="button">Plein écran</button>
   </div>
 </div>
 <div id="rg-graph-demand">
@@ -918,9 +917,7 @@ html, body { background:#fbf8f1 !important; }
 
     <div class="rg-actions">
       <button id="rg-contribute" class="btn" type="button">Proposer un terme ou une relation</button>
-      <button id="rg-export" class="btn btn-ghost" type="button">Exporter mes ajouts</button>
-      <button id="rg-export-png" class="btn btn-ghost rg-full-only" type="button">Exporter PNG</button>
-      <button id="rg-export-csv" class="btn btn-ghost rg-full-only" type="button">Exporter CSV</button>
+      <button id="rg-details-toggle" class="btn rg-full-only" type="button" disabled>Détails du terme</button>
       <button id="rg-print" class="btn btn-ghost" type="button">Imprimer / PDF</button>
       <button id="rg-reset" class="btn btn-ghost" type="button">Effacer</button>
     </div>
@@ -940,11 +937,20 @@ html, body { background:#fbf8f1 !important; }
       <button id="rg-zoom-in" class="btn" type="button" aria-label="Agrandir">+</button>
       <button id="rg-zoom-out" class="btn" type="button" aria-label="Réduire">−</button>
       <button id="rg-recenter" class="btn" type="button">Recentrer</button>
+      <button id="rg-fullscreen" class="btn rg-full-only" type="button">Plein écran</button>
     </div>
   </div>
+  <section id="rg-color-explanation" class="rg-color-explanation" hidden aria-live="polite">
+    <div class="rg-color-explanation-head">
+      <strong>Signification des couleurs</strong>
+      <button id="rg-color-explanation-close" class="btn btn-ghost" type="button" aria-label="Fermer">×</button>
+    </div>
+    <p>Chaque couleur correspond au domaine géographique principal des termes actuellement affichés.</p>
+    <div id="rg-color-legend" class="rg-color-legend"></div>
+  </section>
   <div id="rg-alternate-view" class="rg-alternate-view" hidden></div>
   <div class="rg-lower-layout">
-    <aside id="rg-side-panel" class="rg-side-panel" hidden aria-label="Détails du terme sélectionné">
+    <aside id="rg-side-panel" class="rg-side-panel" aria-hidden="true" aria-label="Détails du terme sélectionné">
       <div class="rg-side-head"><h2>Détails</h2><button id="rg-side-close" class="btn btn-ghost" type="button" aria-label="Fermer">×</button></div>
       <div id="rg-side-content"></div>
     </aside>
@@ -962,7 +968,7 @@ html, body { background:#fbf8f1 !important; }
   <dialog id="rg-contribution-dialog" class="card">
     <form id="rg-contribution-form" method="dialog">
       <h2>Ajouter un terme ou une relation</h2>
-      <p class="text-muted">L’ajout est conservé dans ce navigateur et peut être exporté pour validation scientifique.</p>
+      <p class="text-muted">L’ajout est conservé dans ce navigateur en attendant sa validation scientifique.</p>
       <label class="form-label" for="rg-source-term">Terme source
         <input id="rg-source-term" class="form-control" required>
       </label>
@@ -1169,7 +1175,6 @@ html, body { background:#fbf8f1 !important; }
     background: color-mix(in srgb, var(--background) 94%, var(--foreground) 6%);
     font-size: 12px;
   }
-  #rg-graph-demand.is-color .rg-color-legend { display: grid; }
   #rg-graph-demand .rg-color-item { display: flex; align-items: flex-start; gap: 0.45rem; }
   #rg-graph-demand .rg-color-swatch { width: 0.8rem; height: 0.8rem; flex: 0 0 auto; margin-top: 0.18rem; border-radius: 50%; border: 1px solid var(--border); }
   #rg-graph-demand dialog { max-width: 36rem; width: calc(100% - 2rem); }
@@ -1226,11 +1231,27 @@ body.rg-full-mode #rg-graph-demand{max-width:1600px;margin:auto;padding:1rem 1.2
 .rg-scientific-notice{padding:.8rem 1rem;border-left:4px solid #9b2940;background:#f1e9dc;color:#10283e}.rg-view-tabs{display:flex;gap:.45rem;flex-wrap:wrap}.rg-view-tabs .is-selected{background:#10283e;color:white;border-color:#10283e}
 .rg-lower-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem}.rg-side-panel{position:fixed;right:1rem;top:5.2rem;z-index:90;width:min(380px,calc(100vw - 2rem));max-height:calc(100vh - 6.2rem);overflow:auto;background:#fff;border:1px solid #d7c8b1;box-shadow:0 18px 55px rgba(16,40,62,.22);padding:1rem}.rg-side-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8ddca;margin-bottom:.8rem}.rg-side-head h2{font-family:Georgia,serif;color:#10283e}.rg-side-content-grid{display:grid;gap:.7rem}.rg-side-actions{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}.rg-kv{padding:.55rem .65rem;background:#f7f1e7}.rg-kv strong{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#9b2940}
 .rg-breadcrumb{margin-top:.65rem;padding:.55rem .7rem;background:#f7f1e7;overflow-wrap:anywhere}.rg-breadcrumb button{border:0;background:none;color:#9b2940;cursor:pointer;text-decoration:underline}.rg-alternate-view{border:1px solid #d7c8b1;background:white;padding:1rem;max-height:60vh;overflow:auto}.rg-relations-table{width:100%;border-collapse:collapse}.rg-relations-table th,.rg-relations-table td{padding:.55rem;border-bottom:1px solid #e8ddca;text-align:left;vertical-align:top}.rg-relation-tree ul{list-style:none;margin:.35rem 0 .35rem 1rem;padding-left:1rem;border-left:1px solid #c7b69c}.rg-confidence{display:inline-block;padding:.12rem .4rem;border:1px solid #d7c8b1;font-size:.75rem}.rg-confidence.validated{background:#e4f3e7}.rg-confidence.strong{background:#e5eef8}.rg-confidence.medium{background:#fff3d6}.rg-confidence.verify{background:#f9e5e5}.rg-full-only{display:none!important}body.rg-full-mode .rg-full-only{display:inline-flex!important}
-body.rg-compact-mode #rg-full-toolbar,body.rg-compact-mode #rg-full-notice,body.rg-compact-mode #rg-view-tabs,body.rg-compact-mode .rg-identity,body.rg-compact-mode .rg-method,body.rg-compact-mode .rg-advanced,body.rg-compact-mode #rg-contribute,body.rg-compact-mode #rg-export,body.rg-compact-mode #rg-print,body.rg-compact-mode #rg-reset,body.rg-compact-mode #rg-detail,body.rg-compact-mode #rg-breadcrumb{display:none!important}
+body.rg-compact-mode #rg-full-toolbar,body.rg-compact-mode #rg-full-notice,body.rg-compact-mode #rg-view-tabs,body.rg-compact-mode .rg-identity,body.rg-compact-mode .rg-method,body.rg-compact-mode .rg-advanced,body.rg-compact-mode #rg-contribute,body.rg-compact-mode #rg-print,body.rg-compact-mode #rg-reset,body.rg-compact-mode #rg-detail,body.rg-compact-mode #rg-breadcrumb{display:none!important}
 body.rg-compact-mode #rg-graph-demand{gap:.45rem}body.rg-compact-mode .rg-workbench{padding:.7rem}body.rg-compact-mode .rg-settings-row{grid-template-columns:110px 120px 1fr 140px}body.rg-compact-mode .rg-canvas-wrap,body.rg-compact-mode canvas{height:38rem;min-height:38rem}
 body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-height:520px}
 @media(max-width:760px){.rg-full-toolbar{grid-template-columns:1fr}.rg-full-actions{flex-wrap:wrap}.rg-side-panel{top:8.5rem}.rg-relations-table{font-size:.85rem}body.rg-compact-mode .rg-settings-row{grid-template-columns:1fr 1fr}}
 @media print{.rg-full-toolbar,.rg-view-tabs,.rg-side-panel{display:none!important}.rg-alternate-view{max-height:none;border:0}}
+
+/* V16 — panneau de détails coulissant, infobulles enrichies et plein écran ciblé */
+#rg-graph-demand .rg-node-tooltip{max-width:min(380px,calc(100vw - 24px));line-height:1.35}
+#rg-graph-demand .rg-node-tooltip .rg-tooltip-definition{display:block;margin-top:.35rem;padding-top:.35rem;border-top:1px solid var(--border);font-size:12px}
+#rg-graph-demand .rg-color-explanation{position:fixed;right:1rem;bottom:1rem;z-index:140;width:min(520px,calc(100vw - 2rem));max-height:min(70vh,520px);overflow:auto;padding:1rem;border:1px solid #d7c8b1;background:#fff;box-shadow:0 16px 48px rgba(16,40,62,.24)}
+#rg-graph-demand .rg-color-explanation[hidden]{display:none}
+#rg-graph-demand .rg-color-explanation-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-bottom:1px solid #e8ddca;padding-bottom:.45rem;margin-bottom:.55rem}
+#rg-graph-demand .rg-color-explanation p{margin:0 0 .65rem;color:var(--muted-foreground)}
+#rg-graph-demand .rg-color-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.45rem .8rem;padding:0;border:0;background:transparent}
+#rg-graph-demand .rg-side-panel{display:block!important;transform:translateX(calc(100% + 2.5rem));opacity:0;pointer-events:none;transition:transform .28s ease,opacity .2s ease}
+#rg-graph-demand .rg-side-panel.is-open{transform:translateX(0);opacity:1;pointer-events:auto}
+#rg-graph-demand .rg-canvas-wrap:fullscreen{width:100vw!important;height:100vh!important;min-height:100vh!important;background:#fff;border:0;padding:0}
+#rg-graph-demand .rg-canvas-wrap:fullscreen canvas{width:100%!important;height:100%!important;min-height:100vh!important}
+#rg-graph-demand .rg-canvas-wrap:fullscreen .rg-view-controls{position:fixed;right:1rem;top:1rem;z-index:10}
+@media(max-width:760px){#rg-graph-demand .rg-color-explanation{right:.5rem;bottom:.5rem;width:calc(100vw - 1rem)}#rg-graph-demand .rg-side-panel{right:.5rem;width:calc(100vw - 1rem)}}
+
 </style>
 
 <script>
@@ -1268,6 +1289,17 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   });
   const geo = new Map(DATA.g.map(row => [row[0], { domains: row[1], milieus: row[2], scales: row[3] }]));
   const explicit = new Map(DATA.x.map(row => [row[0], row.slice(1)]));
+  const conceptDefinitions = new Map();
+  fetch("./data/concepts.json")
+    .then(response => response.ok ? response.json() : [])
+    .then(items => {
+      (Array.isArray(items) ? items : []).forEach(item => {
+        const definition = String(item.definition || "").trim();
+        if (!definition) return;
+        [item.concept, item.entree_complete].filter(Boolean).forEach(name => conceptDefinitions.set(normalize(name), definition));
+      });
+    })
+    .catch(() => {});
 
   const search = root.querySelector("#rg-search");
   const suggestionBox = root.querySelector("#rg-suggestions");
@@ -1280,7 +1312,6 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   const mainOnly = root.querySelector("#rg-main-only");
   const colorMode = root.querySelector("#rg-color");
   const contributeButton = root.querySelector("#rg-contribute");
-  const exportButton = root.querySelector("#rg-export");
   const printButton = root.querySelector("#rg-print");
   const contributionDialog = root.querySelector("#rg-contribution-dialog");
   const contributionForm = root.querySelector("#rg-contribution-form");
@@ -1305,10 +1336,14 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   const alternateView = root.querySelector("#rg-alternate-view");
   const breadcrumb = root.querySelector("#rg-breadcrumb");
   const historyBack = document.getElementById("rg-history-back");
-  const fullscreenButton = document.getElementById("rg-fullscreen");
-  const exportPngButton = root.querySelector("#rg-export-png");
-  const exportCsvButton = root.querySelector("#rg-export-csv");
+  const fullscreenButton = root.querySelector("#rg-fullscreen");
+  const canvasWrap = root.querySelector(".rg-canvas-wrap");
+  const detailsToggle = root.querySelector("#rg-details-toggle");
+  const colorExplanation = root.querySelector("#rg-color-explanation");
+  const colorExplanationClose = root.querySelector("#rg-color-explanation-close");
   let activeView = "network";
+  let lastDetailIndex = null;
+  let colorExplanationTimer = 0;
   const explorationHistory = [];
   const checks = {
     explicit: root.querySelector("#rg-explicit"),
@@ -1683,8 +1718,9 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     if (historyBack) historyBack.disabled = explorationHistory.length < 2;
   }
 
-  function renderSidePanel(index) {
+  function renderSidePanel(index, openPanel = false) {
     if (!sidePanel || isCompact) return;
+    lastDetailIndex = index;
     const meta = geo.get(index);
     const edge = relationForNode(index);
     const confidence = relationConfidence(edge);
@@ -1695,7 +1731,10 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     const isConcept = Boolean(meta) && !catalog[index][2];
     const fiche = isConcept ? "./concepts.html?notice=" + encodeURIComponent(catalog[index][0]) : "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=" + Math.max(1, Number(page)+1);
     sideContent.innerHTML = `<div class="rg-side-content-grid"><div class="rg-kv"><strong>Terme</strong>${escapeHtml(catalog[index][0])}</div><div class="rg-kv"><strong>Domaine principal</strong>${escapeHtml(domains)}</div><div class="rg-kv"><strong>Page du dictionnaire</strong>${escapeHtml(String(page))}</div><div class="rg-kv"><strong>Origine de la relation</strong>${escapeHtml(origin)}</div><div class="rg-kv"><strong>Critères détectés</strong>${escapeHtml(reasons)}</div><div class="rg-kv"><strong>Niveau de confiance</strong><span class="rg-confidence ${confidence.cls}">${confidence.label}</span></div><div class="rg-side-actions"><a class="btn" href="${fiche}" target="_blank" rel="noopener">${isConcept ? "Consulter la fiche" : "Ouvrir le dictionnaire"}</a><button class="btn btn-primary" id="rg-center-selected" type="button">Centrer le graphe</button><button class="btn" id="rg-propose-selected" type="button">Proposer une relation</button></div></div>`;
-    sidePanel.hidden = false;
+    if (openPanel) {
+      sidePanel.classList.add("is-open");
+      sidePanel.setAttribute("aria-hidden", "false");
+    }
     sideContent.querySelector("#rg-center-selected")?.addEventListener("click", () => { search.value = catalog[index][0]; buildGraph(index); });
     sideContent.querySelector("#rg-propose-selected")?.addEventListener("click", () => { sourceTermInput.value = catalog[index][0]; contributionDialog.showModal(); targetTermInput.focus(); });
   }
@@ -1771,7 +1810,9 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     link.rel = "noopener";
     link.textContent = meta && !origin ? "Ouvrir la fiche" : "Ouvrir le dictionnaire";
     detail.append(strong, text, link);
-    renderSidePanel(index);
+    lastDetailIndex = index;
+    if (detailsToggle) detailsToggle.disabled = false;
+    renderSidePanel(index, false);
   }
 
   function resize() {
@@ -2027,6 +2068,14 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     const details = document.createElement("span");
     details.textContent = domains + (page ? " · dictionnaire p. " + page : "") + " · " + reasons;
     nodeTooltip.append(strong, details);
+    const definition = conceptDefinitions.get(normalize(catalog[index][0]));
+    if (definition) {
+      const definitionLine = document.createElement("span");
+      definitionLine.className = "rg-tooltip-definition";
+      const words = definition.split(/\s+/);
+      definitionLine.textContent = words.slice(0, 42).join(" ") + (words.length > 42 ? "…" : "");
+      nodeTooltip.append(definitionLine);
+    }
     nodeTooltip.hidden = false;
     const wrap = canvas.parentElement.getBoundingClientRect();
     const tooltipRect = nodeTooltip.getBoundingClientRect();
@@ -2039,22 +2088,35 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   function renderColorLegend() {
     if (!colorLegend) return;
     colorLegend.replaceChildren();
-    const groups = Array.from({ length: 6 }, () => []);
-    domainNames.forEach((name, index) => {
-      if (name) groups[Math.abs(index) % 6].push(name);
+    const visibleDomains = new Map();
+    nodes.forEach(node => {
+      const meta = geo.get(node.index);
+      const domainId = meta && meta.domains && meta.domains.length ? meta.domains[0] : null;
+      if (domainId === null || domainId === undefined) return;
+      const name = domainNames[domainId];
+      if (name) visibleDomains.set(domainId, name);
     });
     const series = ["--rg-series-1", "--rg-series-2", "--rg-series-3", "--rg-series-4", "--rg-series-5", "--rg-series-6"];
-    groups.forEach((names, index) => {
+    [...visibleDomains.entries()].sort((a,b) => a[1].localeCompare(b[1], "fr")).forEach(([domainId, name]) => {
       const item = document.createElement("div");
       item.className = "rg-color-item";
       const swatch = document.createElement("i");
       swatch.className = "rg-color-swatch";
-      swatch.style.background = css(series[index]);
-      const text = document.createElement("span");
-      text.textContent = names.length ? names.join(" · ") : "Autres domaines";
-      item.append(swatch, text);
+      swatch.style.background = css(series[Math.abs(domainId) % series.length]);
+      const label = document.createElement("span");
+      label.textContent = name;
+      item.append(swatch, label);
       colorLegend.append(item);
     });
+    if (!visibleDomains.size) colorLegend.textContent = "Aucun domaine géographique n’est renseigné pour les termes affichés.";
+  }
+
+  function showColorExplanation() {
+    if (!colorExplanation || !colorMode.checked) return;
+    renderColorLegend();
+    colorExplanation.hidden = false;
+    window.clearTimeout(colorExplanationTimer);
+    colorExplanationTimer = window.setTimeout(() => { colorExplanation.hidden = true; }, 9000);
   }
 
   function draw() {
@@ -2158,7 +2220,13 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   colorMode.addEventListener("change", () => {
     root.classList.toggle("is-color", colorMode.checked);
     renderColorLegend();
+    if (colorMode.checked) showColorExplanation();
+    else if (colorExplanation) colorExplanation.hidden = true;
     draw();
+  });
+  colorExplanationClose?.addEventListener("click", () => {
+    window.clearTimeout(colorExplanationTimer);
+    colorExplanation.hidden = true;
   });
   mainOnly.addEventListener("change", () => {
     if (selectedIndex !== null) buildGraph(selectedIndex);
@@ -2213,25 +2281,16 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     buildGraph(source);
     status.textContent = "Proposition enregistrée localement : " + item.source + " ↔ " + item.target + ".";
   });
-  exportButton.addEventListener("click", () => {
-    if (!contributions.length) {
-      status.textContent = "Aucune contribution locale à exporter.";
-      return;
-    }
-    const blob = new Blob([JSON.stringify(contributions, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "relations-conceptuelles-proposees.json";
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
   printButton.addEventListener("click", () => window.print());
   resetButton.addEventListener("click", () => {
     search.value = "";
     nodes = [];
     edges = [];
     selectedIndex = null;
+    lastDetailIndex = null;
+    if (detailsToggle) detailsToggle.disabled = true;
+    sidePanel?.classList.remove("is-open");
+    sidePanel?.setAttribute("aria-hidden", "true");
     detail.textContent = "";
     status.textContent = "Saisissez un terme pour construire son réseau à la demande.";
     empty.hidden = false;
@@ -2287,7 +2346,17 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
     pan.k = Math.max(0.45, Math.min(2.2, pan.k * (event.deltaY > 0 ? 0.9 : 1.1)));
   }, { passive: false });
 
-  sideClose?.addEventListener("click", () => { sidePanel.hidden = true; });
+  sideClose?.addEventListener("click", () => {
+    sidePanel.classList.remove("is-open");
+    sidePanel.setAttribute("aria-hidden", "true");
+  });
+  detailsToggle?.addEventListener("click", () => {
+    if (lastDetailIndex === null) return;
+    renderSidePanel(lastDetailIndex, false);
+    const opening = !sidePanel.classList.contains("is-open");
+    sidePanel.classList.toggle("is-open", opening);
+    sidePanel.setAttribute("aria-hidden", opening ? "false" : "true");
+  });
   document.querySelectorAll("#rg-view-tabs [data-view]").forEach(button => button.addEventListener("click", () => {
     activeView = button.dataset.view;
     document.querySelectorAll("#rg-view-tabs [data-view]").forEach(b => b.classList.toggle("is-selected", b === button));
@@ -2302,19 +2371,13 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
   });
   fullscreenButton?.addEventListener("click", async () => {
     try {
-      if (!document.fullscreenElement) await document.documentElement.requestFullscreen(); else await document.exitFullscreen();
+      if (document.fullscreenElement === canvasWrap) await document.exitFullscreen();
+      else await canvasWrap.requestFullscreen();
     } catch (error) { status.textContent = "Le mode plein écran n’est pas disponible dans ce navigateur."; }
   });
-  exportPngButton?.addEventListener("click", () => {
-    const link = document.createElement("a");
-    link.download = "graphe-" + (selectedIndex === null ? "relations" : normalize(catalog[selectedIndex][0]).replace(/\s+/g,"-")) + ".png";
-    link.href = canvas.toDataURL("image/png"); link.click();
-  });
-  exportCsvButton?.addEventListener("click", () => {
-    const lines = [["source","cible","criteres","origine","fiabilite"]];
-    edges.filter(e => !e.background).forEach(edge => { const conf=relationConfidence(edge); lines.push([catalog[edge.sourceIndex][0],catalog[edge.targetIndex][0],(edge.labels||[]).join("; "),relationOrigin(edge),conf.label]); });
-    const csv = lines.map(row => row.map(v => '"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");
-    const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"})); const a=document.createElement("a"); a.href=url; a.download="relations-conceptuelles.csv"; a.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  document.addEventListener("fullscreenchange", () => {
+    if (fullscreenButton) fullscreenButton.textContent = document.fullscreenElement === canvasWrap ? "Quitter le plein écran" : "Plein écran";
+    window.setTimeout(resize, 80);
   });
 
   window.addEventListener("resize", resize);
