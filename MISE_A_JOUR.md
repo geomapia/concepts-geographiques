@@ -1,3 +1,12 @@
+# Version 18 — Formules scientifiques (2 août 2026)
+
+- Ajout de `formules`, `variables_formule` et `verification_formule` dans le schéma des notices.
+- Intégration de MathJax sur la page `indices.html`.
+- Ajout d’un rendu dynamique générique dans `catalogue.js`.
+- Ajout des styles d’impression et d’affichage responsive dans `styles.css`.
+- Correction de la notice « Climatogramme d’Emberger » à partir de la page 282 du PDF source.
+- Le reste du corpus est conservé sans reconstruction automatique des formules.
+
 # Mise à jour du Répertoire 2026.16
 
 Cette version ajoute :

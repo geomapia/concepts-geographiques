@@ -1,3 +1,15 @@
+# Répertoire géographique — version 18
+
+Cette version ajoute un module générique de rendu des formules scientifiques avec MathJax.
+
+## Nouveauté principale
+
+- séparation entre définition textuelle, formules et variables ;
+- rendu mathématique vectoriel et responsive ;
+- conservation d’un affichage de secours si MathJax est indisponible ;
+- première notice corrigée et vérifiée : **Climatogramme d’Emberger** ;
+- aucune modification de l’architecture générale du site ni des autres notices.
+
 # Répertoire géographique de la diversité biologique et de la conservation
 
 Site académique interactif conçu par **Brahim Jaziri**.

@@ -382,11 +382,109 @@ function renderTranslations(item) {
     : "";
 }
 
+
+function renderScientificFormulas(item) {
+  let panel = $("#modalScientificFormulas");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "modalScientificFormulas";
+    panel.className = "modal-scientific-formulas";
+    $("#modalTranslations")?.insertAdjacentElement("afterend", panel);
+    if (!panel.isConnected) {
+      $("#modalDefinition")?.insertAdjacentElement("afterend", panel);
+    }
+  }
+
+  if (window.MathJax?.typesetClear) {
+    try {
+      MathJax.typesetClear([panel]);
+    } catch (error) {
+      console.warn("Réinitialisation MathJax impossible", error);
+    }
+  }
+
+  panel.replaceChildren();
+  const formulas = Array.isArray(item.formules) ? item.formules : [];
+  const variables = Array.isArray(item.variables_formule) ? item.variables_formule : [];
+
+  panel.hidden = formulas.length === 0;
+  if (!formulas.length) return;
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Formules scientifiques";
+  panel.append(heading);
+
+  const intro = document.createElement("p");
+  intro.className = "formula-intro";
+  intro.textContent = "Transcription mathématique vérifiée à partir de la page source du dictionnaire.";
+  panel.append(intro);
+
+  const list = document.createElement("div");
+  list.className = "formula-list";
+
+  formulas.forEach((formula, index) => {
+    const block = document.createElement("article");
+    block.className = "formula-block";
+
+    const title = document.createElement("h4");
+    title.textContent = formula.titre || `Formule ${index + 1}`;
+    block.append(title);
+
+    const expression = document.createElement("div");
+    expression.className = "formula-expression";
+    expression.setAttribute("role", "math");
+    expression.setAttribute("aria-label", formula.titre || `Formule ${index + 1}`);
+    expression.textContent = `\\[${String(formula.latex || "").trim()}\\]`;
+    block.append(expression);
+
+    if (formula.note) {
+      const note = document.createElement("p");
+      note.className = "formula-note";
+      note.textContent = formula.note;
+      block.append(note);
+    }
+
+    list.append(block);
+  });
+
+  panel.append(list);
+
+  if (variables.length) {
+    const variablesTitle = document.createElement("h4");
+    variablesTitle.className = "formula-variables-title";
+    variablesTitle.textContent = "Variables";
+    panel.append(variablesTitle);
+
+    const variableList = document.createElement("dl");
+    variableList.className = "formula-variables";
+    variables.forEach((variable) => {
+      const row = document.createElement("div");
+      const term = document.createElement("dt");
+      const definition = document.createElement("dd");
+      term.textContent = variable.symbole || "—";
+      definition.textContent = variable.definition || "Non précisé";
+      row.append(term, definition);
+      variableList.append(row);
+    });
+    panel.append(variableList);
+  }
+
+  if (window.MathJax?.typesetPromise) {
+    MathJax.typesetPromise([panel]).catch((error) => {
+      console.warn("Rendu MathJax impossible", error);
+      panel.classList.add("formula-render-fallback");
+    });
+  } else {
+    panel.classList.add("formula-render-fallback");
+  }
+}
+
 function openModal(item, updateUrl = true) {
   $("#modalType").textContent = item.type_notice;
   $("#modalTitle").textContent = item.concept;
   $("#modalDefinition").textContent = item.definition;
   renderTranslations(item);
+  renderScientificFormulas(item);
   $("#modalDetails").innerHTML = detailRows(item)
     .map(
       ([label, value]) => `
@@ -654,7 +752,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 Promise.all([
-  fetch("./data/concepts.json?v=20260801-1", { cache: "no-store" }).then((response) => {
+  fetch("./data/concepts.json?v=20260802-1", { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();
   }),
