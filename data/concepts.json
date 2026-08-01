@@ -5968,7 +5968,7 @@
     "domaine_principal": "Indices et indicateurs",
     "domaines_associes": "Climatologie et changements climatiques",
     "pertinence": "Central",
-    "definition": "L’indice d’E MBERGER (1932) définit le degré d’humidité du climat. Il prend en compte les précipitations annuelles P, la moyenne des maxima de température du mois le plus chaud (M) et la moyenne des minima de température du mois le plus froid (m). Comme pour l’indice xérothermique de G AUSSEN , il est plus particulièrement adapté aux régions méditerranéennes dans lesquelles il permet de distinguer différents étages climatiques. Dans ces régions, Emberger a remarqué que l’amplitude thermique (M-m), donc l’évaporation, est un facteur important de la répartition des végétaux. On sait en effet que, à température moyenne égale, l’évaporation est d’autant plus grande que l’amplitude thermique est élevée. Le facteur de pluie pris en compte est le produit du nombre de jours de pluie par an (n) par le cumul moyen annuel (P). Équation 1 : Q E = ( !\" #$%('())('+)) ) ∗ 100 Si le nombre de jours de pluie est inconnu, la formule simplifiée suivante a été proposée Équation 2 : Q E = ! \"(( !\"# $ )(%&' ∗ 100 = ())! % $%#$ Louis E MBERGER propose également le calcul d’un quotient, expression empirique de l’efficacité des pluies. Ce quotient pluviométrique ou indice climatique d’Emberger sert à définir les cinq différents types de climats méditerranéens, depuis le plus aride jusqu’à celui de haute montagne. Ce quotient est défini par la formule : 𝑄 = 2000𝑃 𝑀 ,+) ! • Q : quotient pluviométrique d’E MBERGER • M : la moyenne des températures du mois le plus chaud en kelvin avec °K = °C+273,15 • m : la moyenne des températures du mois le plus frais en kelvin • P : pluviométrie annuelle en mm Il permet de déterminer l’étage bioclimatique d’une station donnée. Emberger a défini cinq étages bioclimatiques : humide, sub-humide, aride, semi-aride, et saharien, et quatre variantes thermiques : (i) hiver froid : m < 0 °C (ii) hiver frais : 0 < m < 3 °C (iii) hiver doux ou tempéré : 3 < m < 7 °C (iv) hiver chaud : m > 7 °C Figure 27 : Représentation schématique du climatogramme d’Emberger",
+    "definition": "L’indice d’Emberger (1932) définit le degré d’humidité du climat. Il prend en compte les précipitations annuelles P, la moyenne des maxima de température du mois le plus chaud (M) et la moyenne des minima de température du mois le plus froid (m). Comme pour l’indice xérothermique de Gaussen, il est plus particulièrement adapté aux régions méditerranéennes dans lesquelles il permet de distinguer différents étages climatiques. Dans ces régions, Emberger a remarqué que l’amplitude thermique (M − m), donc l’évaporation, est un facteur important de la répartition des végétaux. À température moyenne égale, l’évaporation est d’autant plus grande que l’amplitude thermique est élevée. Le facteur de pluie pris en compte est le produit du nombre de jours de pluie par an (n) par le cumul moyen annuel (P). Lorsque le nombre de jours de pluie est inconnu, une formule simplifiée est utilisée. Louis Emberger propose également le calcul d’un quotient pluviométrique, expression empirique de l’efficacité des pluies. Cet indice climatique sert à définir cinq types de climats méditerranéens, du plus aride à celui de haute montagne. Il permet de déterminer l’étage bioclimatique d’une station donnée : humide, sub-humide, aride, semi-aride ou saharien. Quatre variantes thermiques sont distinguées : hiver froid (m < 0 °C), hiver frais (0 < m < 3 °C), hiver doux ou tempéré (3 < m < 7 °C) et hiver chaud (m > 7 °C).",
     "page_pdf": 282,
     "source": "Patrick Triplet, Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, édition 2026",
     "type_notice": "Indice ou indicateur",
@@ -5988,11 +5988,57 @@
       "sigles": [],
       "formule_mentionnee": true,
       "unites_mentionnees": [
-        "%",
         "mm",
-        "°C"
+        "°C",
+        "K"
       ],
-      "interpretation": "Des éléments d’interprétation sont présents dans la définition."
+      "interpretation": "Les formules et les seuils bioclimatiques sont présentés séparément de la définition.",
+      "formule_verifiee": true
+    },
+    "formules": [
+      {
+        "titre": "Équation 1 — facteur de pluie avec nombre de jours de pluie",
+        "latex": "Q_E = \\frac{nP}{365(M+m)(M-m)} \\times 100"
+      },
+      {
+        "titre": "Équation 2 — formule simplifiée",
+        "latex": "Q_E = \\frac{P}{2\\left(\\frac{M+m}{2}\\right)(M-m)} \\times 100 = \\frac{100P}{M^2-m^2}"
+      },
+      {
+        "titre": "Quotient pluviométrique d’Emberger",
+        "latex": "Q = \\frac{2000P}{M^2-m^2}"
+      }
+    ],
+    "variables_formule": [
+      {
+        "symbole": "Qₑ",
+        "definition": "quotient associé aux équations 1 et 2"
+      },
+      {
+        "symbole": "Q",
+        "definition": "quotient pluviométrique d’Emberger"
+      },
+      {
+        "symbole": "n",
+        "definition": "nombre annuel de jours de pluie"
+      },
+      {
+        "symbole": "P",
+        "definition": "pluviométrie annuelle en millimètres"
+      },
+      {
+        "symbole": "M",
+        "definition": "moyenne des températures maximales du mois le plus chaud, exprimée en kelvins"
+      },
+      {
+        "symbole": "m",
+        "definition": "moyenne des températures minimales du mois le plus froid, exprimée en kelvins"
+      }
+    ],
+    "verification_formule": {
+      "statut": "Vérifiée à partir de la page source",
+      "page_pdf": 282,
+      "date": "2026-08-02"
     }
   },
   {
@@ -16362,16 +16408,7 @@
       "Marin et littoral"
     ],
     "lien_source_pdf": "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=779",
-    "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 779. Sélection et classification géographiques réalisées par Brahim Jaziri.",
-    "traductions": {
-      "ar": {
-        "terme": "الحوكمة",
-        "definition": "",
-        "source": "Proposition validée par Brahim Jaziri.",
-        "date_validation": "2026-08-01",
-        "responsable": "Brahim Jaziri"
-      }
-    }
+    "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 779. Sélection et classification géographiques réalisées par Brahim Jaziri."
   },
   {
     "concept": "Gouvernance adaptative",
@@ -26140,42 +26177,6 @@
         "definition": "",
         "source": "Proposition validée par Brahim Jaziri.",
         "date_validation": "2026-07-30",
-        "responsable": "Brahim Jaziri"
-      }
-    }
-  },
-  {
-    "concept": "Urbanisation",
-    "entree_complete": "Urbanisation",
-    "domaine_principal": "Aménagement, territoires et usages du sol",
-    "domaines_associes": "Aménagement, territoires et usages du sol",
-    "pertinence": "Interdisciplinaire",
-    "definition": "Fait de vivre dans des zones urbaines. Elle décrit donc la proportion des personnes vivant dans \r\nles zones urbaines et la croissance de ces zones qui en résulte. L’urbanisation est une forme \r\nextrême d’altération environnementale causée par les êtres humains, et elle peut avoir des effets \r\npositifs et négatifs sur les organismes. Elle peut ainsi offrir des conditions de sécurité contre les \r\nprédateurs et la famine, et donc augmenter l’espérance de vie. À l’inverse, différents polluants \r\n(chimiques, lumière, bruit) peuvent avoir un impact négatif sur la santé et diminuer la survie. \r\nL’urbanisation affecte le plus fortement la circulation des eaux. Une grande partie des surfaces \r\nest en effet rendue imperméable : chaussées, trottoirs, parkings, toitures… L’eau s’écoule plus \r\nrapidement sur ces surfaces que sur les zones au sol naturel et est acheminée vers le réseau \r\nhydrographique par des canalisations sans s’infiltrer dans le sol. L’évapotranspiration est donc \r\nfortement réduite. \r\nAinsi, les aires urbaines émettent des écoulements qui accroissent les risques d’inondation en \r\naval. De plus, des polluants sont lessivés et transférés à partir des surfaces imperméabilisées, sans \r\npouvoir être filtrés par les sols : résidus d’hydrocarbures, déjections animales, particules de \r\npneumatiques ou de métaux… Ces eaux issues des surfaces de ruissellement urbain sont nommées \r\neaux pluviales et présentent donc des risques de pollution et d’inondation.",
-    "page_pdf": 1434,
-    "source": "Patrick Triplet, Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, édition 2026",
-    "type_notice": "Concept géographique",
-    "domaines_thematiques": [
-      "Aménagement, territoires et usages du sol"
-    ],
-    "echelles_explicites": [],
-    "milieux_explicites": [],
-    "lien_source_pdf": "https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf#page=1434",
-    "citation": "Triplet, Patrick (2026). Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature, p. 1433. Sélection et classification géographiques réalisées par Brahim Jaziri.",
-    "niveau_conceptuel": "Complémentaire",
-    "concepts_associes": [],
-    "page_dictionnaire": 1433,
-    "page_ouverte": 1434,
-    "validation_editoriale": {
-      "identifiant_suggestion": "SUG-20260801-001339-355",
-      "date_validation": "2026-08-01",
-      "responsable": "Brahim Jaziri"
-    },
-    "traductions": {
-      "ar": {
-        "terme": "التحضّر",
-        "definition": "",
-        "source": "Proposition soumise avec la notice et validée par Brahim Jaziri.",
-        "date_validation": "2026-08-01",
         "responsable": "Brahim Jaziri"
       }
     }
