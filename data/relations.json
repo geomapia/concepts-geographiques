@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "generated_at": "2026-08-03T23:59:52.890Z",
+  "source": "Répertoire géographique — validation scientifique administrative",
+  "count": 5,
+  "relations": [
+    {
+      "id": "REL-000006",
+      "source": "Karst",
+      "target": "Eau douce",
+      "type": "est associé à",
+      "direction": "Réciproque",
+      "justification": "Les eaux des systèmes karstiques sont généralement douces, provenant de l’infiltration de précipitations peu minéralisées."
+    },
+    {
+      "id": "REL-000001",
+      "source": "Karst",
+      "target": "Sol calcaire",
+      "type": "Terme associé",
+      "direction": "Réciproque",
+      "justification": "Le relief karstique se développe principalement dans les formations calcaires."
+    },
+    {
+      "id": "REL-000008",
+      "source": "Résilience socio-écologique intégrée",
+      "target": "Anthro-symbiose écologique, ASE",
+      "type": "est associé à",
+      "direction": "Orientée",
+      "justification": "L'ASE est une forme de coadaptation entre pratiques humaines et systèmes naturels, ce qui s'inscrit dans la capacité conjointe des systèmes naturels et humains de la résilience socio-écologique."
+    },
+    {
+      "id": "REL-000009",
+      "source": "Résilience socio-écologique intégrée",
+      "target": "Capacité adaptative écosystémique",
+      "type": "est associé à",
+      "direction": "Orientée",
+      "justification": "La capacité adaptative est une composante de la capacité d'un écosystème à maintenir ses fonctions, élément central de la résilience socio-écologique."
+    },
+    {
+      "id": "REL-000007",
+      "source": "Résilience socio-écologique intégrée",
+      "target": "Résilience bioculturelle",
+      "type": "est associé à",
+      "direction": "Orientée",
+      "justification": "La résilience socio-écologique intégrée combine systèmes naturels et humains, ce qui est le principe de la résilience bioculturelle (systèmes culturels et écologiques)."
+    }
+  ]
+}
