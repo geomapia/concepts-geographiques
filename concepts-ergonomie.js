@@ -28,11 +28,20 @@
     const boutonPdf = document.querySelector("#modalPdf");
     if (!boutonPdf) return;
 
-    boutonPdf.textContent = "Voir la page dans le PDF ↗";
+    if (boutonPdf.textContent !== "Voir la page dans le PDF ↗") {
+      boutonPdf.textContent = "Voir la page dans le PDF ↗";
+    }
+
     boutonPdf.setAttribute(
       "aria-label",
       "Ouvrir dans le PDF la page indiquée dans les métadonnées de la notice"
     );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", harmoniserBoutonPdf, { once: true });
+  } else {
+    harmoniserBoutonPdf();
   }
 
   document.addEventListener("click", (event) => {
@@ -40,14 +49,4 @@
       window.setTimeout(harmoniserBoutonPdf, 0);
     }
   });
-
-  const observer = new MutationObserver(harmoniserBoutonPdf);
-  observer.observe(document.body, {
-    subtree: true,
-    childList: true,
-    attributes: true,
-    attributeFilter: ["hidden", "href"],
-  });
-
-  harmoniserBoutonPdf();
 })();
