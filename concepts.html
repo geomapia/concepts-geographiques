@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Répertoire académique de 1 500 concepts géographiques sélectionnés dans le dictionnaire de Patrick Triplet, édition 2026." />
     <title>Concepts géographiques | Répertoire 2026</title>
-    <link rel="stylesheet" href="./styles.css?v=20260802-1" />
+    <link rel="stylesheet" href="./styles.css?v=20260803-2" />
     <script src="./suggestions-config.js?v=20260730-4"></script>
     <script src="./navigation.js?v=20260730-3" defer></script>
-    <script src="./catalogue.js?v=20260802-1" defer></script>
+    <script src="./catalogue.js?v=20260803-2" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
     <script src="./tour.js?v=20260730-3" defer></script>
   </head>
@@ -61,8 +61,11 @@
             <span>⌕</span>
             <input id="search" type="search" placeholder="Rechercher un concept ou une définition…" />
           </label>
-          <select id="themeFilter" aria-label="Domaine thématique">
-            <option value="">Tous les domaines thématiques</option>
+          <select id="themeFilter" aria-label="Domaine principal harmonisé">
+            <option value="">Tous les domaines</option>
+          </select>
+          <select id="subdomainFilter" aria-label="Sous-domaine principal">
+            <option value="">Tous les sous-domaines</option>
           </select>
           <select id="sortFilter" aria-label="Ordre d’affichage">
             <option value="alpha">Ordre alphabétique</option>

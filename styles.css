@@ -1406,3 +1406,26 @@ textarea[lang="ar"] {
   .formula-expression { font-size: 16px; text-align: left; }
   .formula-variables > div { grid-template-columns: 52px 1fr; }
 }
+
+
+/* Harmonisation 2026 : domaine + sous-domaine */
+.concepts-search-panel {
+  grid-template-columns: minmax(280px, 1.65fr) minmax(190px, .9fr) minmax(190px, .9fr) minmax(170px, .75fr);
+}
+.notice-classification {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0;
+}
+.notice-classification span {
+  display: inline-flex; align-items: center; min-height: 26px; padding: 4px 8px;
+  border: 1px solid var(--line, #d9d1c3); background: #f8f4ec;
+  color: var(--navy, #18324a); font-size: 11px; line-height: 1.25;
+}
+.notice-classification .subdomain { background: #fff; color: #5d6873; }
+@media (max-width: 1050px) {
+  .concepts-search-panel { grid-template-columns: 1fr 1fr; }
+  .concepts-search-panel .search-box { grid-column: 1 / -1; }
+}
+@media (max-width: 680px) {
+  .concepts-search-panel { grid-template-columns: 1fr; }
+  .concepts-search-panel .search-box { grid-column: auto; }
+}

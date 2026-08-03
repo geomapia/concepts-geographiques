@@ -15,6 +15,7 @@ const $ = (selector) => document.querySelector(selector);
 const elements = {
   search: $("#search"),
   theme: $("#themeFilter"),
+  subdomain: $("#subdomainFilter"),
   scale: $("#scaleFilter"),
   milieu: $("#milieuFilter"),
   level: $("#levelFilter"),
@@ -150,8 +151,26 @@ function fillSelect(select, values) {
   });
 }
 
+function subdomainsForDomain(domain) {
+  return unique(
+    concepts
+      .filter((item) => !domain || item.domaine_principal === domain)
+      .map((item) => item.sous_domaine_principal)
+  );
+}
+
+function refreshSubdomainFilter({ preserveValue = true } = {}) {
+  if (!elements.subdomain) return;
+  const previous = preserveValue ? elements.subdomain.value : "";
+  const values = subdomainsForDomain(elements.theme?.value || "");
+  elements.subdomain.innerHTML = '<option value="">Tous les sous-domaines</option>';
+  fillSelect(elements.subdomain, values);
+  elements.subdomain.value = values.includes(previous) ? previous : "";
+}
+
 function initializeFilters() {
-  fillSelect(elements.theme, unique(concepts.flatMap((item) => item.domaines_thematiques || [])));
+  fillSelect(elements.theme, unique(concepts.map((item) => item.domaine_principal)));
+  refreshSubdomainFilter({ preserveValue: false });
   fillSelect(elements.scale, unique(concepts.flatMap((item) => item.echelles_explicites || [])));
   fillSelect(elements.milieu, unique(concepts.flatMap((item) => item.milieux_explicites || [])));
   fillSelect(elements.level, unique(concepts.map((item) => item.niveau_conceptuel)));
@@ -162,13 +181,15 @@ function applyFilters() {
   filtered = concepts.filter((item) => {
     const corpus =
       `${item.concept} ${item.entree_complete || ""} ${item.definition} ` +
+      `${item.domaine_principal || ""} ${item.sous_domaine_principal || ""} ` +
       `${item.domaines_thematiques?.join(" ")} ${item.concepts_associes?.join(" ")} ` +
       `${item.fiche_specialisee?.sigles?.join(" ")} ${translationsFor(item).english} ${translationsFor(item).arabic}`;
     const initial = normalize(item.concept).charAt(0).toUpperCase();
     return (
       (!currentLetter || initial === currentLetter) &&
       (!needle || matchesSearch(corpus, needle)) &&
-      (!elements.theme?.value || item.domaines_thematiques?.includes(elements.theme.value)) &&
+      (!elements.theme?.value || item.domaine_principal === elements.theme.value) &&
+      (!elements.subdomain?.value || item.sous_domaine_principal === elements.subdomain.value) &&
       (!elements.scale?.value || item.echelles_explicites?.includes(elements.scale.value)) &&
       (!elements.milieu?.value || item.milieux_explicites?.includes(elements.milieu.value)) &&
       (!elements.level?.value || item.niveau_conceptuel === elements.level.value) &&
@@ -225,7 +246,8 @@ function metadata(item) {
   }
   return [
     item.niveau_conceptuel === "Fondamental" ? "Concept fondamental" : "",
-    item.domaines_thematiques?.[0] || item.domaine_principal,
+    item.domaine_principal,
+    item.sous_domaine_principal || "",
     item.echelles_explicites?.[0] || "",
     item.milieux_explicites?.[0] || "",
   ].filter(Boolean);
@@ -315,6 +337,10 @@ function render() {
           <h2>${highlightSearch(item.concept)}</h2>
           ${translations.english ? `<p class="notice-translation"><strong>English:</strong> ${escapeHtml(translations.english)}</p>` : ""}
           ${translations.arabic ? `<p class="notice-translation notice-translation-ar" lang="ar" dir="rtl"><strong>العربية:</strong> ${escapeHtml(translations.arabic)}</p>` : ""}
+          <div class="notice-classification" aria-label="Classement géographique">
+            <span>${escapeHtml(item.domaine_principal || "Non classé")}</span>
+            ${item.sous_domaine_principal ? `<span class="subdomain">${escapeHtml(item.sous_domaine_principal)}</span>` : ""}
+          </div>
           <div class="notice-tags">${tags}</div>
           <p>${definitionPreview.html}${definitionPreview.truncated ? `… <a class="definition-continuation" href="${escapeHtml(definitionPreview.url)}" target="_blank" rel="noreferrer">(suite dans le dictionnaire) ↗</a>` : ""}</p>
           <div class="notice-actions">
@@ -333,7 +359,9 @@ function detailRows(item) {
   const base = [
     ["Type de notice", item.type_notice],
     ["Page du dictionnaire", item.page_dictionnaire ?? Math.max(1, Number(item.page_pdf) - 1)],
-    ["Domaines thématiques", item.domaines_thematiques?.join(" · ") || "Non précisé"],
+    ["Domaine principal", item.domaine_principal || "Non précisé"],
+    ["Sous-domaine principal", item.sous_domaine_principal || "À préciser"],
+    ["Domaines associés", item.domaines_thematiques?.filter((d) => d !== item.domaine_principal).join(" · ") || "Non précisé"],
     ["Échelles explicitement mentionnées", item.echelles_explicites?.join(" · ")],
     ["Milieux explicitement mentionnés", item.milieux_explicites?.join(" · ")],
     ["Pertinence géographique", item.pertinence],
@@ -651,14 +679,16 @@ function csvCell(value) {
 
 function exportCsv() {
   const header = [
-    "Concept", "Type", "Définition", "Domaines", "Échelles", "Milieux",
+    "Concept", "Type", "Définition", "Domaine principal", "Sous-domaine principal", "Domaines associés", "Échelles", "Milieux",
     "Pertinence", "Page PDF", "Citation",
   ];
   const rows = filtered.map((item) => [
     item.concept,
     item.type_notice,
     item.definition,
-    item.domaines_thematiques?.join("; "),
+    item.domaine_principal,
+    item.sous_domaine_principal,
+    item.domaines_thematiques?.filter((d) => d !== item.domaine_principal).join("; "),
     item.echelles_explicites?.join("; "),
     item.milieux_explicites?.join("; "),
     item.pertinence,
@@ -682,9 +712,16 @@ elements.grid.addEventListener("click", async (event) => {
   if (button.dataset.action === "open") openModal(item);
 });
 
-[elements.search, elements.theme, elements.scale, elements.milieu, elements.level, elements.relevance, elements.sort]
+[elements.search, elements.scale, elements.milieu, elements.level, elements.relevance, elements.sort]
   .filter(Boolean)
   .forEach((element) => element.addEventListener(element.tagName === "INPUT" ? "input" : "change", applyFilters));
+
+elements.theme?.addEventListener("change", () => {
+  refreshSubdomainFilter({ preserveValue: false });
+  applyFilters();
+});
+
+elements.subdomain?.addEventListener("change", applyFilters);
 
 function goToRequestedPage(input) {
   if (!input) return;
@@ -728,6 +765,8 @@ elements.reset.addEventListener("click", () => {
     .forEach((element) => {
       element.value = "";
     });
+  refreshSubdomainFilter({ preserveValue: false });
+  if (elements.subdomain) elements.subdomain.value = "";
   if (elements.sort) elements.sort.value = "alpha";
   currentLetter = "";
   renderAlphabet();
@@ -752,7 +791,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 Promise.all([
-  fetch("./data/concepts.json?v=20260802-1", { cache: "no-store" }).then((response) => {
+  fetch("./data/concepts.json?v=20260803-2", { cache: "no-store" }).then((response) => {
     if (!response.ok) throw new Error("Données indisponibles.");
     return response.json();
   }),
