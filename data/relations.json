@@ -1,9 +1,17 @@
 {
   "version": 1,
-  "generated_at": "2026-08-04T00:31:03.742Z",
+  "generated_at": "2026-08-04T00:31:39.194Z",
   "source": "Répertoire géographique — validation scientifique administrative",
-  "count": 6,
+  "count": 7,
   "relations": [
+    {
+      "id": "REL-000011",
+      "source": "Adaptation",
+      "target": "Environnements hostiles",
+      "type": "est associé à",
+      "direction": "Orientée",
+      "justification": "L'adaptation est le processus par lequel la vie s'ajuste aux conditions chimiques ou physiques inhospitalières."
+    },
     {
       "id": "REL-000012",
       "source": "Adaptation",
