@@ -34,13 +34,13 @@
       }
 
       .relations-public-line-exploratory { border-color: #17324a; }
-      .relations-public-line-validated { border-color: #2f8f4e; }
+      .relations-public-line-validated { border-color: #17324a; }
 
       .relations-validated-details {
         margin-top: 14px;
         padding: 16px 18px;
         border: 1px solid #d9cfbd;
-        border-left: 5px solid #2f8f4e;
+        border-left: 5px solid #17324a;
         background: #fffdf8;
       }
 
@@ -57,8 +57,8 @@
 
       .relations-validated-card {
         padding: 11px 13px;
-        border: 1px solid #cfe1d3;
-        background: #f6fbf7;
+        border: 1px solid #d8d1c4;
+        background: #f7f5f0;
       }
 
       .relations-validated-head {
@@ -73,8 +73,8 @@
       .relations-validated-badge {
         display: inline-block;
         padding: 2px 7px;
-        border: 1px solid #2f8f4e;
-        color: #236f3c;
+        border: 1px solid #17324a;
+        color: #17324a;
         background: #ffffff;
         font-size: 11px;
         text-transform: uppercase;
@@ -136,7 +136,7 @@
           </span>
           <span class="relations-public-legend-item">
             <span class="relations-public-line relations-public-line-validated"></span>
-            Relation scientifiquement validée
+            Relations validées séparément du graphe
           </span>
         </div>
 
@@ -154,16 +154,6 @@
         const fullTarget = './relations-explorer.html' + (concept ? '?concept=' + encodeURIComponent(concept) : '');
         if (frame) {
           frame.src = compactTarget;
-          frame.addEventListener('load', () => {
-            try {
-              const script = frame.contentDocument.createElement('script');
-              script.src = './relations-validees.js?v=20260804-3';
-              script.defer = true;
-              frame.contentDocument.body.appendChild(script);
-            } catch (error) {
-              console.warn('Relations validées non injectées :', error);
-            }
-          });
         }
         const openTab = document.getElementById('openRelationsTab');
         if (openTab) openTab.href = fullTarget;
@@ -218,7 +208,7 @@
               return (
                 '<article class="relations-validated-card">' +
                   '<div class="relations-validated-head">' +
-                    '<span class="relations-validated-badge">Validée</span>' +
+                    '<span class="relations-validated-badge">✓ Relation validée</span>' +
                     '<span>' + escapeHtml(concept) + ' ' + symbol + ' ' + escapeHtml(other) + '</span>' +
                   '</div>' +
                   '<div class="relations-validated-meta">Type : ' + escapeHtml(relation.type || 'Relation associée') +
