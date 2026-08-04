@@ -54,7 +54,19 @@
         const frame = document.getElementById('relationsFrame');
         const compactTarget = './relations-map.html?mode=compact' + (concept ? '&concept=' + encodeURIComponent(concept) : '');
         const fullTarget = './relations-explorer.html' + (concept ? '?concept=' + encodeURIComponent(concept) : '');
-        if (frame) frame.src = compactTarget;
+        if (frame) {
+          frame.src = compactTarget;
+          frame.addEventListener('load', () => {
+            try {
+              const script = frame.contentDocument.createElement('script');
+              script.src = './relations-validees.js?v=20260804-1';
+              script.defer = true;
+              frame.contentDocument.body.appendChild(script);
+            } catch (error) {
+              console.warn('Relations validées non injectées :', error);
+            }
+          });
+        }
         const openTab = document.getElementById('openRelationsTab');
         if (openTab) openTab.href = fullTarget;
       })();
