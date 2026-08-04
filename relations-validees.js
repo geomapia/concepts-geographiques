@@ -1,6 +1,10 @@
 (() => {
   "use strict";
 
+  const COULEUR_VALIDEE = "#2f8f4e";
+  const COULEUR_NOEUD = "#17324a";
+  const ID_OVERLAY = "rg-validated-graph-overlay";
+
   const normaliser = value =>
     String(value || "")
       .normalize("NFD")
@@ -11,327 +15,270 @@
       .trim()
       .toLowerCase();
 
-  const echapper = value =>
+  const echapperXml = value =>
     String(value == null ? "" : value)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  const clePaire = (a, b) => {
-    const x = Number(a);
-    const y = Number(b);
-    return x < y ? `${x}|${y}` : `${y}|${x}`;
-  };
+      .replace(/'/g, "&apos;");
 
   let relationsPubliques = [];
-  let relationsValideesParPaire = new Map();
+  let dernierConcept = "";
+  let temporisateur = null;
 
-  function ajouterStylesRelationsValidees() {
-    if (document.getElementById("rg-relations-validees-style")) return;
-
-    const style = document.createElement("style");
-    style.id = "rg-relations-validees-style";
-    style.textContent = `
-      .rg-validated-legend {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-left: 18px;
-        color: var(--foreground, #17324a);
-        font-size: 12px;
-      }
-
-      .rg-validated-legend-line {
-        display: inline-block;
-        width: 28px;
-        height: 0;
-        border-top: 3px solid #2f8f4e;
-      }
-
-      .rg-validated-panel {
-        margin-top: 12px;
-        padding: 12px 14px;
-        border: 1px solid var(--border, #d9d0bf);
-        border-left: 4px solid #2f8f4e;
-        background: var(--secondary, #fff);
-        color: var(--foreground, #17324a);
-        font-size: 13px;
-      }
-
-      .rg-validated-panel[hidden] {
-        display: none !important;
-      }
-
-      .rg-validated-panel h3 {
-        margin: 0 0 8px;
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-      .rg-validated-panel-list {
-        display: grid;
-        gap: 8px;
-      }
-
-      .rg-validated-relation {
-        padding: 8px 10px;
-        border: 1px solid color-mix(in srgb, #2f8f4e 25%, transparent);
-        background: color-mix(in srgb, #2f8f4e 7%, transparent);
-      }
-
-      .rg-validated-relation-head {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 6px;
-        font-weight: 700;
-      }
-
-      .rg-validated-badge {
-        display: inline-block;
-        padding: 2px 7px;
-        border: 1px solid #2f8f4e;
-        color: #236f3c;
-        background: #f2faf4;
-        font-size: 11px;
-        font-weight: 700;
-      }
-
-      .rg-validated-type {
-        margin-top: 3px;
-        color: var(--muted-foreground, #596979);
-        font-size: 12px;
-      }
-
-      .rg-validated-justification {
-        margin-top: 5px;
-        line-height: 1.45;
-      }
-    `;
-    document.head.appendChild(style);
+  function trouverChampConcept() {
+    const champs = Array.from(document.querySelectorAll('input[type="search"], input[type="text"], input:not([type])'));
+    return champs.find(champ => {
+      const texte = [
+        champ.placeholder,
+        champ.getAttribute("aria-label"),
+        champ.id,
+        champ.name
+      ].join(" ").toLowerCase();
+      return texte.includes("recher") || texte.includes("concept") || texte.includes("terme");
+    }) || champs[0] || null;
   }
 
-  function ajouterLegendeValidee() {
-    if (document.getElementById("rg-validated-legend")) return;
-
-    const candidats = Array.from(document.querySelectorAll("body *"));
-    const elementLegende = candidats.find(element =>
-      element.children.length === 0 &&
-      /relations du concept central/i.test(element.textContent || "")
-    );
-
-    const legende = document.createElement("span");
-    legende.id = "rg-validated-legend";
-    legende.className = "rg-validated-legend";
-    legende.innerHTML =
-      '<span class="rg-validated-legend-line" aria-hidden="true"></span>' +
-      '<span>Relation scientifiquement validée</span>';
-
-    if (elementLegende && elementLegende.parentElement) {
-      elementLegende.parentElement.appendChild(legende);
-      return;
-    }
-
-    const canvas = document.querySelector("canvas");
-    const cible = canvas && canvas.parentElement
-      ? canvas.parentElement
-      : document.getElementById("widget") || document.body;
-    cible.insertAdjacentElement("afterend", legende);
+  function conceptActuel() {
+    const parametre = new URLSearchParams(window.location.search).get("concept");
+    const champ = trouverChampConcept();
+    const valeurChamp = champ ? String(champ.value || "").trim() : "";
+    return valeurChamp || String(parametre || "").trim();
   }
 
-  function obtenirPanneauValide() {
-    let panneau = document.getElementById("rg-validated-panel");
-    if (panneau) return panneau;
-
-    panneau = document.createElement("section");
-    panneau.id = "rg-validated-panel";
-    panneau.className = "rg-validated-panel";
-    panneau.hidden = true;
-
-    const canvas = document.querySelector("canvas");
-    const cible = canvas && canvas.parentElement
-      ? canvas.parentElement
-      : document.getElementById("widget") || document.body;
-
-    cible.insertAdjacentElement("afterend", panneau);
-    return panneau;
-  }
-
-  function relationConcerneConcept(relation, concept) {
+  function relationsDuConcept(concept) {
     const cle = normaliser(concept);
-    return normaliser(relation.source) === cle || normaliser(relation.target) === cle;
+    return relationsPubliques.filter(relation =>
+      normaliser(relation.source) === cle ||
+      normaliser(relation.target || relation.cible) === cle
+    );
   }
 
-  function symboleRelation(relation, concept) {
-    const reciproque = normaliser(relation.direction) === "reciproque";
-    if (reciproque) return "↔";
-    return normaliser(relation.source) === normaliser(concept) ? "→" : "←";
-  }
-
-  function autreTerme(relation, concept) {
+  function termeOppose(relation, concept) {
     return normaliser(relation.source) === normaliser(concept)
-      ? relation.target
-      : relation.source;
+      ? String(relation.target || relation.cible || "").trim()
+      : String(relation.source || "").trim();
   }
 
-  function actualiserPanneauRelationsValidees() {
-    const panneau = obtenirPanneauValide();
-    const concept = String(
-      typeof search !== "undefined" && search ? search.value : ""
-    ).trim();
-
-    if (!concept) {
-      panneau.hidden = true;
-      panneau.innerHTML = "";
-      return;
-    }
-
-    const concernees = relationsPubliques.filter(relation =>
-      relationConcerneConcept(relation, concept)
-    );
-
-    if (!concernees.length) {
-      panneau.hidden = true;
-      panneau.innerHTML = "";
-      return;
-    }
-
-    panneau.hidden = false;
-    panneau.innerHTML =
-      `<h3>Relations scientifiquement validées de « ${echapper(concept)} »</h3>` +
-      '<div class="rg-validated-panel-list">' +
-      concernees.map(relation => {
-        const symbole = symboleRelation(relation, concept);
-        const terme = autreTerme(relation, concept);
-        return (
-          '<article class="rg-validated-relation">' +
-            '<div class="rg-validated-relation-head">' +
-              '<span class="rg-validated-badge">Validée</span>' +
-              `<span>${echapper(concept)} ${symbole} ${echapper(terme)}</span>` +
-            '</div>' +
-            `<div class="rg-validated-type">Type : ${echapper(relation.type || "Relation associée")}</div>` +
-            (relation.justification
-              ? `<div class="rg-validated-justification">${echapper(relation.justification)}</div>`
-              : "") +
-          '</article>'
-        );
-      }).join("") +
-      '</div>';
+  function estRelationSortante(relation, concept) {
+    return normaliser(relation.source) === normaliser(concept);
   }
 
-  function observerInteractions() {
-    document.addEventListener("click", event => {
-      if (
-        event.target &&
-        (
-          /explorer/i.test(event.target.textContent || "") ||
-          event.target.closest("button")
-        )
-      ) {
-        window.setTimeout(actualiserPanneauRelationsValidees, 120);
+  function decouperLibelle(libelle, limite) {
+    const mots = String(libelle || "").trim().split(/\s+/);
+    const lignes = [];
+    let ligne = "";
+
+    mots.forEach(mot => {
+      const candidate = ligne ? ligne + " " + mot : mot;
+      if (candidate.length > limite && ligne) {
+        lignes.push(ligne);
+        ligne = mot;
+      } else {
+        ligne = candidate;
       }
     });
 
+    if (ligne) lignes.push(ligne);
+    return lignes.slice(0, 3);
+  }
+
+  function supprimerOverlay() {
+    const precedent = document.getElementById(ID_OVERLAY);
+    if (precedent) precedent.remove();
+  }
+
+  function dessinerRelationsValidees() {
+    supprimerOverlay();
+
+    const concept = conceptActuel();
+    if (!concept) return;
+
+    const relations = relationsDuConcept(concept);
+    if (!relations.length) return;
+
+    const canvas = document.querySelector("canvas");
+    if (!canvas || !canvas.parentElement) return;
+
+    const parent = canvas.parentElement;
+    const styleParent = getComputedStyle(parent);
+    if (styleParent.position === "static") parent.style.position = "relative";
+
+    const largeur = canvas.clientWidth || canvas.width;
+    const hauteur = canvas.clientHeight || canvas.height;
+    if (!largeur || !hauteur) return;
+
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.id = ID_OVERLAY;
+    svg.setAttribute("viewBox", `0 0 ${largeur} ${hauteur}`);
+    svg.setAttribute("width", String(largeur));
+    svg.setAttribute("height", String(hauteur));
+    svg.setAttribute("aria-label", "Relations scientifiquement validées");
+    Object.assign(svg.style, {
+      position: "absolute",
+      left: canvas.offsetLeft + "px",
+      top: canvas.offsetTop + "px",
+      width: largeur + "px",
+      height: hauteur + "px",
+      pointerEvents: "none",
+      zIndex: "4",
+      overflow: "visible"
+    });
+
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    defs.innerHTML = `
+      <marker id="rg-arrow-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,4 L0,8 z" fill="${COULEUR_VALIDEE}"></path>
+      </marker>
+      <marker id="rg-arrow-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="strokeWidth">
+        <path d="M8,0 L0,4 L8,8 z" fill="${COULEUR_VALIDEE}"></path>
+      </marker>`;
+    svg.appendChild(defs);
+
+    const centreX = largeur / 2;
+    const centreY = hauteur / 2;
+    const rayon = Math.max(120, Math.min(largeur, hauteur) * 0.40);
+    const total = relations.length;
+    const angleDepart = -Math.PI / 2;
+
+    relations.forEach((relation, index) => {
+      const angle = angleDepart + (2 * Math.PI * index) / Math.max(total, 1);
+      const x = centreX + Math.cos(angle) * rayon;
+      const y = centreY + Math.sin(angle) * rayon;
+      const reciproque = normaliser(relation.direction) === "reciproque";
+      const sortante = estRelationSortante(relation, concept);
+
+      const groupe = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      groupe.setAttribute("data-validated-relation", relation.id || "");
+
+      const ligne = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      ligne.setAttribute("x1", String(centreX));
+      ligne.setAttribute("y1", String(centreY));
+      ligne.setAttribute("x2", String(x));
+      ligne.setAttribute("y2", String(y));
+      ligne.setAttribute("stroke", COULEUR_VALIDEE);
+      ligne.setAttribute("stroke-width", "3");
+      ligne.setAttribute("stroke-linecap", "round");
+
+      if (reciproque) {
+        ligne.setAttribute("marker-start", "url(#rg-arrow-start)");
+        ligne.setAttribute("marker-end", "url(#rg-arrow-end)");
+      } else if (sortante) {
+        ligne.setAttribute("marker-end", "url(#rg-arrow-end)");
+      } else {
+        ligne.setAttribute("marker-start", "url(#rg-arrow-start)");
+      }
+
+      groupe.appendChild(ligne);
+
+      const cercle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      cercle.setAttribute("cx", String(x));
+      cercle.setAttribute("cy", String(y));
+      cercle.setAttribute("r", "9");
+      cercle.setAttribute("fill", COULEUR_NOEUD);
+      cercle.setAttribute("stroke", COULEUR_VALIDEE);
+      cercle.setAttribute("stroke-width", "3");
+      groupe.appendChild(cercle);
+
+      const libelle = termeOppose(relation, concept);
+      const lignesLibelle = decouperLibelle(libelle, 24);
+      const texte = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      texte.setAttribute("x", String(x));
+      texte.setAttribute("y", String(y - 17 - (lignesLibelle.length - 1) * 7));
+      texte.setAttribute("text-anchor", "middle");
+      texte.setAttribute("font-family", "Arial, sans-serif");
+      texte.setAttribute("font-size", "12");
+      texte.setAttribute("font-weight", "700");
+      texte.setAttribute("fill", COULEUR_VALIDEE);
+      texte.setAttribute("paint-order", "stroke");
+      texte.setAttribute("stroke", "#ffffff");
+      texte.setAttribute("stroke-width", "4");
+      texte.setAttribute("stroke-linejoin", "round");
+
+      lignesLibelle.forEach((ligneTexte, ligneIndex) => {
+        const tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+        tspan.setAttribute("x", String(x));
+        tspan.setAttribute("dy", ligneIndex === 0 ? "0" : "14");
+        tspan.textContent = ligneTexte;
+        texte.appendChild(tspan);
+      });
+      groupe.appendChild(texte);
+
+      const type = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      type.setAttribute("x", String((centreX + x) / 2));
+      type.setAttribute("y", String((centreY + y) / 2 - 6));
+      type.setAttribute("text-anchor", "middle");
+      type.setAttribute("font-family", "Arial, sans-serif");
+      type.setAttribute("font-size", "10");
+      type.setAttribute("fill", COULEUR_VALIDEE);
+      type.setAttribute("paint-order", "stroke");
+      type.setAttribute("stroke", "#ffffff");
+      type.setAttribute("stroke-width", "3");
+      type.textContent = relation.type || "Relation validée";
+      groupe.appendChild(type);
+
+      svg.appendChild(groupe);
+    });
+
+    parent.appendChild(svg);
+    dernierConcept = concept;
+  }
+
+  function programmerDessin(delai = 120) {
+    window.clearTimeout(temporisateur);
+    temporisateur = window.setTimeout(dessinerRelationsValidees, delai);
+  }
+
+  function observerInterface() {
+    document.addEventListener("click", () => programmerDessin(180));
     document.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        window.setTimeout(actualiserPanneauRelationsValidees, 120);
-      }
+      if (event.key === "Enter") programmerDessin(180);
     });
 
-    window.addEventListener("popstate", () =>
-      window.setTimeout(actualiserPanneauRelationsValidees, 120)
-    );
+    const champ = trouverChampConcept();
+    if (champ) {
+      champ.addEventListener("change", () => programmerDessin(180));
+      champ.addEventListener("input", () => programmerDessin(450));
+    }
+
+    const canvas = document.querySelector("canvas");
+    if (canvas && typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(() => programmerDessin(80)).observe(canvas);
+    }
+
+    window.addEventListener("resize", () => programmerDessin(100));
+
+    window.setInterval(() => {
+      const courant = conceptActuel();
+      if (normaliser(courant) !== normaliser(dernierConcept)) {
+        programmerDessin(80);
+      }
+    }, 700);
   }
 
-  async function chargerRelationsValidees() {
-    ajouterStylesRelationsValidees();
-
-    let documentRelations;
-
+  async function initialiser() {
     try {
       const reponse = await fetch(`./data/relations.json?v=${Date.now()}`, {
         cache: "no-store"
       });
-
       if (!reponse.ok) return;
-      documentRelations = await reponse.json();
+
+      const documentRelations = await reponse.json();
+      relationsPubliques = Array.isArray(documentRelations)
+        ? documentRelations
+        : Array.isArray(documentRelations.relations)
+          ? documentRelations.relations
+          : [];
+
+      if (!relationsPubliques.length) return;
+
+      observerInterface();
+      programmerDessin(250);
     } catch (error) {
-      console.warn("Relations validées indisponibles :", error);
-      return;
+      console.warn("Affichage des relations validées impossible :", error);
     }
-
-    relationsPubliques = Array.isArray(documentRelations)
-      ? documentRelations
-      : Array.isArray(documentRelations.relations)
-        ? documentRelations.relations
-        : [];
-
-    if (!relationsPubliques.length) return;
-
-    relationsPubliques.forEach(relation => {
-      const sourceNom = String(relation.source || "").trim();
-      const cibleNom = String(relation.target || relation.cible || "").trim();
-      if (!sourceNom || !cibleNom) return;
-
-      const source = ensureTerm(sourceNom, 0);
-      const cible = ensureTerm(cibleNom, 0);
-      if (source === null || cible === null || source === cible) return;
-
-      registerManualRelation(
-        source,
-        cible,
-        relation.type || "relation validée",
-        relation.justification || ""
-      );
-
-      relationsValideesParPaire.set(clePaire(source, cible), {
-        type: relation.type || "relation validée",
-        direction: relation.direction || "Orientée",
-        justification: relation.justification || ""
-      });
-    });
-
-    if (!relationsValideesParPaire.size) return;
-
-    const calculOriginal = relationScore;
-
-    relationScore = function(source, target) {
-      const resultat = calculOriginal(source, target);
-      const validee = relationsValideesParPaire.get(clePaire(source, target));
-
-      if (!validee) return resultat;
-
-      return {
-        score: Math.max(Number(resultat.score || 0), 320),
-        labels: [
-          `relation validée : ${validee.type}`,
-          validee.direction,
-          validee.justification
-        ].filter(Boolean),
-        kind: "manual"
-      };
-    };
-
-    ajouterLegendeValidee();
-    observerInteractions();
-
-    const termeActuel = String(
-      typeof search !== "undefined" && search ? search.value : ""
-    ).trim();
-    const indexActuel = termeActuel ? findTerm(termeActuel) : null;
-
-    if (indexActuel !== null) {
-      buildGraph(indexActuel);
-    }
-
-    actualiserPanneauRelationsValidees();
-
-    document.documentElement.dataset.validatedRelations = String(
-      relationsValideesParPaire.size
-    );
   }
 
-  chargerRelationsValidees();
+  initialiser();
 })();
