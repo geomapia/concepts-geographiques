@@ -1876,7 +1876,7 @@ body.rg-full-mode .rg-canvas-wrap,body.rg-full-mode canvas{height:62vh;min-heigh
 
   function edgeStyle(edge) {
     if (edge.background) return { color: css("--muted-foreground"), width: 1, dash: [3,5], alpha: 0.18 };
-    if (edge.kind === "manual") return { color: "#2f7d42", width: 3, dash: [], alpha: 1 };
+    if (edge.kind === "manual") return { color: css("--foreground"), width: 2.8, dash: [], alpha: .95 };
     if (edge.kind === "explicit") return { color: css("--foreground"), width: 2.8, dash: [], alpha: .95 };
     if (edge.kind === "page" || edge.kind === "domain") return { color: css("--foreground"), width: 1.8, dash: [], alpha: .72 };
     return { color: css("--muted-foreground"), width: 1.5, dash: [6,4], alpha: .65 };
