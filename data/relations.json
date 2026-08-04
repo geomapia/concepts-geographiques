@@ -1,9 +1,17 @@
 {
   "version": 1,
-  "generated_at": "2026-08-04T00:31:39.194Z",
+  "generated_at": "2026-08-04T00:33:21.187Z",
   "source": "Répertoire géographique — validation scientifique administrative",
-  "count": 7,
+  "count": 8,
   "relations": [
+    {
+      "id": "REL-000010",
+      "source": "Adaptation",
+      "target": "Changement climatique",
+      "type": "influence",
+      "direction": "Orientée",
+      "justification": "Les modifications de l'environnement, comme le changement climatique, peuvent exercer une influence sur l'adaptation (notamment phénotypique)."
+    },
     {
       "id": "REL-000011",
       "source": "Adaptation",
