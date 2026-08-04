@@ -8,6 +8,91 @@
     <link rel="stylesheet" href="./styles.css?v=20260801-2" />
     <script src="./navigation.js?v=20260730-3" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
+
+    <style>
+      .relations-public-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+        align-items: center;
+        margin: 12px 0 4px;
+        font-size: 13px;
+        color: #30465a;
+      }
+
+      .relations-public-legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .relations-public-line {
+        display: inline-block;
+        width: 32px;
+        height: 0;
+        border-top: 3px solid;
+      }
+
+      .relations-public-line-exploratory { border-color: #17324a; }
+      .relations-public-line-validated { border-color: #2f8f4e; }
+
+      .relations-validated-details {
+        margin-top: 14px;
+        padding: 16px 18px;
+        border: 1px solid #d9cfbd;
+        border-left: 5px solid #2f8f4e;
+        background: #fffdf8;
+      }
+
+      .relations-validated-details h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        color: #17324a;
+      }
+
+      .relations-validated-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .relations-validated-card {
+        padding: 11px 13px;
+        border: 1px solid #cfe1d3;
+        background: #f6fbf7;
+      }
+
+      .relations-validated-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: #17324a;
+      }
+
+      .relations-validated-badge {
+        display: inline-block;
+        padding: 2px 7px;
+        border: 1px solid #2f8f4e;
+        color: #236f3c;
+        background: #ffffff;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+      }
+
+      .relations-validated-meta {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #5a6875;
+      }
+
+      .relations-validated-justification {
+        margin-top: 7px;
+        line-height: 1.55;
+        color: #273849;
+      }
+    </style>
   </head>
   <body>
     <header class="masthead">
@@ -43,6 +128,19 @@
       <section class="shell relations-frame-section">
         <div class="relations-external-action"><a id="openRelationsTab" class="button" href="./relations-explorer.html" target="_blank" rel="noopener">Ouvrir l’espace complet dans un nouvel onglet ↗</a></div>
         <iframe id="relationsFrame" class="relations-frame" src="./relations-map.html?mode=compact" title="Carte conceptuelle interactive des 6 122 termes du dictionnaire" loading="eager"></iframe>
+
+        <div class="relations-public-legend" aria-label="Légende des relations">
+          <span class="relations-public-legend-item">
+            <span class="relations-public-line relations-public-line-exploratory"></span>
+            Relations exploratoires du concept central
+          </span>
+          <span class="relations-public-legend-item">
+            <span class="relations-public-line relations-public-line-validated"></span>
+            Relation scientifiquement validée
+          </span>
+        </div>
+
+        <section id="relationsValidatedDetails" class="relations-validated-details" hidden></section>
       </section>
     </main>
 
@@ -69,6 +167,83 @@
         }
         const openTab = document.getElementById('openRelationsTab');
         if (openTab) openTab.href = fullTarget;
+
+        const normalize = value => String(value || '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[’']/g, ' ')
+          .replace(/[^a-zA-Z0-9]+/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLowerCase();
+
+        const escapeHtml = value => String(value == null ? '' : value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+
+        const renderValidatedDetails = relations => {
+          const panel = document.getElementById('relationsValidatedDetails');
+          if (!panel || !concept) return;
+
+          const key = normalize(concept);
+          const matches = relations.filter(relation =>
+            normalize(relation.source) === key ||
+            normalize(relation.target || relation.cible) === key
+          );
+
+          if (!matches.length) {
+            panel.hidden = true;
+            panel.innerHTML = '';
+            return;
+          }
+
+          panel.hidden = false;
+          panel.innerHTML =
+            '<h2>Relations scientifiquement validées de « ' + escapeHtml(concept) + ' »</h2>' +
+            '<div class="relations-validated-list">' +
+            matches.map(relation => {
+              const source = String(relation.source || '').trim();
+              const target = String(relation.target || relation.cible || '').trim();
+              const reciprocal = normalize(relation.direction) === 'reciproque';
+              const symbol = reciprocal
+                ? '↔'
+                : normalize(source) === key
+                  ? '→'
+                  : '←';
+              const other = normalize(source) === key ? target : source;
+
+              return (
+                '<article class="relations-validated-card">' +
+                  '<div class="relations-validated-head">' +
+                    '<span class="relations-validated-badge">Validée</span>' +
+                    '<span>' + escapeHtml(concept) + ' ' + symbol + ' ' + escapeHtml(other) + '</span>' +
+                  '</div>' +
+                  '<div class="relations-validated-meta">Type : ' + escapeHtml(relation.type || 'Relation associée') +
+                  ' · Direction : ' + escapeHtml(relation.direction || 'Orientée') + '</div>' +
+                  (relation.justification
+                    ? '<div class="relations-validated-justification">' + escapeHtml(relation.justification) + '</div>'
+                    : '') +
+                '</article>'
+              );
+            }).join('') +
+            '</div>';
+        };
+
+        fetch('./data/relations.json?v=' + Date.now(), { cache: 'no-store' })
+          .then(response => response.ok ? response.json() : null)
+          .then(documentRelations => {
+            if (!documentRelations) return;
+            const relations = Array.isArray(documentRelations)
+              ? documentRelations
+              : Array.isArray(documentRelations.relations)
+                ? documentRelations.relations
+                : [];
+            renderValidatedDetails(relations);
+          })
+          .catch(error => console.warn('Détails des relations validées indisponibles :', error));
       })();
     </script>
   </body>
