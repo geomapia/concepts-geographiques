@@ -1,9 +1,17 @@
 {
   "version": 1,
-  "generated_at": "2026-08-03T23:59:52.890Z",
+  "generated_at": "2026-08-04T00:31:03.742Z",
   "source": "Répertoire géographique — validation scientifique administrative",
-  "count": 5,
+  "count": 6,
   "relations": [
+    {
+      "id": "REL-000012",
+      "source": "Adaptation",
+      "target": "Extinction, sixième",
+      "type": "est associé à",
+      "direction": "Orientée",
+      "justification": "L'adaptation est un processus évolutif qui permet la survie ; une incapacité d'ajustement face à des changements rapides peut mener à l'extinction."
+    },
     {
       "id": "REL-000006",
       "source": "Karst",
