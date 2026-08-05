@@ -1,0 +1,15 @@
+MISE À JOUR — ACCUEIL COMPACT
+
+Modifications :
+- suppression du bandeau de source supérieur ;
+- suppression du registre chiffré à droite de la bannière ;
+- maintien du bloc animé des quatre ressources ;
+- cinq éléments du corpus alignés sur une ligne sur grand écran ;
+- suppression de l’ancienne Vue d’ensemble et des métriques redondantes ;
+- remplacement du graphique linéaire par un histogramme circulaire radial ;
+- section Source et conception scientifique fortement raccourcie ;
+- détails renvoyés vers la page À propos ;
+- adresse de contact remplacée par contact@geomapia.tn ;
+- nom personnel retiré de la carte de contact.
+
+Importer tous les fichiers de cette archive à la racine du dépôt GitHub.

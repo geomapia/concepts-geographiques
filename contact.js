@@ -94,7 +94,7 @@ if (translationLanguage === "ar" && notice) {
     .join("\n");
 } else {
   requestTypeField.value = "contact";
-  subject.value = "Contact — Répertoire géographique";
+  subject.value = "Contact — Geomapia Concept";
 }
 
 form.addEventListener("submit", async (event) => {
@@ -143,7 +143,7 @@ form.addEventListener("submit", async (event) => {
       ? `Suggestion d’ajout au Répertoire — ${suggestion}`
       : notice
         ? `Correction du Répertoire — ${notice}`
-        : "Contact — Répertoire géographique";
+        : "Contact — Geomapia Concept";
     requestTypeField.value = translationLanguage === "ar" ? "traduction" : suggestion ? "suggestion" : notice ? "correction" : "contact";
     translationLanguageField.value = translationLanguage === "ar" ? "ar" : "";
     noticeField.value = suggestion || notice;

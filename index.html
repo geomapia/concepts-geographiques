@@ -8,16 +8,13 @@
       content="Geomapia Concepts de 1 500 concepts sur la diversité biologique et la conservation, complétés par 43 indices, 18 instruments internationaux et l’index intégral des 6 122 entrées du dictionnaire de Patrick Triplet."
     />
     <title>Geomapia Concepts</title>
-    <link rel="stylesheet" href="./styles.css?v=20260805-geomapia-final" />
+    <link rel="stylesheet" href="./styles.css?v=20260805-home-compact-1" />
     <script src="./suggestions-config.js?v=20260730-4"></script>
     <script src="./navigation.js?v=20260730-3" defer></script>
-    <script src="./app.js?v=20260730-5" defer></script>
+    <script src="./app.js?v=20260805-radial-1" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
     <script src="./tour.js?v=20260730-3" defer></script>
-  <style id="geomapia-resource-stats-style">
-.resource-stats{padding:3rem 1.5rem 4.5rem;background:#fff}.resource-stats__shell{width:min(1180px,100%);margin:auto}.resource-stats__heading{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:2rem}.resource-stats__heading h2{margin:0;color:#0f4c75;font-size:clamp(1.8rem,3vw,2.8rem);letter-spacing:-.03em}.resource-stats__heading p{max-width:560px;margin:0;color:#64748b;line-height:1.65}.resource-stats__grid{display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden;border:1px solid #d9e5e2;border-radius:22px;background:#fff;box-shadow:0 18px 45px rgba(15,76,117,.10)}.resource-stat{position:relative;min-height:250px;padding:2rem 1.7rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #d9e5e2;background:linear-gradient(180deg,rgba(187,225,250,.11),transparent 45%),#fff}.resource-stat:last-child{border-right:0}.resource-stat::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(135deg,#16a34a,#2563eb);transform:scaleX(0);transform-origin:left;transition:transform .7s ease}.resource-stat.is-visible::before{transform:scaleX(1)}.resource-stat__number{display:block;color:#0f4c75;font-size:clamp(2.6rem,5vw,4.7rem);font-weight:900;line-height:.95;letter-spacing:-.045em}.resource-stat__label{margin-top:1rem;color:#3282b8;font-size:.78rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.resource-stat__description{margin:1rem 0 0;color:#64748b;font-size:.92rem;line-height:1.6}.resource-stat__link{margin-top:1.4rem;align-self:flex-start;display:inline-flex;align-items:center;gap:.45rem;padding:.64rem .88rem;border:1px solid transparent;border-radius:9px;color:#fff!important;background:linear-gradient(135deg,#16a34a,#2563eb);box-shadow:0 7px 18px rgba(37,99,235,.20);font-size:.8rem;font-weight:850;text-decoration:none;transition:.18s ease}.resource-stat__link:hover{color:#fff!important;filter:brightness(1.06);transform:translateY(-1px)}@media(max-width:980px){.resource-stats__grid{grid-template-columns:repeat(2,1fr)}.resource-stat:nth-child(2){border-right:0}.resource-stat:nth-child(-n+2){border-bottom:1px solid #d9e5e2}}@media(max-width:650px){.resource-stats__heading{display:block}.resource-stats__heading p{margin-top:.7rem}.resource-stats__grid{grid-template-columns:1fr}.resource-stat{min-height:220px;border-right:0;border-bottom:1px solid #d9e5e2}.resource-stat:last-child{border-bottom:0}}@media(prefers-reduced-motion:reduce){.resource-stat::before,.resource-stat__link{transition-duration:.01ms!important}}
-</style>
-</head>
+  </head>
   <body>
     <main>
       <header class="masthead">
@@ -43,25 +40,7 @@
           </a>
         </div>
       </header>
-
-      <aside class="source-banner" aria-label="Source principale">
-        <div class="shell source-banner-inner">
-          <div>
-            <strong>Source principale · édition 2026</strong>
-            <span>
-              Patrick Triplet,
-              <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>,
-              6 122 intitulés verts uniques indexés, 1 506 pages.
-            </span>
-          </div>
-          <div class="source-links">
-            <a href="https://laccreteil.fr/spip.php?article551" target="_blank" rel="noreferrer">Page du dictionnaire ↗</a>
-            <a href="https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf" target="_blank" rel="noreferrer">Télécharger l’édition 2026 ↓</a>
-          </div>
-        </div>
-      </aside>
-
-      <section id="top" class="hero">
+<section id="top" class="hero">
         <div class="hero-grid shell">
           <div class="hero-copy">
             <p class="eyebrow">Ressource scientifique</p>
@@ -76,16 +55,44 @@
               Explorer les concepts <span aria-hidden="true">↗</span>
             </a>
           </div>
-          <div class="hero-register" aria-label="Périmètre scientifique">
-            <p>Périmètre scientifique</p>
-            <div id="heroTotal" class="register-number">1 500</div>
-            <div class="register-rule"></div>
-            <span>concepts géographiques documentés, sourcés et classés</span>
-            <div class="coordinates">ÉDITION 2026 · MISE À JOUR SCIENTIFIQUE</div>
+        </div>
+      </section>
+
+      <section class="resource-stats" aria-labelledby="resourceStatsTitle">
+        <div class="shell">
+          <div class="resource-stats-heading">
+            <h2 id="resourceStatsTitle">Les ressources en chiffres</h2>
+            <p>Les quatre principaux ensembles documentaires du Répertoire.</p>
+          </div>
+          <div class="resource-stats-grid" id="resourceStatsGrid">
+            <article class="resource-stat">
+              <strong class="resource-stat-number" data-target="1500">1 500</strong>
+              <span>Concepts</span>
+              <p>Concepts géographiques documentés et classés.</p>
+              <a href="./concepts.html">Explorer les concepts →</a>
+            </article>
+            <article class="resource-stat">
+              <strong class="resource-stat-number" data-target="6122">6 122</strong>
+              <span>Entrées du dictionnaire</span>
+              <p>Intitulés indexés dans le dictionnaire scientifique.</p>
+              <a href="./dictionnaire.html">Ouvrir le dictionnaire →</a>
+            </article>
+            <article class="resource-stat">
+              <strong class="resource-stat-number" data-target="43">43</strong>
+              <span>Indices</span>
+              <p>Indices et indicateurs géographiques.</p>
+              <a href="./indices.html">Consulter les indices →</a>
+            </article>
+            <article class="resource-stat">
+              <strong class="resource-stat-number" data-target="18">18</strong>
+              <span>Conventions</span>
+              <p>Conventions et instruments internationaux.</p>
+              <a href="./conventions.html">Voir les conventions →</a>
+            </article>
           </div>
         </div>
       </section>
-<section class="resource-stats" aria-labelledby="resourceStatsTitle"><div class="resource-stats__shell"><div class="resource-stats__heading"><h2 id="resourceStatsTitle">Les ressources en chiffres</h2><p>Une vue synthétique des principales ressources du Répertoire. Les valeurs sont modifiables directement dans ce fichier.</p></div><div class="resource-stats__grid" id="resourceStatsGrid"><article class="resource-stat"><strong class="resource-stat__number" data-target="1500">1 500</strong><span class="resource-stat__label">Concepts</span><p class="resource-stat__description">Concepts géographiques sélectionnés, documentés et classés.</p><a class="resource-stat__link" href="./concepts.html">Explorer les concepts →</a></article><article class="resource-stat"><strong class="resource-stat__number" data-target="6122">6 122</strong><span class="resource-stat__label">Entrées du dictionnaire</span><p class="resource-stat__description">Intitulés indexés dans le dictionnaire scientifique de référence.</p><a class="resource-stat__link" href="./dictionnaire.html">Ouvrir le dictionnaire →</a></article><article class="resource-stat"><strong class="resource-stat__number" data-target="43">43</strong><span class="resource-stat__label">Indices</span><p class="resource-stat__description">Indices et indicateurs géographiques et environnementaux.</p><a class="resource-stat__link" href="./indices.html">Consulter les indices →</a></article><article class="resource-stat"><strong class="resource-stat__number" data-target="18">18</strong><span class="resource-stat__label">Conventions</span><p class="resource-stat__description">Conventions, accords et instruments internationaux.</p><a class="resource-stat__link" href="./conventions.html">Voir les conventions →</a></article></div></div></section>
+
 
       <section class="portal-section shell" aria-labelledby="portalTitle">
         <div class="portal-heading">
@@ -94,11 +101,6 @@
             Concepts géographiques issus du
             <i>Dictionnaire encyclopédique de la diversité biologique et de la conservation de la nature</i>
           </h2>
-          <p>
-            Un corpus structuré en cinq espaces documentaires complémentaires, avec des
-            outils de recherche, de citation et d’export adaptés à chaque type
-            de notice.
-          </p>
         </div>
         <div class="portal-grid">
           <a href="./concepts.html">
@@ -132,130 +134,50 @@
             <p>Carte conceptuelle construite à partir de l’ensemble de l’index du dictionnaire.</p>
           </a>
         </div>
-        <p class="selection-credit">
-          Sélection et classification géographiques réalisées par
-          <a href="https://brahimjaziri.jimdofree.com/" target="_blank" rel="noreferrer">Brahim Jaziri</a>.
-        </p>
-      </section>
+</section>
 
-      <section id="overview" class="overview-section shell">
-        <div class="section-heading">
+      <section id="overview" class="domain-overview shell">
+        <div class="compact-section-heading">
           <div>
             <span class="section-index">01</span>
-            <h2>Vue d’ensemble</h2>
+            <h2>Répartition des concepts par domaine</h2>
           </div>
-          <p>
-            Les 6 122 intitulés verts de l’édition 2026 ont été indexés. Le
-            Répertoire rassemble désormais <span id="overviewConceptCount">1 500</span>
-            concepts géographiques, dont 42 concepts fondamentaux, ainsi que
-            <span id="overviewIndicatorCountText">43</span> indices et
-            <span id="overviewConventionCountText">18</span> conventions,
-            traités ou accords internationaux.
-          </p>
+          <p>Visualisation circulaire des domaines présents dans le Répertoire.</p>
         </div>
-
-        <div class="metric-grid">
-          <article class="metric"><strong id="totalConcepts">1 561</strong><span>Notices spécialisées</span></article>
-          <article class="metric"><strong>42</strong><span>Concepts fondamentaux</span></article>
-          <article class="metric"><strong id="totalDomains">10</strong><span>Domaines</span></article>
-          <article class="metric"><strong>1 506</strong><span>Pages analysées</span></article>
-        </div>
-
-        <div class="analysis-grid">
-          <article class="chart-card">
-            <div class="card-title-row">
-              <h3>Répartition par domaine</h3>
-              <span id="chartTotal">n = 1 500</span>
-            </div>
-            <div id="bars" class="bars" aria-label="Graphique de répartition par domaine"></div>
-          </article>
-
-          <aside class="method-card">
-            <span class="method-label">Note méthodologique</span>
-            <h3>Une sélection géographique contrôlée</h3>
-            <p>
-              Les 6 122 intitulés verts de l’édition 2026 ont été indexés. Les
-              concepts retenus sont classés par domaine, pertinence scientifique
-              et page d’origine.
-            </p>
-            <div class="relevance-figure">
-              <div id="relevanceDonut" class="donut" aria-label="Répartition par pertinence"></div>
-              <div>
-                <p><i class="dot core"></i><span id="centralLegend">…</span> · Concepts centraux</p>
-                <p><i class="dot inter"></i><span id="interLegend">…</span> · Interdisciplinaires</p>
-              </div>
-            </div>
-            <small>Sélection et classification géographiques réalisées par Brahim Jaziri.</small>
-          </aside>
-        </div>
+        <article class="domain-chart-card">
+          <div id="domainRadialChart" class="domain-radial-chart" aria-label="Histogramme circulaire de la répartition des concepts par domaine"></div>
+          <div id="domainLegend" class="domain-legend"></div>
+        </article>
       </section>
 
-      <section id="authors" class="authors-section">
+      <section id="authors" class="authors-compact">
         <div class="shell">
-          <div class="section-heading">
+          <div class="compact-section-heading">
             <div>
               <span class="section-index">02</span>
-              <h2>Auteur et conception scientifique</h2>
+              <h2>Source et conception scientifique</h2>
             </div>
-            <p>
-              Le Répertoire distingue clairement l’auteur de la source documentaire
-              et le concepteur de l’outil numérique.
-            </p>
+            <a class="compact-about-link" href="./apropos.html">Voir la présentation détaillée →</a>
           </div>
-
-          <div class="profile-grid">
-            <article class="profile-card source-author">
-              <span class="profile-role">Auteur du dictionnaire source</span>
-              <h3>Patrick Triplet</h3>
-              <p>
-                Biologiste et docteur en écologie, Patrick Triplet a dirigé
-                pendant vingt-sept ans la Réserve naturelle nationale de la
-                baie de Somme. Ses travaux portent notamment sur l’écologie,
-                la biodiversité, la conservation de la nature et la gestion
-                des aires protégées. Il est également responsable des
-                relations avec les gestionnaires d’aires protégées en Afrique
-                pour l’Institut européen pour la gestion des oiseaux sauvages
-                et de leurs habitats (OMPO).
-              </p>
-              <p>
-                Il est l’auteur du
-                <i>Dictionnaire encyclopédique de la diversité biologique et
-                de la conservation de la nature</i>, dont l’édition 2026
-                constitue la source principale de ce Répertoire.
-              </p>
-              <div class="profile-links">
-                <a href="https://medwet.org/fr/dictionnaire-encyclopedique-sur-la-diversite-biologique-et-de-la-conservation-de-la-nature-2026/" target="_blank" rel="noreferrer">Notice biographique · MedWet ↗</a>
-                <a href="https://societe-zoologique.fr/12e-edition-du-dictionnaire-de-diversite-biologique-et-de-conservation-de-nature" target="_blank" rel="noreferrer">Présentation de l’auteur ↗</a>
-              </div>
+          <div class="authors-compact-grid">
+            <article>
+              <span>Auteur du dictionnaire source</span>
+              <strong>Patrick Triplet</strong>
+              <p>Auteur du dictionnaire encyclopédique utilisé comme source documentaire principale.</p>
             </article>
-
-            <article class="profile-card atlas-author">
-              <span class="profile-role">Conception du Répertoire numérique</span>
-              <h3>Brahim Jaziri</h3>
-              <p>
-                Docteur en géographie, Brahim Jaziri a conçu ce Répertoire
-                académique afin de faciliter l’exploration, la recherche et
-                la classification thématique des concepts mobilisés en
-                géographie, en environnement et dans l’analyse territoriale.
-              </p>
-              <p>
-                Il assure la sélection géographique, l’organisation des
-                domaines, la structuration des notices et la conception de
-                l’interface numérique.
-              </p>
-              <div class="profile-links">
-                <a href="https://brahimjaziri.jimdofree.com/" target="_blank" rel="noreferrer">Consulter le site de Brahim Jaziri ↗</a>
-                <a href="./apropos.html">Méthode complète et citation ↗</a>
-              </div>
+            <article>
+              <span>Conception du Répertoire</span>
+              <strong>Brahim Jaziri</strong>
+              <p>Sélection géographique, classification scientifique et conception de l’interface numérique.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <footer class="site-footer">
+<footer class="site-footer">
         <div class="shell">
           <div>
-            <strong>Geomapia Concepts</strong>
+            <strong>Geomapia Concept</strong>
             <p>Un outil académique d’exploration terminologique.</p>
           </div>
           <div>
@@ -274,6 +196,40 @@
       </footer>
     </main>
 
-  <script id="geomapia-resource-stats-script">document.addEventListener("DOMContentLoaded",function(){const grid=document.getElementById("resourceStatsGrid");if(!grid)return;const formatter=new Intl.NumberFormat("fr-FR");const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;function animateNumber(el){const target=Number(el.dataset.target||0);if(reduceMotion){el.textContent=formatter.format(target);return}el.textContent="0";const duration=1300,start=performance.now();function frame(now){const progress=Math.min((now-start)/duration,1),eased=1-Math.pow(1-progress,3);el.textContent=formatter.format(Math.round(target*eased));if(progress<1)requestAnimationFrame(frame)}requestAnimationFrame(frame)}function run(){grid.querySelectorAll(".resource-stat").forEach(function(card,index){setTimeout(function(){card.classList.add("is-visible");const n=card.querySelector(".resource-stat__number");if(n)animateNumber(n)},index*130)})}if("IntersectionObserver" in window){const obs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){run();obs.disconnect()}})},{threshold:.3});obs.observe(grid)}else run()});</script>
-</body>
+  
+    <script id="resource-stats-animation">
+      document.addEventListener("DOMContentLoaded", function () {
+        const grid = document.getElementById("resourceStatsGrid");
+        if (!grid) return;
+        const formatter = new Intl.NumberFormat("fr-FR");
+        const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function run() {
+          grid.querySelectorAll(".resource-stat").forEach(function (card, index) {
+            const number = card.querySelector(".resource-stat-number");
+            const target = Number(number.dataset.target || 0);
+            setTimeout(function () {
+              card.classList.add("is-visible");
+              if (reduced) { number.textContent = formatter.format(target); return; }
+              number.textContent = "0";
+              const start = performance.now();
+              function frame(now) {
+                const p = Math.min((now - start) / 1150, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                number.textContent = formatter.format(Math.round(target * eased));
+                if (p < 1) requestAnimationFrame(frame);
+              }
+              requestAnimationFrame(frame);
+            }, index * 110);
+          });
+        }
+        if ("IntersectionObserver" in window) {
+          const observer = new IntersectionObserver(function(entries) {
+            if (entries.some(function(e){ return e.isIntersecting; })) { run(); observer.disconnect(); }
+          }, { threshold: .25 });
+          observer.observe(grid);
+        } else run();
+      });
+    </script>
+
+  </body>
 </html>
