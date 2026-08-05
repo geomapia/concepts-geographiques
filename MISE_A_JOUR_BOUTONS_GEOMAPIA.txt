@@ -1,0 +1,10 @@
+GEOMAPIA CONCEPTS — MISE À JOUR DES BOUTONS
+
+Cette version reprend le style observé dans le fichier index de geomapia.tn fourni :
+- navigation active bleu ardoise translucide avec soulignement clair ;
+- bouton principal avec dégradé vert profond → bleu ;
+- bouton secondaire sombre/translucide sur fond foncé ;
+- boutons secondaires blancs et bordés sur fond clair ;
+- suppression du vert citron comme couleur principale des boutons.
+
+Les contenus, scripts, données et fonctionnalités du site sont conservés.
