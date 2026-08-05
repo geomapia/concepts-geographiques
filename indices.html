@@ -21,6 +21,8 @@
         <script src="./catalogue-ergonomie-specialisee.js?v=20260803-1" defer></script>
 <script src="./analytics.js?v=20260730-1" defer></script>
     <script src="./tour.js?v=20260730-3" defer></script>
+      <link rel="stylesheet" href="./geomapia-parent-shell.css?v=20260805-banner-fix-1" />
+    <script src="./geomapia-parent-shell.js?v=20260805-1" defer></script>
   </head>
   <body data-notice-type="Indice ou indicateur" data-export-name="repertoire-indices-indicateurs">
     <header class="masthead"><div class="masthead-line"></div><div class="shell nav"><a class="brand" href="./index.html" aria-label="Geomapia Concepts">
@@ -32,7 +34,10 @@
 </a><nav><a href="./concepts.html">Concepts</a><a href="./dictionnaire.html">Dictionnaire</a><a class="active" href="./indices.html">Indices</a><a href="./conventions.html">Conventions</a><a href="./relations.html">Explorer les relations</a><a href="./apropos.html">À propos</a><a href="./contact.html">Nous contacter</a></nav></div></header>
     <aside class="source-banner"><div class="shell source-banner-inner"><div><strong>Source principale · édition 2026</strong><span>Les formules, unités et seuils ne sont indiqués que lorsqu’ils sont présents dans la notice du dictionnaire.</span></div><div class="source-links"><a href="https://laccreteil.fr/spip.php?article551" target="_blank" rel="noreferrer">Source ↗</a><a href="https://www.ffem.fr/sites/ffem/files/2026-03/dictionnaire_triplet_2026.pdf" target="_blank" rel="noreferrer">PDF 2026 ↓</a></div></div></aside>
     <main class="catalogue-page">
-      <section class="catalogue-hero indicator-hero"><div class="shell catalogue-hero-grid"><div><p class="eyebrow">Mesure et évaluation</p><h1>Indices et indicateurs</h1><p>Fiches structurées par sigle, domaine d’application, formule mentionnée, unité, échelle et milieu.</p></div><div class="catalogue-number"><strong id="catalogueTotal">…</strong><span>notices spécialisées</span></div></div></section>
+      <section class="catalogue-hero indicator-hero">
+  <a class="gpc-back-link gpc-back-link--banner" href="https://geomapia.tn/" aria-label="Revenir au site principal Geomapia">
+    <span aria-hidden="true">←</span> Revenir à Geomapia
+  </a><div class="shell catalogue-hero-grid"><div><p class="eyebrow">Mesure et évaluation</p><h1>Indices et indicateurs</h1><p>Fiches structurées par sigle, domaine d’application, formule mentionnée, unité, échelle et milieu.</p></div><div class="catalogue-number"><strong id="catalogueTotal">…</strong><span>notices spécialisées</span></div></div></section>
       <section class="catalogue-tools shell">
         <div class="classification-note"><strong>Lecture scientifique</strong><p>Les métadonnées complètent la définition sans la reformuler. Lorsqu’une formule ou une unité n’est pas explicite, la fiche le signale. Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div>
         <div class="advanced-filters"><label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Indice, sigle, formule ou définition…" /></label><select id="themeFilter"><option value="">Tous les domaines d’application</option></select><select id="scaleFilter"><option value="">Toutes les échelles</option></select><select id="milieuFilter"><option value="">Tous les milieux</option></select><select id="relevanceFilter"><option value="">Toute pertinence</option><option value="Central">Central</option><option value="Interdisciplinaire">Interdisciplinaire</option></select><select id="sortFilter"><option value="alpha">Ordre alphabétique</option><option value="theme">Par domaine</option><option value="page">Par page du PDF</option></select></div>
@@ -40,7 +45,13 @@
         <div id="noticeGrid" class="special-grid"></div><div id="pagination" class="pagination"><button id="previousPage">← Précédent</button><label class="page-jump">Page <input id="pageInput" type="number" min="1" value="1" inputmode="numeric" aria-label="Numéro de page souhaité" /> <span id="pageTotal">/ 1</span></label><button id="nextPage">Suivant →</button></div>
       </section>
     </main>
-    <footer class="site-footer"><div class="shell"><div><strong>Geomapia Concepts</strong><p>Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div><div><p>Source : Patrick Triplet, édition 2026.</p><p><a href="./apropos.html">Méthode et droits d’utilisation ↗</a></p></div></div></footer>
+    <footer class="site-footer"><div class="shell"><div><strong>Geomapia Concepts</strong><p>Sélection et classification géographiques réalisées par Brahim Jaziri.</p></div><div><p>Source : Patrick Triplet, édition 2026.</p><p><a href="./apropos.html">Méthode et droits d’utilisation ↗</a></p></div></div>
+  <div class="gpc-footer-back-wrap">
+    <a class="gpc-footer-back" href="https://geomapia.tn/">
+      <span aria-hidden="true">←</span> Revenir à Geomapia
+    </a>
+  </div>
+</footer>
     <div id="modalBackdrop" class="modal-backdrop" hidden><article class="concept-modal specialized-modal" role="dialog" aria-modal="true"><button id="modalClose" class="modal-close">×</button><p id="modalType" class="modal-domain"></p><h2 id="modalTitle"></h2><h3>Définition et méthode</h3><p id="modalDefinition" class="modal-definition"></p><dl id="modalDetails" class="detail-list"></dl><div class="modal-reference"><h3>Citation proposée</h3><p id="modalCitation"></p></div><div class="modal-tool-row"><button id="modalCopyCitation">Copier la citation</button><button id="modalCopyLink">Copier le lien permanent</button><a id="modalPdf" target="_blank" rel="noreferrer">Voir la page dans le PDF ↗</a><a id="modalReport">Signaler une correction</a></div></article></div>
   </body>
 </html>
