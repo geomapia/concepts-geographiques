@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<title>Espace complet — Explorer les relations | Répertoire géographique</title>
+<title>Espace complet — Explorer les relations | Geomapia Concepts</title>
 <style>:root {
   color-scheme: light dark;
   background-color: transparent !important;
@@ -845,6 +845,46 @@ html, body { background:#fbf8f1 !important; }
 #rg-graph-demand .rg-canvas-wrap { background:#fff; border:1px solid #d8cdbb; }
 #rg-graph-demand .btn-primary { background:#13283c; color:#fff; }
 </style>
+
+<style id="geomapia-concepts-theme">
+:root{
+  --gc-navy:#071c27;
+  --gc-teal:#1ad2c4;
+  --gc-mint:#53e1b2;
+  --gc-lime:#c9f36b;
+  --gc-paper:#f4f8f7;
+}
+body{
+  background:radial-gradient(circle at 90% 0,rgba(26,210,196,.08),transparent 26rem),var(--gc-paper)!important;
+}
+.rg-full-toolbar{
+  background:var(--gc-navy)!important;
+  border-bottom:3px solid var(--gc-teal)!important;
+}
+.rg-brand-mark{
+  color:var(--gc-navy)!important;
+  background:linear-gradient(145deg,var(--gc-teal),var(--gc-mint))!important;
+  border-color:transparent!important;
+}
+#rg-graph-demand .btn-primary{
+  color:var(--gc-navy)!important;
+  background:var(--gc-lime)!important;
+  border-color:var(--gc-lime)!important;
+}
+#rg-graph-demand .form-check-input:checked{
+  background-color:var(--gc-teal)!important;
+  border-color:var(--gc-teal)!important;
+}
+#rg-graph-demand .rg-workbench,
+#rg-graph-demand .rg-alternate-view,
+#rg-graph-demand .rg-side-panel,
+#rg-graph-demand .rg-canvas-wrap{
+  background:#fff!important;
+  border-color:#d8e5e2!important;
+  box-shadow:0 14px 38px rgba(7,28,39,.08)!important;
+}
+</style>
+
 </head>
 <body>
 <div id="rg-full-toolbar" class="rg-full-toolbar" hidden>
@@ -856,10 +896,10 @@ html, body { background:#fbf8f1 !important; }
 </div>
 <div id="rg-graph-demand">
   <div class="rg-identity">
-    <div class="rg-brand-mark" aria-hidden="true">RG</div>
+    <div class="rg-brand-mark" aria-hidden="true">GC</div>
     <div class="rg-brand-copy">
-      <strong>Répertoire géographique</strong>
-      <span>Diversité biologique · conservation · relations conceptuelles</span>
+      <strong>Geomapia Concepts</strong>
+      <span>Référentiel collaboratif des concepts géographiques</span>
     </div>
     <div class="rg-map-choice">
       <span id="rg-map-name">Carte conceptuelle aléatoire</span>

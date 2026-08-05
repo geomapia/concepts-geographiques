@@ -1,0 +1,35 @@
+GEOMAPIA CONCEPTS — NOUVELLE VERSION PRÊTE POUR GITHUB
+
+Cette archive a été construite à partir du dépôt fonctionnel original.
+
+Elle conserve :
+- tous les fichiers JavaScript ;
+- tous les fichiers JSON et les données ;
+- les pages Relations et leurs scripts ;
+- les formulaires et les configurations ;
+- la structure fonctionnelle du site.
+
+Elle ajoute :
+- le nom Geomapia Concepts ;
+- l’emblème GC ;
+- l’identité bleu nuit, turquoise, menthe et vert citron ;
+- les bannières et composants correspondant à la maquette validée.
+
+DÉPLOIEMENT
+1. Vérifier que la branche/tag de sauvegarde existe.
+2. Ouvrir la branche main.
+3. Supprimer ou remplacer les anciens fichiers du dépôt.
+4. Importer le contenu de cette archive à la racine du dépôt.
+5. Valider le commit.
+6. Attendre la mise à jour de GitHub Pages.
+7. Recharger le site avec Ctrl + F5.
+
+CONSEIL
+Après publication, vérifier en priorité :
+- Accueil
+- Concepts et recherche
+- Dictionnaire
+- Relations
+- Conventions
+- Indices
+- Contact
