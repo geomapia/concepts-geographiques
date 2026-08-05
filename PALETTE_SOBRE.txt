@@ -1,0 +1,11 @@
+GEOMAPIA CONCEPTS — PALETTE SOBRE
+
+Cette variante remplace les couleurs vert clair et turquoise par :
+- bleu nuit : #0B1F2A
+- bleu ardoise : #18333F
+- or mat : #B99A5F
+- sable clair : #D4C08A
+- ivoire : #F5F2EA
+- bordeaux discret pour certains liens : #7A3143
+
+Les fonctionnalités et les fichiers du site restent inchangés.
