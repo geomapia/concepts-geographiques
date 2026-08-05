@@ -8,10 +8,10 @@
       content="Geomapia Concepts de 1 500 concepts sur la diversité biologique et la conservation, complétés par 43 indices, 18 instruments internationaux et l’index intégral des 6 122 entrées du dictionnaire de Patrick Triplet."
     />
     <title>Geomapia Concepts</title>
-    <link rel="stylesheet" href="./styles.css?v=20260805-home-compact-1" />
+    <link rel="stylesheet" href="./styles.css?v=20260805-coherence-2" />
     <script src="./suggestions-config.js?v=20260730-4"></script>
     <script src="./navigation.js?v=20260730-3" defer></script>
-    <script src="./app.js?v=20260805-radial-1" defer></script>
+    <script src="./app.js?v=20260805-tooltip-2" defer></script>
     <script src="./analytics.js?v=20260730-1" defer></script>
     <script src="./tour.js?v=20260730-3" defer></script>
   </head>
@@ -20,10 +20,10 @@
       <header class="masthead">
         <div class="masthead-line"></div>
         <div class="shell nav">
-          <a class="brand" href="./index.html" aria-label="Geomapia Concept">
+          <a class="brand" href="./index.html" aria-label="Geomapia Concepts">
   <img class="brand-logo" src="./assets/logo-geomapia.png" alt="Logo Geomapia">
   <span class="brand-text">
-    <strong>Geomapia Concept</strong>
+    <strong>Geomapia Concepts</strong>
     <small>Répertoire des concepts géographiques</small>
   </span>
 </a>
@@ -136,48 +136,41 @@
         </div>
 </section>
 
-      <section id="overview" class="domain-overview shell">
-        <div class="compact-section-heading">
+      <section id="overview" class="domain-overview shell" aria-labelledby="domainChartTitle">
+        <div class="compact-section-heading domain-chart-heading">
           <div>
             <span class="section-index">01</span>
-            <h2>Répartition des concepts par domaine</h2>
+            <h2 id="domainChartTitle">Répartition des concepts par domaine</h2>
           </div>
-          <p>Visualisation circulaire des domaines présents dans le Répertoire.</p>
         </div>
-        <article class="domain-chart-card">
-          <div id="domainRadialChart" class="domain-radial-chart" aria-label="Histogramme circulaire de la répartition des concepts par domaine"></div>
-          <div id="domainLegend" class="domain-legend"></div>
+        <article class="domain-chart-card domain-chart-card--single">
+          <div class="domain-chart-stage">
+            <div id="domainRadialChart"
+                 class="domain-radial-chart"
+                 aria-label="Graphique circulaire de la répartition des concepts par domaine"></div>
+            <div id="domainChartTooltip"
+                 class="domain-chart-tooltip"
+                 role="status"
+                 aria-live="polite"
+                 hidden></div>
+          </div>
         </article>
       </section>
 
       <section id="authors" class="authors-compact">
-        <div class="shell">
-          <div class="compact-section-heading">
-            <div>
-              <span class="section-index">02</span>
-              <h2>Source et conception scientifique</h2>
-            </div>
-            <a class="compact-about-link" href="./apropos.html">Voir la présentation détaillée →</a>
-          </div>
-          <div class="authors-compact-grid">
-            <article>
-              <span>Auteur du dictionnaire source</span>
-              <strong>Patrick Triplet</strong>
-              <p>Auteur du dictionnaire encyclopédique utilisé comme source documentaire principale.</p>
-            </article>
-            <article>
-              <span>Conception du Répertoire</span>
-              <strong>Brahim Jaziri</strong>
-              <p>Sélection géographique, classification scientifique et conception de l’interface numérique.</p>
-            </article>
-          </div>
+        <div class="shell authors-compact-line">
+          <p>
+            Source documentaire : <strong>Patrick Triplet</strong> ·
+            Sélection, classification et conception : <strong>Brahim Jaziri</strong>.
+          </p>
+          <a class="compact-about-link" href="./apropos.html">Détails dans la page À propos →</a>
         </div>
       </section>
 
 <footer class="site-footer">
         <div class="shell">
           <div>
-            <strong>Geomapia Concept</strong>
+            <strong>Geomapia Concepts</strong>
             <p>Un outil académique d’exploration terminologique.</p>
           </div>
           <div>

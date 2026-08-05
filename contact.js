@@ -17,6 +17,8 @@ const suggestionFields = document.querySelector("#suggestionFields");
 const translationFields = document.querySelector("#translationFields");
 const arabicTerm = document.querySelector("#arabicTerm");
 const suggestionCategory = document.querySelector("#suggestionCategory");
+const suggestionDomain = document.querySelector("#suggestionDomain");
+const suggestionSubdomain = document.querySelector("#suggestionSubdomain");
 const suggestionJustification = document.querySelector("#suggestionJustification");
 const requestTypeField = document.querySelector("#requestTypeField");
 const translationLanguageField = document.querySelector("#translationLanguageField");
@@ -30,6 +32,175 @@ const formServiceNote = document.querySelector("#formServiceNote");
 const newsletterForm = document.querySelector("#newsletterForm");
 const newsletterSubmit = document.querySelector("#newsletterSubmit");
 const newsletterStatus = document.querySelector("#newsletterStatus");
+
+const suggestionTaxonomy = {
+  "Aménagement du territoire": [
+    "Infrastructures et équipements",
+    "Planification territoriale",
+    "Politiques d’aménagement"
+  ],
+  "Aménagement, territoires et usages du sol": [],
+  "Biogéographie": [
+    "Biomes et écosystèmes",
+    "Connectivité et fragmentation",
+    "Répartition des espèces",
+    "Écologie des paysages"
+  ],
+  "Cartographie, SIG et analyse spatiale": [],
+  "Cartographie, SIG et télédétection": [
+    "Cartographie générale"
+  ],
+  "Climatologie et bioclimatologie": [
+    "Aridité, sécheresse et désertification",
+    "Bioclimatologie",
+    "Changements climatiques",
+    "Climatologie générale",
+    "Variabilité et extrêmes climatiques"
+  ],
+  "Climatologie et changements climatiques": [],
+  "Conventions, traités et accords internationaux": [],
+  "Développement territorial": [
+    "Développement durable",
+    "Développement local",
+    "Patrimoine et développement"
+  ],
+  "Géographie de l'environnement": [
+    "Biodiversité"
+  ],
+  "Géographie de l'environnement et conservation": [],
+  "Géographie de la population": [
+    "Dynamiques démographiques",
+    "Migrations",
+    "Peuplement",
+    "Structures de population"
+  ],
+  "Géographie de l’environnement": [
+    "Aires protégées",
+    "Biodiversité",
+    "Conflits socio-environnementaux",
+    "Conservation de la nature",
+    "Gestion environnementale",
+    "Pollutions et nuisances",
+    "Services écosystémiques"
+  ],
+  "Géographie des risques": [
+    "Aléas naturels",
+    "Résilience territoriale",
+    "Vulnérabilité"
+  ],
+  "Géographie des sols": [
+    "Classification des sols",
+    "Propriétés et fertilité des sols",
+    "Pédogenèse",
+    "Érosion et dégradation des sols"
+  ],
+  "Géographie littorale et marine": [
+    "Aménagement du littoral",
+    "Dynamiques littorales",
+    "Espaces insulaires",
+    "Milieux marins et côtiers",
+    "Océanographie géographique",
+    "Usages et conflits littoraux",
+    "Érosion et submersion côtières"
+  ],
+  "Géographie politique": [
+    "Frontières et limites",
+    "Gouvernance et acteurs"
+  ],
+  "Géographie rurale": [
+    "Agriculture et territoires",
+    "Espaces forestiers",
+    "Systèmes agraires"
+  ],
+  "Géographie sociale et culturelle": [
+    "Culture et patrimoine",
+    "Genre et espace"
+  ],
+  "Géographie urbaine": [
+    "Habitat et logement"
+  ],
+  "Géographie économique": [
+    "Commerce et services",
+    "Industrie et territoires",
+    "Localisation des activités",
+    "Marchés et réseaux économiques",
+    "Tourisme",
+    "Transport et logistique",
+    "Économie de l’environnement"
+  ],
+  "Géomorphologie": [
+    "Géomorphologie côtière",
+    "Géomorphologie dynamique",
+    "Géomorphologie structurale",
+    "Modelés désertiques et éoliens",
+    "Modelés fluviaux",
+    "Modelés karstiques",
+    "Processus d’érosion"
+  ],
+  "Hydrologie": [
+    "Bassins versants",
+    "Cours d’eau et réseaux hydrographiques",
+    "Crues et inondations",
+    "Cycle hydrologique",
+    "Eaux souterraines"
+  ],
+  "Indices et indicateurs": [],
+  "Méthodes et analyse spatiale": [
+    "Indicateurs et indices"
+  ],
+  "Pédologie et géographie des sols": [],
+  "Ressources et transitions territoriales": [
+    "Gestion durable des ressources",
+    "Ressources naturelles",
+    "Énergie"
+  ]
+};
+
+function populateSuggestionDomains() {
+  if (!suggestionDomain || !suggestionSubdomain) return;
+
+  suggestionDomain.innerHTML = '<option value="">Choisir un domaine</option>';
+
+  Object.keys(suggestionTaxonomy).forEach((domain) => {
+    const option = document.createElement("option");
+    option.value = domain;
+    option.textContent = domain;
+    suggestionDomain.append(option);
+  });
+
+  updateSuggestionSubdomains();
+}
+
+function updateSuggestionSubdomains() {
+  if (!suggestionDomain || !suggestionSubdomain) return;
+
+  const domain = suggestionDomain.value;
+  const values = suggestionTaxonomy[domain] || [];
+
+  suggestionSubdomain.innerHTML = "";
+
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = domain
+    ? values.length
+      ? "Choisir un sous-domaine"
+      : "Sous-domaine à préciser lors de la validation"
+    : "Choisir d’abord un domaine";
+
+  suggestionSubdomain.append(placeholder);
+  suggestionSubdomain.disabled = !domain || values.length === 0;
+
+  values.forEach((subdomain) => {
+    const option = document.createElement("option");
+    option.value = subdomain;
+    option.textContent = subdomain;
+    suggestionSubdomain.append(option);
+  });
+}
+
+suggestionDomain?.addEventListener("change", updateSuggestionSubdomains);
+populateSuggestionDomains();
+
 
 if (translationLanguage === "ar" && notice) {
   const pdfPage = page ? Math.max(1, Number(page)) : "";
@@ -65,6 +236,7 @@ if (translationLanguage === "ar" && notice) {
     : window.location.href;
   suggestionFields.hidden = false;
   suggestionCategory.required = true;
+  suggestionDomain.required = true;
   suggestionJustification.required = true;
   messageLabel.textContent = "Remarque complémentaire (facultatif)";
   message.required = false;
@@ -94,7 +266,7 @@ if (translationLanguage === "ar" && notice) {
     .join("\n");
 } else {
   requestTypeField.value = "contact";
-  subject.value = "Contact — Geomapia Concept";
+  subject.value = "Contact — Geomapia Conceptss";
 }
 
 form.addEventListener("submit", async (event) => {
@@ -143,7 +315,7 @@ form.addEventListener("submit", async (event) => {
       ? `Suggestion d’ajout au Répertoire — ${suggestion}`
       : notice
         ? `Correction du Répertoire — ${notice}`
-        : "Contact — Geomapia Concept";
+        : "Contact — Geomapia Conceptss";
     requestTypeField.value = translationLanguage === "ar" ? "traduction" : suggestion ? "suggestion" : notice ? "correction" : "contact";
     translationLanguageField.value = translationLanguage === "ar" ? "ar" : "";
     noticeField.value = suggestion || notice;
@@ -156,6 +328,7 @@ form.addEventListener("submit", async (event) => {
     if (suggestion) {
       suggestionFields.hidden = false;
       suggestionCategory.required = true;
+      suggestionDomain.required = true;
       suggestionJustification.required = true;
     }
     if (translationLanguage === "ar") {

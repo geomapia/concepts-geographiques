@@ -2454,3 +2454,138 @@ main a:not(.btn):not(.button):not(.primary-button):hover{
 .authors-compact-grid p{margin:10px 0 0;color:#64748b;line-height:1.6;font-size:14px;}
 @media(max-width:1100px){.portal-grid{grid-template-columns:repeat(3,1fr)!important;}.domain-chart-card{grid-template-columns:1fr;}.domain-legend{grid-template-columns:1fr 1fr;}}
 @media(max-width:760px){.resource-stats-heading,.compact-section-heading{display:block;}.resource-stats-heading p,.compact-section-heading>p,.compact-about-link{margin-top:10px;}.resource-stats-grid{grid-template-columns:1fr 1fr;}.resource-stat:nth-child(2){border-right:0;}.resource-stat:nth-child(-n+2){border-bottom:1px solid #d9e5e2;}.portal-grid{grid-template-columns:1fr!important;}.authors-compact-grid{grid-template-columns:1fr;}.domain-legend{grid-template-columns:1fr;}}
+
+
+/* ==========================================================
+   COHÉRENCE FINALE — GRAPHIQUE CIRCULAIRE ET AUTEURS COMPACTS
+   ========================================================== */
+
+.domain-chart-heading {
+  margin-bottom: 20px;
+}
+
+.domain-chart-card--single {
+  display: block !important;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 28px !important;
+}
+
+.domain-chart-stage {
+  position: relative;
+  width: min(100%, 620px);
+  margin-inline: auto;
+}
+
+.domain-radial-chart svg {
+  width: 100%;
+  max-width: 580px;
+  display: block;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.radial-domain-bar {
+  opacity: .9;
+  cursor: help;
+  stroke: rgba(255,255,255,.65);
+  stroke-width: 1;
+  transition:
+    opacity .18s ease,
+    filter .18s ease,
+    transform .18s ease;
+  transform-origin: center;
+}
+
+.radial-domain-bar:hover,
+.radial-domain-bar:focus {
+  opacity: 1;
+  filter: brightness(1.1) saturate(1.08);
+  outline: none;
+}
+
+.domain-chart-tooltip {
+  position: absolute;
+  z-index: 10;
+  min-width: 175px;
+  max-width: 270px;
+  padding: 11px 13px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+  color: #ffffff;
+  background: rgba(15,56,79,.96);
+  box-shadow: 0 12px 28px rgba(15,23,42,.22);
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  backdrop-filter: blur(8px);
+}
+
+.domain-chart-tooltip strong,
+.domain-chart-tooltip span {
+  display: block;
+}
+
+.domain-chart-tooltip strong {
+  font-size: .82rem;
+  line-height: 1.35;
+}
+
+.domain-chart-tooltip span {
+  margin-top: 4px;
+  color: #cfe9f8;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+.domain-legend {
+  display: none !important;
+}
+
+.authors-compact {
+  padding: 24px 0 !important;
+}
+
+.authors-compact-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+
+.authors-compact-line p {
+  margin: 0;
+  color: #475569;
+  font-size: .9rem;
+}
+
+.authors-compact-line strong {
+  color: #0f4c75;
+}
+
+@media (max-width: 760px) {
+  .authors-compact-line {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .domain-chart-card--single {
+    padding: 16px !important;
+  }
+}
+
+
+.suggestion-domain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.suggestion-domain-grid label {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .suggestion-domain-grid {
+    grid-template-columns: 1fr;
+  }
+}

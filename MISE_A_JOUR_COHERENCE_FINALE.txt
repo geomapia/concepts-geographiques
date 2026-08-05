@@ -1,0 +1,15 @@
+GEOMAPIA CONCEPTS — MISE À JOUR DE COHÉRENCE
+
+Modifications :
+- nom harmonisé partout : Geomapia Concepts ;
+- graphique circulaire conservé seul ;
+- infobulles interactives : domaine + nombre de concepts ;
+- légende du graphique supprimée ;
+- présentation auteur/conception réduite à une seule ligne ;
+- formulaire d’ajout : Domaine + Sous-domaine dépendant ;
+- adresse de contact : contact@geomapia.tn ;
+- nom personnel supprimé de la page Contact ;
+- versions CSS et JS actualisées pour éviter le cache.
+
+Contrôle du nom singulier restant :
+aucune occurrence détectée

@@ -3,7 +3,7 @@ CORRECTION APPLIQUÉE
 - Le fichier réel du logo est maintenant inclus :
   assets/logo-geomapia.png
 - Le titre de l’en-tête est :
-  Geomapia Concept
+  Geomapia Concepts
 - Le sous-titre est :
   Répertoire des concepts géographiques
 - La largeur du bloc de marque et l’espacement du menu ont été réduits.

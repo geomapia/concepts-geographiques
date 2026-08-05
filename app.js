@@ -48,48 +48,111 @@ function renderOverview() {
 
 function renderRadialDomainChart(counts) {
   const chart = document.querySelector("#domainRadialChart");
-  const legend = document.querySelector("#domainLegend");
-  if (!chart || !legend) return;
+  const tooltip = document.querySelector("#domainChartTooltip");
+  if (!chart) return;
 
-  const width = 520;
-  const height = 520;
+  const width = 560;
+  const height = 560;
   const cx = width / 2;
   const cy = height / 2;
-  const inner = 78;
-  const maxOuter = 215;
+  const inner = 88;
+  const maxOuter = 238;
   const max = counts[0]?.count || 1;
-  const gap = 0.025;
+  const gap = 0.018;
   const step = (Math.PI * 2) / Math.max(counts.length, 1);
 
-  const polar = (radius, angle) => [cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius];
+  const polar = (radius, angle) => [
+    cx + Math.cos(angle) * radius,
+    cy + Math.sin(angle) * radius,
+  ];
+
   const wedge = (r0, r1, a0, a1) => {
-    const [x1,y1] = polar(r1,a0), [x2,y2] = polar(r1,a1), [x3,y3] = polar(r0,a1), [x4,y4] = polar(r0,a0);
-    const large = a1-a0 > Math.PI ? 1 : 0;
-    return `M ${x1} ${y1} A ${r1} ${r1} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${r0} ${r0} 0 ${large} 0 ${x4} ${y4} Z`;
+    const [x1, y1] = polar(r1, a0);
+    const [x2, y2] = polar(r1, a1);
+    const [x3, y3] = polar(r0, a1);
+    const [x4, y4] = polar(r0, a0);
+    const large = a1 - a0 > Math.PI ? 1 : 0;
+
+    return [
+      `M ${x1} ${y1}`,
+      `A ${r1} ${r1} 0 ${large} 1 ${x2} ${y2}`,
+      `L ${x3} ${y3}`,
+      `A ${r0} ${r0} 0 ${large} 0 ${x4} ${y4}`,
+      "Z",
+    ].join(" ");
   };
 
-  const paths = counts.map((item,index) => {
-    const a0 = -Math.PI/2 + index*step + gap;
-    const a1 = -Math.PI/2 + (index+1)*step - gap;
-    const outer = inner + 42 + (item.count/max)*(maxOuter-inner-42);
-    return `<path class="radial-domain-bar" d="${wedge(inner,outer,a0,a1)}" fill="${item.color}" tabindex="0"><title>${escapeHtml(item.name)} : ${item.count}</title></path>`;
+  const paths = counts.map((item, index) => {
+    const a0 = -Math.PI / 2 + index * step + gap;
+    const a1 = -Math.PI / 2 + (index + 1) * step - gap;
+    const outer = inner + 45 + (item.count / max) * (maxOuter - inner - 45);
+
+    return `
+      <path
+        class="radial-domain-bar"
+        d="${wedge(inner, outer, a0, a1)}"
+        fill="${item.color}"
+        tabindex="0"
+        data-domain="${escapeHtml(item.name)}"
+        data-count="${item.count}"
+        aria-label="${escapeHtml(item.name)} : ${item.count.toLocaleString("fr-FR")} concepts">
+      </path>`;
   }).join("");
 
   chart.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Répartition circulaire des concepts par domaine">
+    <svg viewBox="0 0 ${width} ${height}"
+         role="img"
+         aria-label="Répartition circulaire des concepts par domaine">
       <circle cx="${cx}" cy="${cy}" r="${maxOuter}" class="radial-guide"/>
-      <circle cx="${cx}" cy="${cy}" r="${inner}" class="radial-center"/>
       ${paths}
-      <text x="${cx}" y="${cy-8}" class="radial-total">${concepts.length.toLocaleString("fr-FR")}</text>
-      <text x="${cx}" y="${cy+18}" class="radial-caption">concepts</text>
+      <circle cx="${cx}" cy="${cy}" r="${inner}" class="radial-center"/>
+      <text x="${cx}" y="${cy - 8}" class="radial-total">
+        ${concepts.length.toLocaleString("fr-FR")}
+      </text>
+      <text x="${cx}" y="${cy + 18}" class="radial-caption">concepts</text>
     </svg>`;
 
-  legend.innerHTML = counts.map(item => `
-    <div class="domain-legend-item">
-      <i style="background:${item.color}"></i>
-      <span>${escapeHtml(item.name)}</span>
-      <strong>${item.count.toLocaleString("fr-FR")}</strong>
-    </div>`).join("");
+  const showTooltip = (event, path) => {
+    if (!tooltip) return;
+
+    const domain = path.dataset.domain || "";
+    const count = Number(path.dataset.count || 0);
+
+    tooltip.innerHTML = `
+      <strong>${escapeHtml(domain)}</strong>
+      <span>${count.toLocaleString("fr-FR")} concepts</span>`;
+
+    tooltip.hidden = false;
+
+    const stage = chart.closest(".domain-chart-stage");
+    if (!stage) return;
+
+    const stageRect = stage.getBoundingClientRect();
+    const sourceRect = path.getBoundingClientRect();
+
+    let left = sourceRect.left + sourceRect.width / 2 - stageRect.left;
+    let top = sourceRect.top - stageRect.top - 12;
+
+    if (event?.clientX) {
+      left = event.clientX - stageRect.left;
+      top = event.clientY - stageRect.top - 16;
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  };
+
+  const hideTooltip = () => {
+    if (tooltip) tooltip.hidden = true;
+  };
+
+  chart.querySelectorAll(".radial-domain-bar").forEach((path) => {
+    path.addEventListener("pointerenter", (event) => showTooltip(event, path));
+    path.addEventListener("pointermove", (event) => showTooltip(event, path));
+    path.addEventListener("pointerleave", hideTooltip);
+    path.addEventListener("focus", (event) => showTooltip(event, path));
+    path.addEventListener("blur", hideTooltip);
+  });
 }
 
 fetch("./data/concepts.json?v=20260730-3", { cache: "no-store" })
