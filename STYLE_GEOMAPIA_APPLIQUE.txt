@@ -1,0 +1,12 @@
+GEOMAPIA CONCEPTS — STYLE GEOMAPIA APPLIQUÉ
+
+Cette version reprend directement les règles des fichiers fournis :
+- navbar : #0f4c75 vers #16384f ;
+- survol du menu : fond blanc translucide ;
+- onglet actif : fond translucide + trait #bbe1fa ;
+- bouton principal : dégradé #16a34a vers #2563eb ;
+- bouton secondaire : blanc translucide et bordure claire ;
+- bannière : dégradé #0f4c75 vers #1b262c avec halo bleu clair ;
+- cartes blanches, bordures très légères et ombres sobres.
+
+Les scripts, données et fonctionnalités sont conservés.

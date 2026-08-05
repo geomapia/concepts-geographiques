@@ -1786,51 +1786,96 @@ main a:not(.btn):not(.button):not(.primary-button):hover{
 
 
 /* ==========================================================================
-   GEOMAPIA CONCEPTS — BOUTONS ET NAVIGATION ALIGNÉS SUR GEOMAPIA.TN
-   Référence : index Geomapia fourni le 05/08/2026
+   GEOMAPIA CONCEPTS — ALIGNEMENT VISUEL EXACT SUR GEOMAPIA
+   Sources : geomapia-navbar.css, geomapia-common.css et about.html fournis.
    ========================================================================== */
 
 :root{
-  --gm-ink:#0b1f2a;
-  --gm-ink-soft:#163744;
-  --gm-teal:#087f73;
-  --gm-teal-dark:#05665d;
-  --gm-mint:#53e1b2;
-  --gm-lime:#c9f36b;
-  --gm-blue:#2878e8;
-  --gm-blue-soft:#3f6f8d;
-  --gm-white:#ffffff;
-  --gm-line:#d9e5e2;
+  --gmn-primary:#0f4c75;
+  --gmn-primary-dark:#16384f;
+  --gmn-secondary:#3282b8;
+  --gmn-accent:#bbe1fa;
+  --gmn-success:#16a34a;
+  --gmn-white:#ffffff;
+  --gmn-text-light:#eaf6ff;
+  --gmn-border-light:rgba(255,255,255,.20);
+  --gmn-shadow:0 4px 18px rgba(0,0,0,.14);
+  --gc-bg:#f4f7f6;
+  --gc-text:#333333;
+  --gc-muted:#64748b;
 }
 
-/* Navigation principale : même traitement que Geomapia */
+/* NAVIGATION */
+.masthead{
+  position:sticky !important;
+  top:0;
+  z-index:4000;
+  width:100%;
+  color:var(--gmn-white) !important;
+  background:
+    linear-gradient(
+      110deg,
+      rgba(15,76,117,.985),
+      rgba(22,56,79,.985)
+    ) !important;
+  border-bottom:1px solid rgba(255,255,255,.10) !important;
+  box-shadow:var(--gmn-shadow) !important;
+  backdrop-filter:blur(12px);
+}
+
+.masthead-inner{
+  min-height:76px !important;
+}
+
+.brand-mark{
+  color:var(--gmn-primary) !important;
+  background:#ffffff !important;
+  border-radius:50% !important;
+  box-shadow:0 4px 14px rgba(0,0,0,.20) !important;
+}
+
+.brand strong,
+.masthead .brand strong{
+  color:#ffffff !important;
+}
+
+.brand small,
+.masthead .brand small{
+  color:#cfe9f8 !important;
+}
+
+/* Liens du menu */
 .masthead nav a,
 .masthead .nav a{
+  position:relative;
+  min-height:42px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:46px;
-  padding:.68rem .92rem !important;
-  border:1px solid transparent !important;
-  border-radius:9px !important;
-  color:#eef6f8 !important;
+  gap:.45rem;
+  padding:.60rem .72rem !important;
+  border:0 !important;
+  border-radius:8px !important;
+  color:var(--gmn-text-light) !important;
   background:transparent !important;
-  font-weight:600 !important;
-  line-height:1 !important;
+  font-size:.88rem !important;
+  font-weight:750 !important;
+  white-space:nowrap;
   text-decoration:none !important;
+  box-shadow:none !important;
   transition:
     color .18s ease,
-    background .18s ease,
-    border-color .18s ease,
-    box-shadow .18s ease,
-    transform .18s ease;
+    background-color .18s ease,
+    transform .18s ease !important;
 }
 
 .masthead nav a:hover,
-.masthead .nav a:hover{
+.masthead nav a:focus-visible,
+.masthead .nav a:hover,
+.masthead .nav a:focus-visible{
   color:#ffffff !important;
-  background:rgba(255,255,255,.08) !important;
-  border-color:rgba(255,255,255,.08) !important;
+  background:rgba(255,255,255,.12) !important;
+  transform:none !important;
 }
 
 .masthead nav a.active,
@@ -1838,35 +1883,121 @@ main a:not(.btn):not(.button):not(.primary-button):hover{
 .masthead .nav a.active,
 .masthead .nav a[aria-current="page"]{
   color:#ffffff !important;
-  background:rgba(81,130,163,.58) !important;
-  border-color:rgba(255,255,255,.08) !important;
-  box-shadow:inset 0 -3px 0 rgba(255,255,255,.65) !important;
+  background:rgba(255,255,255,.16) !important;
 }
 
-/* Bouton principal : même logique que « Adhérer » */
+.masthead nav a.active::after,
+.masthead nav a[aria-current="page"]::after,
+.masthead .nav a.active::after,
+.masthead .nav a[aria-current="page"]::after{
+  content:"";
+  position:absolute;
+  right:.75rem;
+  bottom:.25rem;
+  left:.75rem;
+  height:2px;
+  border-radius:999px;
+  background:var(--gmn-accent);
+}
+
+/* BANNIÈRES DES PAGES */
+.catalogue-hero,
+.about-hero,
+.contact-hero,
+.convention-hero,
+.dictionary-hero,
+.indicator-hero,
+.news-hero,
+.relations-hero,
+.hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  color:#ffffff !important;
+  background:
+    radial-gradient(circle at top left,rgba(187,225,250,.20),transparent 30%),
+    linear-gradient(135deg,#0f4c75,#1b262c) !important;
+  border-bottom:0 !important;
+  text-align:center;
+}
+
+.catalogue-hero::after,
+.about-hero::after,
+.contact-hero::after,
+.convention-hero::after,
+.dictionary-hero::after,
+.indicator-hero::after,
+.news-hero::after,
+.relations-hero::after,
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.09;
+  background-image:
+    linear-gradient(rgba(255,255,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.13) 1px,transparent 1px);
+  background-size:54px 54px;
+}
+
+.catalogue-hero h1,
+.about-hero h1,
+.contact-hero h1,
+.convention-hero h1,
+.dictionary-hero h1,
+.indicator-hero h1,
+.news-hero h1,
+.relations-hero h1,
+.hero h1{
+  color:#ffffff !important;
+  font-weight:900 !important;
+  letter-spacing:.3px !important;
+}
+
+.catalogue-hero p,
+.about-hero p,
+.contact-hero p,
+.convention-hero p,
+.dictionary-hero p,
+.indicator-hero p,
+.news-hero p,
+.relations-hero p,
+.hero p{
+  color:#dbeafe !important;
+  line-height:1.8 !important;
+}
+
+/* Le badge supérieur devient plus sobre */
+.eyebrow{
+  color:#dbeafe !important;
+  background:rgba(255,255,255,.10) !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  border-radius:999px !important;
+}
+
+/* BOUTONS PRINCIPAUX — style Adhérer */
 .btn-primary,
 .primary-button,
 .contact-submit,
 button[type="submit"]:not(.btn-ghost):not(.secondary-button),
 a.primary-button,
 a.btn-primary{
-  min-height:48px !important;
+  min-height:43px !important;
   display:inline-flex !important;
   align-items:center !important;
   justify-content:center !important;
-  gap:.55rem !important;
-  padding:.78rem 1.12rem !important;
-  border:1px solid rgba(255,255,255,.10) !important;
-  border-radius:10px !important;
+  gap:.45rem !important;
+  padding:.62rem .92rem !important;
+  border:1px solid transparent !important;
+  border-radius:9px !important;
   color:#ffffff !important;
-  background:linear-gradient(100deg,#0ab77f 0%,#087f73 43%,#2878e8 100%) !important;
-  box-shadow:0 10px 24px rgba(8,127,115,.18) !important;
-  font-weight:700 !important;
+  background:linear-gradient(135deg,#16a34a,#2563eb) !important;
+  box-shadow:0 7px 18px rgba(37,99,235,.24) !important;
+  font-size:.86rem !important;
+  font-weight:850 !important;
   text-decoration:none !important;
-  transition:
-    transform .18s ease,
-    filter .18s ease,
-    box-shadow .18s ease !important;
+  transition:.18s ease !important;
 }
 
 .btn-primary:hover,
@@ -1876,91 +2007,158 @@ button[type="submit"]:not(.btn-ghost):not(.secondary-button):hover,
 a.primary-button:hover,
 a.btn-primary:hover{
   color:#ffffff !important;
-  filter:brightness(1.08) saturate(1.05) !important;
-  transform:translateY(-1px) !important;
-  box-shadow:0 14px 28px rgba(8,127,115,.24) !important;
+  filter:brightness(1.06);
+  transform:translateY(-1px);
+  box-shadow:0 10px 22px rgba(37,99,235,.30) !important;
 }
 
-/* Bouton secondaire : même logique que « Connexion » */
+/* BOUTONS SECONDAIRES — style Connexion */
 .btn-ghost,
-.secondary-button,
-.button:not(.primary-button),
-a.button:not(.primary-button),
-button:not([type="submit"]):not(.btn-primary){
-  min-height:48px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:.55rem;
-  padding:.78rem 1.12rem;
-  border:1px solid rgba(255,255,255,.22) !important;
-  border-radius:10px !important;
+.secondary-button{
+  min-height:43px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:.45rem !important;
+  padding:.62rem .92rem !important;
+  border:1px solid var(--gmn-border-light) !important;
+  border-radius:9px !important;
   color:#ffffff !important;
-  background:rgba(255,255,255,.07) !important;
-  box-shadow:none !important;
-  font-weight:650 !important;
+  background:rgba(255,255,255,.09) !important;
+  font-size:.86rem !important;
+  font-weight:850 !important;
   text-decoration:none !important;
-  transition:
-    background .18s ease,
-    border-color .18s ease,
-    transform .18s ease !important;
+  transition:.18s ease !important;
 }
 
 .btn-ghost:hover,
-.secondary-button:hover,
-.button:not(.primary-button):hover,
-a.button:not(.primary-button):hover,
-button:not([type="submit"]):not(.btn-primary):hover{
+.secondary-button:hover{
   color:#ffffff !important;
-  background:rgba(255,255,255,.13) !important;
-  border-color:rgba(255,255,255,.34) !important;
-  transform:translateY(-1px);
+  background:rgba(255,255,255,.17) !important;
 }
 
-/* Boutons secondaires placés sur fond clair */
+/* Boutons secondaires dans le contenu clair */
 main .btn-ghost,
 main .secondary-button,
-main .button:not(.primary-button),
-main a.button:not(.primary-button),
+main .btn:not(.btn-primary),
 main button:not([type="submit"]):not(.btn-primary){
-  color:var(--gm-ink) !important;
+  color:#0f4c75 !important;
   background:#ffffff !important;
-  border-color:#b9c9ce !important;
+  border:1px solid #bfd0df !important;
+  box-shadow:none !important;
 }
 
 main .btn-ghost:hover,
 main .secondary-button:hover,
-main .button:not(.primary-button):hover,
-main a.button:not(.primary-button):hover,
+main .btn:not(.btn-primary):hover,
 main button:not([type="submit"]):not(.btn-primary):hover{
-  color:var(--gm-ink) !important;
-  background:#edf4f5 !important;
-  border-color:#87a4ad !important;
+  color:#0f4c75 !important;
+  background:#eef6fb !important;
+  border-color:#9fb9ca !important;
 }
 
-/* Ne plus utiliser le vert citron comme couleur de bouton */
-.home-button--primary,
-.relations-validated-badge,
+/* CARTES ET CONTENU */
+body{
+  background:var(--gc-bg) !important;
+  color:var(--gc-text) !important;
+}
+
+.card,
+.contact-card,
+.method-card,
+.profile-card,
+.chart-card,
+.search-panel,
+.concepts-search-panel,
+.dictionary-search-panel,
+.newsletter-panel,
+.rights-panel,
+.relations-frame,
+.relations-validated-card,
+.reference-group,
+.source-banner,
+.advanced-filters{
+  border:1px solid rgba(15,76,117,.08) !important;
+  border-radius:20px !important;
+  background:#ffffff !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.07) !important;
+}
+
+.card:hover,
+.contact-card:hover,
+.method-card:hover,
+.profile-card:hover,
+.relations-validated-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 16px 34px rgba(0,0,0,.11) !important;
+}
+
+/* Titres de sections */
+main h2{
+  color:#0f4c75 !important;
+}
+
+main h2::after{
+  background:#bbe1fa !important;
+}
+
+/* Champs */
+input,
+select,
+textarea,
+.form-control,
+.form-select{
+  border-color:#bfd0df !important;
+  border-radius:12px !important;
+  background:#ffffff !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.form-select:focus{
+  border-color:#3282b8 !important;
+  box-shadow:0 0 0 3px rgba(50,130,184,.16) !important;
+}
+
+/* Liens */
+main a:not(.btn):not(.button):not(.primary-button){
+  color:#0f4c75 !important;
+}
+
+main a:not(.btn):not(.button):not(.primary-button):hover{
+  color:#3282b8 !important;
+}
+
+/* États actifs */
 .alphabet-filter button.active,
 .concept-alphabet button.active,
 .pagination button.active,
 .dictionary-pagination button.active,
 .is-selected{
   color:#ffffff !important;
-  background:linear-gradient(100deg,#0ab77f 0%,#087f73 43%,#2878e8 100%) !important;
-  border-color:transparent !important;
+  background:#0f4c75 !important;
+  border-color:#0f4c75 !important;
 }
 
-/* Focus fidèle mais plus discret */
+/* Footer : conserver une version sobre alignée au système Geomapia */
+.site-footer{
+  background:#0f4c75 !important;
+  color:#ffffff !important;
+}
+
+.site-footer a{
+  color:#bbe1fa !important;
+}
+
 :focus-visible{
-  outline:3px solid rgba(40,120,232,.42) !important;
-  outline-offset:3px !important;
+  outline:3px solid #bbe1fa !important;
+  outline-offset:4px !important;
 }
 
-@media(max-width:760px){
-  .masthead nav a,
-  .masthead .nav a{
-    min-height:42px;
-    padding:.62rem .8rem !important;
+@media(max-width:900px){
+  .masthead-inner{
+    min-height:68px !important;
   }
 }
