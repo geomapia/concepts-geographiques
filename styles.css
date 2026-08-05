@@ -2162,3 +2162,96 @@ main a:not(.btn):not(.button):not(.primary-button):hover{
     min-height:68px !important;
   }
 }
+
+
+/* === Ajustements demandés : logo Geomapia, titre raccourci, débordement supprimé === */
+.brand{
+  gap:12px !important;
+  margin-inline-end:18px !important;
+  flex:0 1 auto !important;
+  min-width:0;
+}
+.brand-logo{
+  width:46px;
+  height:46px;
+  display:block;
+  flex:0 0 46px;
+  border-radius:50%;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.brand-mark{ display:none !important; }
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.brand strong,
+.masthead .brand strong{
+  font-size:1rem !important;
+  line-height:1.15 !important;
+  letter-spacing:.01em;
+}
+.brand small,
+.masthead .brand small{
+  margin-top:2px;
+  font-size:.67rem !important;
+  letter-spacing:.06em;
+}
+.masthead .shell.nav,
+.nav{
+  min-height:76px !important;
+  height:auto !important;
+  gap:18px !important;
+  justify-content:space-between;
+}
+.masthead .nav nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px !important;
+  flex:1 1 auto;
+  min-width:0;
+}
+.masthead nav a,
+.masthead .nav a{
+  padding:.58rem .62rem !important;
+  font-size:.82rem !important;
+}
+.author-credit{
+  margin-left:8px !important;
+  padding-left:14px !important;
+  font-size:.72rem !important;
+  flex:0 0 auto;
+}
+.source-banner-inner{
+  flex-wrap:wrap;
+}
+.source-banner-inner > div:first-child{
+  min-width:min(100%, 620px);
+}
+.source-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  row-gap:8px;
+}
+.source-links a{
+  white-space:nowrap;
+}
+@media (max-width: 1480px){
+  .author-credit{ display:none !important; }
+}
+@media (max-width: 1280px){
+  .brand strong,
+  .masthead .brand strong{ font-size:.92rem !important; }
+  .brand small,
+  .masthead .brand small{ display:none !important; }
+  .masthead nav a,
+  .masthead .nav a{ font-size:.78rem !important; padding:.54rem .52rem !important; }
+}
+@media (max-width: 1100px){
+  .brand-logo{ width:40px; height:40px; flex-basis:40px; }
+  .brand strong,
+  .masthead .brand strong{ font-size:.86rem !important; }
+  .masthead .nav nav{ gap:6px !important; }
+}

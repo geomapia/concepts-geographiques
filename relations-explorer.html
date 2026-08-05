@@ -861,6 +861,8 @@ body{
   background:var(--gc-navy)!important;
   border-bottom:3px solid var(--gc-teal)!important;
 }
+.rg-brand-logo{width:40px;height:40px;border-radius:50%;display:block;box-shadow:0 4px 14px rgba(0,0,0,.18);}
+.rg-brand-mark{display:none;}
 .rg-brand-mark{
   color:var(--gc-navy)!important;
   background:linear-gradient(145deg,var(--gc-teal),var(--gc-mint))!important;
@@ -919,14 +921,14 @@ body{
 <body>
 <div id="rg-full-toolbar" class="rg-full-toolbar" hidden>
   <a class="rg-return" href="./relations.html">← Retour au Répertoire</a>
-  <div class="rg-full-title"><strong>Explorateur de relations</strong><span>Réseau conceptuel des 6 122 termes</span></div>
+  <div class="rg-full-title"><strong>Explorateur de relations</strong><span>Répertoire des concepts géographiques</span></div>
   <div class="rg-full-actions">
     <button id="rg-history-back" class="btn" type="button" disabled>← Précédent</button>
   </div>
 </div>
 <div id="rg-graph-demand">
   <div class="rg-identity">
-    <div class="rg-brand-mark" aria-hidden="true">GC</div>
+    <img class="rg-brand-logo" src="./assets/geomapia-logo.svg" alt="Logo Geomapia">
     <div class="rg-brand-copy">
       <strong>Geomapia Concepts</strong>
       <span>Référentiel collaboratif des concepts géographiques</span>
