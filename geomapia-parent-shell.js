@@ -81,7 +81,7 @@
 
   function platformFooterHtml() {
     return '<div class="gpc-platform-footer" data-gpc-platform-footer>' +
-      '<div class="gpc-platform-footer__inner gpc-platform-footer__inner--expanded>' +
+      '<div class="gpc-platform-footer__inner gpc-platform-footer__inner--expanded">' +
         '<div class="gpc-platform-footer__brand">' +
           '<img src="./assets/logo-geomapia.png" alt="">' +
           '<span><strong>Geomapia</strong><small>Cartographier intelligemment</small></span>' +
