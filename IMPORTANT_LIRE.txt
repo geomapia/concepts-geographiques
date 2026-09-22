@@ -1,0 +1,20 @@
+CORRECTION GEOMAPIA CONCEPTS — DÉPLOIEMENT À LA RACINE DU DÉPÔT
+
+Le dépôt GitHub s'appelle déjà concepts-geographiques.
+NE PAS créer un sous-dossier concepts-geographiques dans le dépôt.
+
+Dans GitHub > dépôt concepts-geographiques :
+1. Ouvrir la RACINE du dépôt (là où se trouvent index.html, concepts.html, etc.).
+2. Upload files.
+3. Déposer directement tous les fichiers de ce ZIP.
+4. Accepter le remplacement des fichiers existants.
+5. Commit changes.
+6. Attendre GitHub Pages 1 à 3 minutes puis Ctrl+F5.
+
+Contrôle attendu dans le code source de index.html :
+geomapia-parent-shell.js?v=20260922-events-2
+
+Contrôle attendu dans geomapia-parent-shell.js :
+Événements — Ateliers, webinaires et podcasts
+
+Si un dossier concepts-geographiques/concepts-geographiques a été créé par erreur, ne pas l'utiliser : GitHub Pages sert la racine du dépôt.

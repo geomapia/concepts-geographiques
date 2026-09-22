@@ -629,3 +629,47 @@
     font-size: 17px !important;
   }
 }
+
+
+/* Mise à jour 2026-09-22 — footer Geomapia Concepts aligné sur la navigation centrale */
+.gpc-platform-footer__inner--expanded {
+  grid-template-columns: minmax(220px, 1fr) minmax(190px, .8fr) minmax(170px, .7fr);
+  align-items: start;
+  padding: 2rem 0 1.2rem;
+}
+.gpc-platform-footer__section h3 {
+  margin: 0 0 .85rem;
+  color: #fff;
+  font-size: .92rem;
+  font-weight: 850;
+}
+.gpc-platform-footer__section h3::after {
+  content: "";
+  display: block;
+  width: 34px;
+  height: 3px;
+  margin-top: .55rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gpc-lime), #1ad2c4);
+}
+.gpc-platform-footer__list {
+  display: grid;
+  gap: .46rem;
+}
+.gpc-platform-footer__list a {
+  width: fit-content;
+  color: #b9cbcf;
+  text-decoration: none;
+  font-size: .82rem;
+  font-weight: 700;
+}
+.gpc-platform-footer__list a:hover,
+.gpc-platform-footer__list a[aria-current="page"] { color: var(--gpc-lime); }
+@media (max-width: 860px) {
+  .gpc-platform-footer__inner--expanded { grid-template-columns: 1fr 1fr; }
+  .gpc-platform-footer__brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .gpc-platform-footer__inner--expanded { grid-template-columns: 1fr; }
+  .gpc-platform-footer__brand { grid-column: auto; }
+}
